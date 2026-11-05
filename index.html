@@ -11,10 +11,12 @@
     --bg: #f3f5f9; --card: #ffffff; --text: #111827; --muted: #6b7280;
     --line: #e5e7eb; --accent: #4f46e5; --accent-on: #ffffff;
     --danger: #dc2626; --radius: 16px;
+    --hero: linear-gradient(135deg, #4f46e5 0%, #7c3aed 52%, #db2777 100%);
   }
   :root[data-theme="dark"] {
     --bg: #0b0f17; --card: #151b27; --text: #f1f5f9; --muted: #94a3b8;
     --line: #243044; --accent: #818cf8; --accent-on: #0b0f17; --danger: #f87171;
+    --hero: linear-gradient(135deg, #312e81 0%, #5b21b6 55%, #9d174d 100%);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; background: var(--bg); color: var(--text); color-scheme: light; }
@@ -30,14 +32,34 @@
 
   .app { max-width: 520px; margin: 0 auto;
     padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); }
-  header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
-    padding: 12px 0 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-  .brand { display: grid; gap: 2px; }
-  .by { font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
-  header.top h1 { font-family: "Fraunces", Georgia, serif; font-size: 24px; font-weight: 800;
-    letter-spacing: -0.01em; margin: 0; font-variation-settings: "opsz" 144; }
-  .month-nav { display: flex; align-items: center; gap: 6px; }
-  .month-nav .label { min-width: 130px; text-align: center; font-weight: 700; text-transform: capitalize; }
+  [hidden] { display: none !important; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+
+  /* Barevné záhlaví přes celou šířku: logo uprostřed, přepínač vzhledu vpravo */
+  .hero { position: relative; overflow: hidden; color: #ffffff; background: var(--hero);
+    padding-top: calc(14px + env(safe-area-inset-top, 0px)); padding-bottom: 22px;
+    border-radius: 0 0 28px 28px; margin-bottom: 14px; }
+  .hero::before { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 50%;
+    right: -90px; top: -120px; background: rgba(255,255,255,.12); }
+  .hero::after { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%;
+    left: -70px; bottom: -110px; background: rgba(255,255,255,.08); }
+  .hero-in { position: relative; z-index: 1; max-width: 520px; margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid; grid-template-columns: 44px 1fr 44px; align-items: start; gap: 8px; }
+  .brand { display: grid; justify-items: center; text-align: center; gap: 2px; }
+  .logo { width: 52px; height: 52px; border-radius: 15px; background: rgba(255,255,255,.16);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.28); display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 3px; padding: 9px; margin-bottom: 6px; }
+  .logo i { border-radius: 3px; }
+  .hero h1 { font-family: "Fraunces", Georgia, serif; font-size: 27px; font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.01em; margin: 0; font-variation-settings: "opsz" 144; color: #ffffff; }
+  .by { font-size: 12px; color: rgba(255,255,255,.82); font-weight: 600; letter-spacing: .03em; }
+  .theme-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.18); color: #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); font-size: 20px; display: grid; place-items: center; }
+  .theme-btn:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+
+  .month-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  .month-bar .label { flex: 1; text-align: center; font-weight: 800; font-size: 17px; text-transform: capitalize; }
   .icon-btn { width: 40px; height: 40px; border-radius: 12px; background: var(--card);
     border: 1px solid var(--line); font-size: 18px; display: grid; place-items: center; }
 
@@ -145,16 +167,29 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 
+<header class="hero">
+  <div class="hero-in">
+    <span></span>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <i style="background:#fcd34d"></i><i style="background:#fdba74"></i><i style="background:#a5b4fc"></i>
+        <i style="background:#34d399"></i><i style="background:#60a5fa"></i><i style="background:#f9a8d4"></i>
+        <i style="background:#86efac"></i><i style="box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)"></i><i style="background:#fcd34d"></i>
+      </div>
+      <h1>Tvoje šichta</h1>
+      <div class="by">by Marek Šafránek</div>
+    </div>
+    <button class="theme-btn" id="themeBtn" data-act="themeCycle" aria-label="Přepnout vzhled">🌓</button>
+  </div>
+</header>
+
 <div class="app">
 
-  <header class="top">
-    <div class="brand"><h1>Tvoje šichta</h1><div class="by">by Marek Šafránek</div></div>
-    <div class="month-nav">
-      <button class="icon-btn" data-act="prev" aria-label="Předchozí měsíc">‹</button>
-      <div class="label" id="monthLabel"></div>
-      <button class="icon-btn" data-act="next" aria-label="Další měsíc">›</button>
-    </div>
-  </header>
+  <div class="month-bar" id="monthBar">
+    <button class="icon-btn" data-act="prev" aria-label="Předchozí měsíc">‹</button>
+    <div class="label" id="monthLabel"></div>
+    <button class="icon-btn" data-act="next" aria-label="Další měsíc">›</button>
+  </div>
 
   <!-- KALENDÁŘ -->
   <section class="view on" id="view-cal">
@@ -238,11 +273,13 @@
 
     <div class="card">
       <h2>Vzhled</h2>
-      <div class="chips" id="themeChips" style="grid-template-columns:repeat(3,1fr)">
-        <button class="chip" data-theme="system">Systém</button>
-        <button class="chip" data-theme="light">Světlý</button>
-        <button class="chip" data-theme="dark">Tmavý</button>
+      <div class="chips" id="themeChips" style="grid-template-columns:repeat(2,1fr)">
+        <button class="chip" data-theme="system">🌓 Podle telefonu</button>
+        <button class="chip" data-theme="sun">🌅 Soumrak–úsvit</button>
+        <button class="chip" data-theme="light">☀️ Světlý</button>
+        <button class="chip" data-theme="dark">🌙 Tmavý</button>
       </div>
+      <p class="muted" style="margin:0">„Podle telefonu“ se řídí nastavením telefonu, včetně režimu Od soumraku do úsvitu. Pokud ho aplikace nepozná, zvolte „Soumrak–úsvit“: aplikace sama přepne na tmavý vzhled po západu slunce a zpět po východu (podle času v Česku). Vzhled přepnete i tlačítkem vpravo nahoře.</p>
     </div>
 
     <div class="card">
@@ -287,7 +324,7 @@
             <li>Odhad mzdy podle hodinové sazby a příplatku za noc.</li>
             <li>Přehled měsíce podle typů služeb.</li>
             <li>Export rozpisu pro WhatsApp, kopírování a sdílení.</li>
-            <li>Tmavý, světlý nebo systémový vzhled.</li>
+            <li>Světlý a tmavý vzhled: podle telefonu, podle západu a východu slunce, nebo ručně tlačítkem vpravo nahoře.</li>
             <li>Záloha a obnovení dat.</li>
             <li>QR platba pro podporu vývoje.</li>
           </ul>
@@ -576,12 +613,49 @@
     $$("#themeChips .chip").forEach(c => c.classList.toggle("on", c.dataset.theme === data.theme));
   }
 
+  const THEME_ORDER = ["system", "light", "dark", "sun"];
+  const THEME_NAMES = { system: "Podle telefonu", light: "Světlý", dark: "Tmavý", sun: "Od soumraku do úsvitu" };
+  const THEME_ICONS = { system: "🌓", light: "☀️", dark: "🌙", sun: "🌅" };
+
+  // Východ a západ slunce (zjednodušený výpočet NOAA), výchozí poloha Praha
+  function sunTimes(date, lat = 50.08, lon = 14.42) {
+    const rad = Math.PI / 180;
+    const start = new Date(date.getFullYear(), 0, 0);
+    const n = Math.floor((date - start) / 864e5);
+    const g = 2 * Math.PI / 365 * (n - 1);
+    const eqt = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+    const decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+    const ha = Math.acos(Math.cos(90.833 * rad) / (Math.cos(lat * rad) * Math.cos(decl)) - Math.tan(lat * rad) * Math.tan(decl)) / rad;
+    const base = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+    return {
+      rise: new Date(base + (720 - 4 * (lon + ha) - eqt) * 6e4),
+      set: new Date(base + (720 - 4 * (lon - ha) - eqt) * 6e4)
+    };
+  }
+
+  function isDark() {
+    const mode = THEME_ORDER.includes(data.theme) ? data.theme : "system";
+    if (mode === "dark") return true;
+    if (mode === "light") return false;
+    if (mode === "sun") {
+      const n = new Date();
+      const s = sunTimes(n);
+      return n < s.rise || n >= s.set;
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
   function applyTheme() {
-    const dark = data.theme === "dark" ||
-      (data.theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const dark = isDark();
     document.documentElement.dataset.theme = dark ? "dark" : "light";
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = dark ? "#0b0f17" : "#f3f5f9";
+    if (meta) meta.content = dark ? "#312e81" : "#4f46e5";
+    const mode = THEME_ORDER.includes(data.theme) ? data.theme : "system";
+    const btn = $("#themeBtn");
+    if (btn) {
+      btn.textContent = THEME_ICONS[mode];
+      btn.setAttribute("aria-label", "Vzhled: " + THEME_NAMES[mode] + ". Klepnutím přepnete.");
+    }
   }
 
   function renderAll() {
@@ -627,6 +701,7 @@
   }
 
   function showTab(name) {
+    $("#monthBar").hidden = !(name === "cal" || name === "sum");
     $$(".view").forEach(v => v.classList.toggle("on", v.id === "view-" + name));
     $$("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === name));
     window.scrollTo(0, 0);
@@ -740,6 +815,13 @@
     const act = e.target.closest("[data-act]");
     if (!act) return;
     switch (act.dataset.act) {
+      case "themeCycle": {
+        const cur = THEME_ORDER.includes(data.theme) ? data.theme : "system";
+        data.theme = THEME_ORDER[(THEME_ORDER.indexOf(cur) + 1) % THEME_ORDER.length];
+        save(); renderAll();
+        toast("Vzhled: " + THEME_NAMES[data.theme]);
+        return;
+      }
       case "prev": return shiftMonth(-1);
       case "next": return shiftMonth(1);
 
@@ -850,6 +932,8 @@
   window.addEventListener("load", makeQr);
 
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
+  setInterval(applyTheme, 60000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) applyTheme(); });
 
   renderAll();
   initDonate();
