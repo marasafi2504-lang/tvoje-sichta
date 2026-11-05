@@ -193,28 +193,28 @@
   <section class="view" id="view-don">
     <div class="card">
       <h2>Podpořit vývojáře</h2>
-      <p class="muted" style="margin-top:0">Vygeneruje QR kód pro platbu v mobilním bankovnictví (formát SPD). Účet se nikam neodesílá.</p>
-      <div class="field">
-        <span>Účet příjemce (předčíslí-číslo/kód banky nebo IBAN)</span>
-        <input id="donAcc" placeholder="123456-1234567890/0100" autocomplete="off">
-      </div>
+      <p class="muted" style="margin-top:0">Líbí se vám aplikace Tvoje šichta? Pošlete autorovi dobrovolný příspěvek. Naskenujte QR kód ve své bankovní aplikaci (QR platba).</p>
+
+      <div class="qr-box" id="qrBox"><span style="color:#64748b">Načítám QR kód…</span></div>
+
       <div class="field">
         <span>Částka</span>
         <div class="chips" id="donAmounts">
-          <button class="chip on" data-amt="0">Bez</button>
           <button class="chip" data-amt="50">50 Kč</button>
-          <button class="chip" data-amt="100">100 Kč</button>
+          <button class="chip on" data-amt="100">100 Kč</button>
           <button class="chip" data-amt="200">200 Kč</button>
+          <button class="chip" data-amt="0">Jiná</button>
         </div>
+        <input id="donCustom" type="number" min="1" step="1" inputmode="numeric" placeholder="Vlastní částka v Kč" hidden>
       </div>
+
       <div class="field">
         <span>Zpráva pro příjemce</span>
         <input id="donMsg" value="Díky za Tvoje šichta" maxlength="60">
       </div>
-      <div class="btn-row one"><button class="btn primary" data-act="qr">Vygenerovat QR</button></div>
-      <p class="error" id="donErr"></p>
-      <div class="qr-box" id="qrBox"><span style="color:#64748b">QR kód se zobrazí zde.</span></div>
-      <div id="spdBox"></div>
+
+      <div class="row" style="padding:6px 0;border-bottom:0"><span>Příjemce</span><b>Marek Šafránek</b></div>
+      <p class="muted" style="margin-top:10px">Jste na stejném telefonu? Udělejte snímek obrazovky a v bankovní aplikaci zvolte načtení QR kódu z obrázku nebo z galerie.</p>
     </div>
   </section>
 
@@ -311,7 +311,7 @@
         <summary>Ochrana osobních údajů</summary>
         <div>
           <p>Všechna data zůstávají jen ve vašem zařízení. Aplikace nemá účty, nic neodesílá na server, nesleduje vás a nezobrazuje reklamy.</p>
-          <p>Číslo účtu pro QR platbu se nikam neukládá ani neodesílá.</p>
+          <p>QR kód v sekci Podpořit vede na účet autora aplikace. Aplikace sama žádné peníze neposílá. Platbu vždy zadáváte a potvrzujete vy ve své bance.</p>
           <p>Pokud aplikaci odinstalujete nebo smažete data prohlížeče, záznamy se smažou také. Proto si pravidelně dělejte zálohu.</p>
         </div>
       </details>
@@ -428,7 +428,7 @@
   const now = new Date();
   let view = { y: now.getFullYear(), m: now.getMonth() };
   let brush = data.types[0].id;
-  let donAmount = 0;
+  let donAmount = 100;
 
   // ---------- Typy a výpočty ----------
   const typeById = id => data.types.find(t => t.id === id);
@@ -670,36 +670,38 @@
     return String(s).replace(/[*:%]/g, " ").trim().slice(0, 60);
   }
 
+  const DON_IBAN = "CZ2655000000000598701011";
+  const DON_NAME = "MAREK SAFRANEK";
+
+  function donAmountValue() {
+    if (donAmount > 0) return donAmount;
+    const v = Math.round(Number($("#donCustom").value) || 0);
+    return v > 0 ? v : 0;
+  }
+
   function makeQr() {
-    const err = $("#donErr");
-    err.textContent = "";
-    const raw = $("#donAcc").value.replace(/\s/g, "").toUpperCase();
-    const iban = /^CZ\d{2}/.test(raw) ? raw : czToIban(raw);
-    if (!iban || !validIban(iban)) {
-      err.textContent = "Neplatný účet. Zadejte např. 123456-1234567890/0100 nebo IBAN.";
-      $("#qrBox").innerHTML = '<span style="color:#64748b">QR kód se zobrazí zde.</span>';
-      $("#spdBox").innerHTML = "";
-      return;
-    }
-    let spd = `SPD*1.0*ACC:${iban}`;
-    if (donAmount > 0) spd += `*AM:${donAmount.toFixed(2)}`;
-    spd += "*CC:CZK";
-    const msg = cleanMsg($("#donMsg").value);
+    let spd = `SPD*1.0*ACC:${DON_IBAN}`;
+    const amt = donAmountValue();
+    if (amt > 0) spd += `*AM:${amt.toFixed(2)}`;
+    spd += `*CC:CZK*RN:${DON_NAME}`;
+    // bez diakritiky, aby QR kód přečetly všechny banky
+    const msg = cleanMsg($("#donMsg").value).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (msg) spd += `*MSG:${msg}`;
     spd += "*";
 
     const box = $("#qrBox");
     if (typeof window.qrcode === "function") {
       const qr = window.qrcode(0, "M");
-      qr.addData(spd);
+      qr.addData(spd, "Byte");
       qr.make();
       box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2 });
     } else {
-      box.innerHTML = '<span style="color:#64748b;font-size:13px;text-align:center">Knihovna QR se nenačetla. Níže je platební řetězec.</span>';
+      box.innerHTML = '<span style="color:#64748b;font-size:13px;text-align:center">QR kód se nenačetl (zkontrolujte připojení). Zkuste to prosím později.</span>';
     }
-    $("#spdBox").innerHTML = `<div class="spd" style="margin-top:8px">${esc(spd)}</div>` +
-      `<div class="btn-row one" style="margin-top:8px"><button class="btn" data-act="copySpd">Kopírovat platební řetězec</button></div>`;
-    $("#spdBox").dataset.spd = spd;
+  }
+
+  function initDonate() {
+    makeQr();
   }
 
   async function copyText(text, okMsg, fallbackEl) {
@@ -726,6 +728,9 @@
     if (amt) {
       donAmount = Number(amt.dataset.amt);
       $$("#donAmounts .chip").forEach(c => c.classList.toggle("on", c === amt));
+      $("#donCustom").hidden = donAmount !== 0;
+      if (donAmount === 0) $("#donCustom").focus();
+      makeQr();
       return;
     }
 
@@ -751,9 +756,6 @@
       }
 
       case "goDon": return showTab("don");
-      case "qr": return makeQr();
-      case "copySpd":
-        return copyText($("#spdBox").dataset.spd || "", "Platební řetězec zkopírován.", null);
 
       case "addType": {
         const id = "T" + Date.now().toString(36);
@@ -843,9 +845,14 @@
   bindNum("#setWage", v => data.wage = v);
   bindNum("#setNight", v => data.nightPct = v);
 
+  $("#donMsg").addEventListener("input", makeQr);
+  $("#donCustom").addEventListener("input", makeQr);
+  window.addEventListener("load", makeQr);
+
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
 
   renderAll();
+  initDonate();
 })();
 </script>
 
