@@ -2,7 +2,8 @@
 <html lang="cs">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0f17">
+<meta name="theme-color" content="#4f46e5">
+<meta name="color-scheme" content="dark light">
 <title>Tvoje šichta</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -19,8 +20,10 @@
     --hero: linear-gradient(135deg, #312e81 0%, #5b21b6 55%, #9d174d 100%);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { margin: 0; background: var(--bg); color: var(--text); color-scheme: light; }
+  :root { color-scheme: light dark; }
+  :root[data-theme="light"] { color-scheme: light; }
   :root[data-theme="dark"] { color-scheme: dark; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
   body { font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; min-height: 100dvh;
     padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
   button, input, select, textarea { font: inherit; color: inherit; }
@@ -161,6 +164,40 @@
   .about dt { font-weight: 700; font-size: 14px; margin-top: 8px; }
   .about dd { margin: 2px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
   .copy-line { color: var(--muted); font-size: 12px; text-align: center; margin-top: 12px; }
+
+  .info-btn { font-family: "Fraunces", Georgia, serif; font-weight: 800; font-size: 22px; font-style: italic; }
+  .scrim { position: fixed; inset: 0; background: rgba(5, 8, 15, .55); z-index: 40; opacity: 0; visibility: hidden;
+    transition: opacity .25s ease, visibility 0s linear .25s; }
+  .scrim.show { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
+  .drawer { position: fixed; top: 0; bottom: 0; left: 0; width: min(86vw, 380px); z-index: 41; background: var(--card);
+    color: var(--text); display: flex; flex-direction: column; border-radius: 0 22px 22px 0;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .35); transform: translateX(-104%); visibility: hidden;
+    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: env(safe-area-inset-left, 0px);
+    transition: transform .28s ease, visibility 0s linear .28s; }
+  .drawer.open { transform: none; visibility: visible; transition: transform .28s ease, visibility 0s; }
+  .drawer-top { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line); font-weight: 800; font-size: 16px; }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 16px; }
+  .topics { display: grid; margin: 6px 0 14px; }
+  .topic { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left;
+    padding: 15px 2px; border-top: 1px solid var(--line); font-weight: 700; font-size: 16px; color: var(--text); }
+  .topic:last-child { border-bottom: 1px solid var(--line); }
+  .topic b { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg); color: var(--accent);
+    display: grid; place-items: center; font-size: 20px; font-weight: 800; }
+  .sheet { position: fixed; inset: 0; z-index: 50; background: var(--bg); color: var(--text); display: flex; flex-direction: column;
+    transform: translateY(100%); visibility: hidden; transition: transform .28s ease, visibility 0s linear .28s;
+    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .sheet.open { transform: none; visibility: visible; transition: transform .28s ease, visibility 0s; }
+  .sheet-top { display: flex; align-items: center; gap: 12px; background: var(--card); border-bottom: 1px solid var(--line);
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); }
+  .sheet-top h2 { margin: 0; font-size: 18px; font-weight: 800; }
+  .sheet-body { flex: 1; overflow-y: auto; width: 100%; max-width: 620px; margin: 0 auto;
+    padding: 18px max(16px, env(safe-area-inset-right, 0px)) 28px max(16px, env(safe-area-inset-left, 0px)); }
+  .sheet-body p, .sheet-body li, .sheet-body dd { font-size: 16px; }
+  .sheet-body h3 { font-size: 16px; margin: 16px 0 6px; }
+  .sheet-body h3:first-child { margin-top: 0; }
+  .sheet-body dt { font-size: 16px; margin-top: 14px; }
+  @media (prefers-reduced-motion: reduce) { .scrim, .drawer, .sheet { transition: none; } }
   .toast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px);
     background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600;
     opacity: 0; transition: .25s; pointer-events: none; z-index: 30; max-width: 90vw; text-align: center; }
@@ -169,7 +206,7 @@
 
 <header class="hero">
   <div class="hero-in">
-    <span></span>
+    <button class="theme-btn info-btn" id="infoBtn" data-act="aboutOpen" aria-label="Informace o aplikaci">i</button>
     <div class="brand">
       <div class="logo" aria-hidden="true">
         <i style="background:#fcd34d"></i><i style="background:#fdba74"></i><i style="background:#a5b4fc"></i>
@@ -274,12 +311,9 @@
     <div class="card">
       <h2>Vzhled</h2>
       <div class="chips" id="themeChips" style="grid-template-columns:repeat(2,1fr)">
-        <button class="chip" data-theme="system">🌓 Podle telefonu</button>
-        <button class="chip" data-theme="sun">🌅 Soumrak–úsvit</button>
-        <button class="chip" data-theme="light">☀️ Světlý</button>
-        <button class="chip" data-theme="dark">🌙 Tmavý</button>
+        <button class="chip" data-theme="dark" aria-label="Tmavý vzhled" style="font-size:22px">🌙</button>
+        <button class="chip" data-theme="light" aria-label="Světlý vzhled" style="font-size:22px">☀️</button>
       </div>
-      <p class="muted" style="margin:0">„Podle telefonu“ se řídí nastavením telefonu, včetně režimu Od soumraku do úsvitu. Pokud ho aplikace nepozná, zvolte „Soumrak–úsvit“: aplikace sama přepne na tmavý vzhled po západu slunce a zpět po východu (podle času v Česku). Vzhled přepnete i tlačítkem vpravo nahoře.</p>
     </div>
 
     <div class="card">
@@ -299,8 +333,26 @@
       </div>
     </div>
 
-    <div class="card about" id="about">
-      <div class="about-head">
+  </section>
+
+</div>
+
+<nav class="tabs">
+  <button data-tab="cal" class="on"><span class="ic">📅</span>Kalendář</button>
+  <button data-tab="sum"><span class="ic">📊</span>Přehled</button>
+  <button data-tab="don"><span class="ic">💝</span>Podpořit</button>
+  <button data-tab="set"><span class="ic">⚙️</span>Nastavení</button>
+</nav>
+
+
+<div class="scrim" id="scrim" data-act="aboutClose"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="O aplikaci">
+  <div class="drawer-top">
+    <span>O aplikaci</span>
+    <button class="icon-btn" data-act="aboutClose" aria-label="Zavřít">✕</button>
+  </div>
+  <div class="drawer-body about">
+    <div class="about-head">
         <div class="about-logo" aria-hidden="true">
           <i style="background:#fcd34d"></i><i style="background:#fdba74"></i><i style="background:#818cf8"></i>
           <i style="background:#34d399"></i><i style="background:#60a5fa"></i><i style="background:#f472b6"></i>
@@ -313,9 +365,30 @@
       </div>
       <p>Jednoduchý plánovač služeb pro zdravotníky a všechny, kdo pracují na směny. Naklikáte si měsíc, aplikace spočítá hodiny a odhad mzdy a rozpis pošlete kolegům nebo rodině přes WhatsApp.</p>
 
-      <details>
-        <summary>Co aplikace umí</summary>
-        <div>
+      
+    <div class="topics">
+        <button class="topic" data-act="topic" data-topic="topic-0"><span>Co aplikace umí</span><b aria-hidden="true">+</b></button>
+        <button class="topic" data-act="topic" data-topic="topic-1"><span>Jak začít</span><b aria-hidden="true">+</b></button>
+        <button class="topic" data-act="topic" data-topic="topic-2"><span>Ochrana osobních údajů</span><b aria-hidden="true">+</b></button>
+        <button class="topic" data-act="topic" data-topic="topic-3"><span>Výpočet mzdy</span><b aria-hidden="true">+</b></button>
+        <button class="topic" data-act="topic" data-topic="topic-4"><span>Časté dotazy</span><b aria-hidden="true">+</b></button>
+        <button class="topic" data-act="topic" data-topic="topic-5"><span>Co je nového</span><b aria-hidden="true">+</b></button>
+    </div>
+    <div class="stack">
+        <button class="btn" data-act="goDon">💝 Podpořit vývojáře</button>
+      </div>
+      <p class="copy-line">© 2026 Marek Šafránek. Všechna práva vyhrazena.</p>
+  </div>
+</aside>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-top">
+    <button class="icon-btn" data-act="sheetClose" aria-label="Zpět">‹</button>
+    <h2 id="sheetTitle"></h2>
+  </div>
+  <div class="sheet-body about" id="sheetBody"></div>
+</div>
+<template id="topic-0" data-title="Co aplikace umí">
           <ul>
             <li>Rychlé naklikávání služeb do kalendáře jedním klepnutím.</li>
             <li>Předvolené typy: ranní, odpolední, noční, denní služba, noční služba, UPS (24 h) a volno.</li>
@@ -324,16 +397,12 @@
             <li>Odhad mzdy podle hodinové sazby a příplatku za noc.</li>
             <li>Přehled měsíce podle typů služeb.</li>
             <li>Export rozpisu pro WhatsApp, kopírování a sdílení.</li>
-            <li>Světlý a tmavý vzhled: podle telefonu, podle západu a východu slunce, nebo ručně tlačítkem vpravo nahoře.</li>
+            <li>Tmavý vzhled a možnost přepnout na světlý tlačítkem 🌙 / ☀️ vpravo nahoře.</li>
             <li>Záloha a obnovení dat.</li>
             <li>QR platba pro podporu vývoje.</li>
           </ul>
-        </div>
-      </details>
-
-      <details>
-        <summary>Jak začít</summary>
-        <div>
+        </template>
+<template id="topic-1" data-title="Jak začít">
           <ol>
             <li>V Nastavení zkontrolujte typy služeb a časy. Upravte je podle svého pracoviště.</li>
             <li>Zadejte hodinovou sazbu a případný příplatek za noc.</li>
@@ -341,29 +410,17 @@
             <li>Opakované klepnutí na stejný den službu smaže. Tlačítkem ✕ mažete libovolné dny.</li>
             <li>V Přehledu najdete součty a tlačítko pro odeslání do WhatsAppu.</li>
           </ol>
-        </div>
-      </details>
-
-      <details>
-        <summary>Ochrana osobních údajů</summary>
-        <div>
+        </template>
+<template id="topic-2" data-title="Ochrana osobních údajů">
           <p>Všechna data zůstávají jen ve vašem zařízení. Aplikace nemá účty, nic neodesílá na server, nesleduje vás a nezobrazuje reklamy.</p>
           <p>QR kód v sekci Podpořit vede na účet autora aplikace. Aplikace sama žádné peníze neposílá. Platbu vždy zadáváte a potvrzujete vy ve své bance.</p>
           <p>Pokud aplikaci odinstalujete nebo smažete data prohlížeče, záznamy se smažou také. Proto si pravidelně dělejte zálohu.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>Výpočet mzdy</summary>
-        <div>
+        </template>
+<template id="topic-3" data-title="Výpočet mzdy">
           <p>Částka je orientační: hodiny × hodinová sazba, u služeb s příplatkem za noc navýšená o zadané procento.</p>
           <p>Nezahrnuje daně, odvody, příplatky za víkendy a svátky ani přesčasy. Skutečnou výplatu určuje vaše smlouva a mzdová účtárna.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>Časté dotazy</summary>
-        <div>
+        </template>
+<template id="topic-4" data-title="Časté dotazy">
           <dl style="margin:0">
             <dt>Jak přenesu data do nového telefonu?</dt>
             <dd>V Nastavení → Záloha klepněte na Vytvořit zálohu a Kopírovat zálohu. Text si pošlete, v novém telefonu ho vložte do pole a klepněte na Obnovit ze zálohy.</dd>
@@ -376,35 +433,20 @@
             <dt>Co se stane, když smažu typ služby?</dt>
             <dd>Zmizí i ze všech dní, kde byl zadaný. Před smazáním si udělejte zálohu.</dd>
           </dl>
-        </div>
-      </details>
-
-      <details>
-        <summary>Co je nového ve verzi 1.0</summary>
-        <div>
+        </template>
+<template id="topic-5" data-title="Co je nového">
+          <h3>Verze 1.0 – první vydání</h3>
           <ul>
-            <li>První vydání aplikace Tvoje šichta.</li>
-            <li>Vlastní typy služeb včetně UPS.</li>
-            <li>Export pro WhatsApp a QR platba.</li>
+            <li>Kalendář služeb s rychlým naklikáváním.</li>
+            <li>Předvolené i vlastní typy služeb včetně UPS (24 h).</li>
+            <li>Automatický výpočet hodin a odhad mzdy s příplatkem za noc.</li>
+            <li>Přehled měsíce a export rozpisu pro WhatsApp.</li>
+            <li>Barevné záhlaví a přepínač tmavého a světlého vzhledu.</li>
+            <li>Informace o aplikaci v postranním panelu pod tlačítkem ⓘ.</li>
+            <li>Záloha a obnovení dat.</li>
+            <li>QR platba pro podporu autora.</li>
           </ul>
-        </div>
-      </details>
-
-      <div class="stack">
-        <button class="btn" data-act="goDon">💝 Podpořit vývojáře</button>
-      </div>
-      <p class="copy-line">© 2026 Marek Šafránek. Všechna práva vyhrazena.</p>
-    </div>
-  </section>
-
-</div>
-
-<nav class="tabs">
-  <button data-tab="cal" class="on"><span class="ic">📅</span>Kalendář</button>
-  <button data-tab="sum"><span class="ic">📊</span>Přehled</button>
-  <button data-tab="don"><span class="ic">💝</span>Podpořit</button>
-  <button data-tab="set"><span class="ic">⚙️</span>Nastavení</button>
-</nav>
+        </template>
 
 <div class="toast" id="toast"></div>
 
@@ -424,7 +466,7 @@
     shifts: {},
     wage: 200,
     nightPct: 0,
-    theme: "system",
+    theme: "dark",
     types: [
       { id: "R",   code: "R",   name: "Ranní",                              start: "06:00", end: "14:00", color: "#fcd34d", night: false, off: false },
       { id: "O",   code: "O",   name: "Odpolední",                          start: "14:00", end: "22:00", color: "#fdba74", night: false, off: false },
@@ -610,51 +652,21 @@
   function renderSettingsFields() {
     $("#setWage").value = data.wage;
     $("#setNight").value = data.nightPct;
-    $$("#themeChips .chip").forEach(c => c.classList.toggle("on", c.dataset.theme === data.theme));
+    $$("#themeChips .chip").forEach(c => c.classList.toggle("on", c.dataset.theme === (isDark() ? "dark" : "light")));
   }
 
-  const THEME_ORDER = ["system", "light", "dark", "sun"];
-  const THEME_NAMES = { system: "Podle telefonu", light: "Světlý", dark: "Tmavý", sun: "Od soumraku do úsvitu" };
-  const THEME_ICONS = { system: "🌓", light: "☀️", dark: "🌙", sun: "🌅" };
-
-  // Východ a západ slunce (zjednodušený výpočet NOAA), výchozí poloha Praha
-  function sunTimes(date, lat = 50.08, lon = 14.42) {
-    const rad = Math.PI / 180;
-    const start = new Date(date.getFullYear(), 0, 0);
-    const n = Math.floor((date - start) / 864e5);
-    const g = 2 * Math.PI / 365 * (n - 1);
-    const eqt = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
-    const decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
-    const ha = Math.acos(Math.cos(90.833 * rad) / (Math.cos(lat * rad) * Math.cos(decl)) - Math.tan(lat * rad) * Math.tan(decl)) / rad;
-    const base = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
-    return {
-      rise: new Date(base + (720 - 4 * (lon + ha) - eqt) * 6e4),
-      set: new Date(base + (720 - 4 * (lon - ha) - eqt) * 6e4)
-    };
-  }
-
-  function isDark() {
-    const mode = THEME_ORDER.includes(data.theme) ? data.theme : "system";
-    if (mode === "dark") return true;
-    if (mode === "light") return false;
-    if (mode === "sun") {
-      const n = new Date();
-      const s = sunTimes(n);
-      return n < s.rise || n >= s.set;
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }
+  // Vzhled: výchozí je tmavý, tlačítkem 🌙 / ☀️ se dá přepnout na světlý
+  const isDark = () => data.theme !== "light";
 
   function applyTheme() {
     const dark = isDark();
     document.documentElement.dataset.theme = dark ? "dark" : "light";
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = dark ? "#312e81" : "#4f46e5";
-    const mode = THEME_ORDER.includes(data.theme) ? data.theme : "system";
     const btn = $("#themeBtn");
     if (btn) {
-      btn.textContent = THEME_ICONS[mode];
-      btn.setAttribute("aria-label", "Vzhled: " + THEME_NAMES[mode] + ". Klepnutím přepnete.");
+      btn.textContent = dark ? "🌙" : "☀️";
+      btn.setAttribute("aria-label", dark ? "Tmavý vzhled. Klepnutím přepnete na světlý." : "Světlý vzhled. Klepnutím přepnete na tmavý.");
     }
   }
 
@@ -788,6 +800,44 @@
     }
   }
 
+
+  // ---------- Postranní panel O aplikaci ----------
+  const drawerOpen = () => $("#drawer").classList.contains("open");
+  const sheetOpen = () => $("#sheet").classList.contains("open");
+  function showDrawer() {
+    $("#drawer").classList.add("open"); $("#scrim").classList.add("show");
+    $("#drawer").setAttribute("aria-hidden", "false");
+  }
+  function hideDrawer() {
+    $("#drawer").classList.remove("open"); $("#scrim").classList.remove("show");
+    $("#drawer").setAttribute("aria-hidden", "true");
+  }
+  function showSheet(id) {
+    const tpl = document.getElementById(id);
+    if (!tpl) return;
+    $("#sheetTitle").textContent = tpl.dataset.title;
+    const body = $("#sheetBody");
+    body.innerHTML = "";
+    body.appendChild(tpl.content.cloneNode(true));
+    body.scrollTop = 0;
+    $("#sheet").classList.add("open");
+  }
+  function hideSheet() { $("#sheet").classList.remove("open"); }
+  function pushUi(ui) { try { history.pushState({ ui }, ""); } catch (_) {} }
+  function closeUi(ui, hide) {
+    if (history.state && history.state.ui === ui) { try { history.back(); return; } catch (_) {} }
+    hide();
+  }
+  window.addEventListener("popstate", () => {
+    if (sheetOpen()) hideSheet();
+    else if (drawerOpen()) hideDrawer();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (sheetOpen()) closeUi("sheet", hideSheet);
+    else if (drawerOpen()) closeUi("drawer", hideDrawer);
+  });
+
   // ---------- Delegace kliků ----------
   document.addEventListener("click", e => {
     const tab = e.target.closest("nav.tabs [data-tab]");
@@ -816,10 +866,8 @@
     if (!act) return;
     switch (act.dataset.act) {
       case "themeCycle": {
-        const cur = THEME_ORDER.includes(data.theme) ? data.theme : "system";
-        data.theme = THEME_ORDER[(THEME_ORDER.indexOf(cur) + 1) % THEME_ORDER.length];
+        data.theme = isDark() ? "light" : "dark";
         save(); renderAll();
-        toast("Vzhled: " + THEME_NAMES[data.theme]);
         return;
       }
       case "prev": return shiftMonth(-1);
@@ -837,7 +885,11 @@
         return;
       }
 
-      case "goDon": return showTab("don");
+      case "goDon": hideSheet(); hideDrawer(); return showTab("don");
+      case "aboutOpen": showDrawer(); pushUi("drawer"); return;
+      case "aboutClose": return closeUi("drawer", hideDrawer);
+      case "topic": showSheet(act.dataset.topic); pushUi("sheet"); return;
+      case "sheetClose": return closeUi("sheet", hideSheet);
 
       case "addType": {
         const id = "T" + Date.now().toString(36);
@@ -931,9 +983,6 @@
   $("#donCustom").addEventListener("input", makeQr);
   window.addEventListener("load", makeQr);
 
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
-  setInterval(applyTheme, 60000);
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) applyTheme(); });
 
   renderAll();
   initDonate();
