@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="cs">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f17">
+<title>Tvoje šichta</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+  :root {
+    --bg: #f3f5f9; --card: #ffffff; --text: #111827; --muted: #6b7280;
+    --line: #e5e7eb; --accent: #4f46e5; --accent-on: #ffffff;
+    --danger: #dc2626; --radius: 16px;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b0f17; --card: #151b27; --text: #f1f5f9; --muted: #94a3b8;
+    --line: #243044; --accent: #818cf8; --accent-on: #0b0f17; --danger: #f87171;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); color-scheme: light; }
+  :root[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; min-height: 100dvh;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 0; background: none; touch-action: manipulation; }
+  input, select, textarea { background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px; width: 100%; font-size: 16px; }
+  input[type="checkbox"] { width: auto; }
+  textarea { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; resize: vertical; }
+
+  .app { max-width: 520px; margin: 0 auto;
+    padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px)); }
+  header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+    padding: 12px 0 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  header.top h1 { font-family: "Fraunces", Georgia, serif; font-size: 24px; font-weight: 800;
+    letter-spacing: -0.01em; margin: 0; font-variation-settings: "opsz" 144; }
+  .month-nav { display: flex; align-items: center; gap: 6px; }
+  .month-nav .label { min-width: 130px; text-align: center; font-weight: 700; text-transform: capitalize; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 12px; background: var(--card);
+    border: 1px solid var(--line); font-size: 18px; display: grid; place-items: center; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px; margin-bottom: 14px; }
+  .card h2 { font-size: 15px; margin: 0 0 10px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .hint { margin: 4px 2px 12px; }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }
+  .stat .k { font-size: 12px; color: var(--muted); }
+  .stat .v { font-size: 20px; font-weight: 800; margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+  .palette { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 8px; margin-bottom: 2px; scrollbar-width: none; }
+  .palette::-webkit-scrollbar { display: none; }
+  .pill { flex: 0 0 auto; min-width: 78px; min-height: 58px; border-radius: 14px; background: var(--c);
+    color: var(--t); display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 6px 10px; border: 2px solid transparent; }
+  .pill b { font-weight: 800; font-size: 15px; }
+  .pill span { font-size: 10px; font-weight: 600; opacity: .85; max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pill.clear { background: var(--card); color: var(--muted); border-color: var(--line); }
+  .pill.on { border-color: var(--text); box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text); }
+
+  .weekdays, .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .weekdays { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+  .day { aspect-ratio: 1 / 1.05; min-height: 46px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); display: flex; flex-direction: column; align-items: center;
+    justify-content: space-between; padding: 5px 2px; font-size: 13px; font-weight: 700; user-select: none; min-width: 0; }
+  .day.has { border-color: transparent; }
+  .day.weekend > span:first-child { color: var(--accent); }
+  .day.empty { border: 0; background: none; }
+  .day.today { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .day .code { font-size: 11px; font-weight: 900; overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; }
+
+  .row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .row:last-child { border-bottom: 0; }
+  .row b { font-weight: 800; }
+  .total { font-size: 17px; font-weight: 800; color: #059669; }
+
+  .btn { min-height: 46px; padding: 0 16px; border-radius: 14px; font-weight: 700; background: var(--card);
+    border: 1px solid var(--line); width: 100%; }
+  .btn.primary { background: var(--accent); color: var(--accent-on); border-color: transparent; }
+  .btn.danger { color: var(--danger); }
+  .btn.small { min-height: 38px; width: auto; padding: 0 12px; margin-left: auto; font-size: 13px; }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-row.one { grid-template-columns: 1fr; }
+  .stack { display: grid; gap: 8px; margin-top: 10px; }
+
+  .chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0 12px; }
+  .chip { min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-weight: 700; }
+  .chip.on { background: var(--accent); color: var(--accent-on); border-color: transparent; }
+
+  .field { display: grid; gap: 6px; margin-bottom: 12px; }
+  .field > span { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .field.two { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .type { border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+  .type-top { display: flex; gap: 8px; align-items: center; }
+  .type-top .grow { flex: 1; min-width: 0; }
+  .swatch { width: 44px; height: 44px; flex: 0 0 44px; padding: 2px; border-radius: 12px; }
+  .codein { width: 74px; flex: 0 0 74px; text-align: center; text-transform: uppercase; }
+  .type-mid { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .type-mid label { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); flex: 1; min-width: 130px; }
+  .type-mid input[type="time"] { width: auto; flex: 1; padding: 10px; }
+  .hrs { font-weight: 800; font-size: 14px; min-width: 60px; text-align: right; font-variant-numeric: tabular-nums; }
+  .type-bot { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+  .chk { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+  .chk input { min-height: 20px; }
+
+  .qr-box { background: #fff; border-radius: 14px; padding: 12px; display: grid; place-items: center; min-height: 220px; margin: 10px 0; }
+  .qr-box img, .qr-box svg { max-width: 220px; width: 100%; height: auto; }
+  .spd { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; word-break: break-all;
+    background: var(--bg); padding: 10px; border-radius: 10px; color: var(--muted); }
+  .error { color: var(--danger); font-size: 13px; min-height: 18px; margin: 4px 0 0; }
+
+  nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(4, 1fr); padding: 6px 6px calc(6px + env(safe-area-inset-bottom)); z-index: 20; }
+  nav.tabs button { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; font-size: 11px;
+    color: var(--muted); font-weight: 600; min-height: 52px; }
+  nav.tabs button .ic { font-size: 20px; line-height: 1; }
+  nav.tabs button.on { color: var(--accent); }
+
+  .view { display: none; } .view.on { display: block; }
+  .toast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600;
+    opacity: 0; transition: .25s; pointer-events: none; z-index: 30; max-width: 90vw; text-align: center; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+
+<div class="app">
+
+  <header class="top">
+    <h1>Tvoje šichta</h1>
+    <div class="month-nav">
+      <button class="icon-btn" data-act="prev" aria-label="Předchozí měsíc">‹</button>
+      <div class="label" id="monthLabel"></div>
+      <button class="icon-btn" data-act="next" aria-label="Další měsíc">›</button>
+    </div>
+  </header>
+
+  <!-- KALENDÁŘ -->
+  <section class="view on" id="view-cal">
+    <div class="stats">
+      <div class="stat"><div class="k">Odpracováno</div><div class="v" id="sHours">0 h</div></div>
+      <div class="stat"><div class="k">Odhad mzdy</div><div class="v" id="sPay">0 Kč</div></div>
+    </div>
+    <div class="palette" id="palette"></div>
+    <p class="muted hint">Vyberte typ služby a klepněte na den. Druhé klepnutí na stejný den ho vymaže.</p>
+    <div class="card" style="padding:10px">
+      <div class="weekdays"><div>Po</div><div>Út</div><div>St</div><div>Čt</div><div>Pá</div><div>So</div><div>Ne</div></div>
+      <div class="days" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- PŘEHLED / EXPORT -->
+  <section class="view" id="view-sum">
+    <div class="card">
+      <h2>Přehled měsíce</h2>
+      <div id="sumRows"></div>
+    </div>
+    <div class="card">
+      <h2>Export pro WhatsApp</h2>
+      <textarea id="waText" rows="10" readonly></textarea>
+      <div class="stack">
+        <button class="btn primary" data-act="waOpen">Otevřít ve WhatsAppu</button>
+        <div class="btn-row">
+          <button class="btn" data-act="waCopy">Kopírovat</button>
+          <button class="btn" data-act="waShare">Sdílet…</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PODPORA -->
+  <section class="view" id="view-don">
+    <div class="card">
+      <h2>Podpořit vývojáře</h2>
+      <p class="muted" style="margin-top:0">Vygeneruje QR kód pro platbu v mobilním bankovnictví (formát SPD). Účet se nikam neodesílá.</p>
+      <div class="field">
+        <span>Účet příjemce (předčíslí-číslo/kód banky nebo IBAN)</span>
+        <input id="donAcc" placeholder="123456-1234567890/0100" autocomplete="off">
+      </div>
+      <div class="field">
+        <span>Částka</span>
+        <div class="chips" id="donAmounts">
+          <button class="chip on" data-amt="0">Bez</button>
+          <button class="chip" data-amt="50">50 Kč</button>
+          <button class="chip" data-amt="100">100 Kč</button>
+          <button class="chip" data-amt="200">200 Kč</button>
+        </div>
+      </div>
+      <div class="field">
+        <span>Zpráva pro příjemce</span>
+        <input id="donMsg" value="Díky za Tvoje šichta" maxlength="60">
+      </div>
+      <div class="btn-row one"><button class="btn primary" data-act="qr">Vygenerovat QR</button></div>
+      <p class="error" id="donErr"></p>
+      <div class="qr-box" id="qrBox"><span style="color:#64748b">QR kód se zobrazí zde.</span></div>
+      <div id="spdBox"></div>
+    </div>
+  </section>
+
+  <!-- NASTAVENÍ -->
+  <section class="view" id="view-set">
+    <div class="card">
+      <h2>Typy služeb</h2>
+      <p class="muted" style="margin-top:0">Upravte název, zkratku, čas nebo barvu. Hodiny se počítají z času. Můžete přidat vlastní typ, třeba vlastní UPS.</p>
+      <div id="typeList"></div>
+      <div class="stack"><button class="btn primary" data-act="addType">+ Přidat typ služby</button></div>
+    </div>
+
+    <div class="card">
+      <h2>Mzda</h2>
+      <div class="field two">
+        <label class="field"><span>Hodinová sazba (Kč)</span><input id="setWage" type="number" min="0" step="1"></label>
+        <label class="field"><span>Příplatek za noc (%)</span><input id="setNight" type="number" min="0" step="1"></label>
+      </div>
+      <p class="muted">Příplatek se počítá u typů s zaškrtnutým „Příplatek za noc“.</p>
+    </div>
+
+    <div class="card">
+      <h2>Vzhled</h2>
+      <div class="chips" id="themeChips" style="grid-template-columns:repeat(3,1fr)">
+        <button class="chip" data-theme="system">Systém</button>
+        <button class="chip" data-theme="light">Světlý</button>
+        <button class="chip" data-theme="dark">Tmavý</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Data</h2>
+      <div class="stack" style="margin-top:0">
+        <button class="btn danger" data-act="clearMonth">Vymazat tento měsíc</button>
+        <button class="btn danger" data-act="clearAll">Smazat všechna data</button>
+      </div>
+      <h2 style="margin-top:16px">Záloha</h2>
+      <p class="muted" style="margin-top:0">Zálohu zkopírujte do poznámek. Obnovení vložte do pole dole.</p>
+      <div class="stack" style="margin-top:0">
+        <button class="btn" data-act="bkShow">Vytvořit zálohu</button>
+        <textarea id="bkOut" rows="4" readonly placeholder="Záloha se zobrazí zde"></textarea>
+        <button class="btn" data-act="bkCopy">Kopírovat zálohu</button>
+        <textarea id="bkIn" rows="4" placeholder="Vložte zálohu sem"></textarea>
+        <button class="btn" data-act="bkRestore">Obnovit ze zálohy</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="tabs">
+  <button data-tab="cal" class="on"><span class="ic">📅</span>Kalendář</button>
+  <button data-tab="sum"><span class="ic">📊</span>Přehled</button>
+  <button data-tab="don"><span class="ic">💝</span>Podpořit</button>
+  <button data-tab="set"><span class="ic">⚙️</span>Nastavení</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  const KEY = "tvoje-sichta-v1";
+  const OLD_KEY = "claudy-mobil-v1";
+  const MONTHS = ["leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"];
+  const DAYS_SHORT = ["Ne","Po","Út","St","Čt","Pá","So"];
+  const COLORS = ["#fcd34d","#fdba74","#818cf8","#34d399","#60a5fa","#f472b6","#c4b5fd","#86efac","#fca5a5","#93c5fd"];
+
+  const DEFAULT = () => ({
+    shifts: {},
+    wage: 200,
+    nightPct: 0,
+    theme: "system",
+    types: [
+      { id: "R",   code: "R",   name: "Ranní",                              start: "06:00", end: "14:00", color: "#fcd34d", night: false, off: false },
+      { id: "O",   code: "O",   name: "Odpolední",                          start: "14:00", end: "22:00", color: "#fdba74", night: false, off: false },
+      { id: "N",   code: "N",   name: "Noční",                              start: "22:00", end: "06:00", color: "#818cf8", night: true,  off: false },
+      { id: "D",   code: "D",   name: "Denní služba",                       start: "07:00", end: "19:00", color: "#34d399", night: false, off: false },
+      { id: "NS",  code: "NS",  name: "Noční služba",                       start: "19:00", end: "07:00", color: "#60a5fa", night: true,  off: false },
+      { id: "UPS", code: "UPS", name: "Ústavní pohotovostní služba (24 h)", start: "00:00", end: "00:00", color: "#f472b6", night: false, off: false },
+      { id: "V",   code: "V",   name: "Volno",                              start: "00:00", end: "00:00", color: "#86efac", night: false, off: true  }
+    ]
+  });
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const pad = n => String(n).padStart(2, "0");
+  const keyOf = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
+  const daysIn = (y, m) => new Date(y, m + 1, 0).getDate();
+  const fmtInt = n => Math.round(n).toLocaleString("cs-CZ");
+  const fmtH = n => (Math.round(n * 10) / 10).toLocaleString("cs-CZ") + " h";
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  // ---------- Uložení ----------
+  function load() {
+    let raw = null;
+    try { raw = JSON.parse(localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY) || "null"); } catch (e) { raw = null; }
+    const d = DEFAULT();
+    if (!raw || typeof raw !== "object") return d;
+    const out = { ...d, ...raw };
+    out.shifts = (raw.shifts && typeof raw.shifts === "object") ? raw.shifts : {};
+    if (!Array.isArray(raw.types) || !raw.types.length) out.types = d.types;
+    return out;
+  }
+  let data = load();
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); }
+    catch (e) { toast("Nepodařilo se uložit data."); }
+  }
+
+  const now = new Date();
+  let view = { y: now.getFullYear(), m: now.getMonth() };
+  let brush = data.types[0].id;
+  let donAmount = 0;
+
+  // ---------- Typy a výpočty ----------
+  const typeById = id => data.types.find(t => t.id === id);
+  const shortOf = t => (t.code || t.name.slice(0, 3)).slice(0, 4);
+  function minutes(hhmm) {
+    const [h, m] = String(hhmm || "0:0").split(":").map(Number);
+    return (h || 0) * 60 + (m || 0);
+  }
+  function hoursOf(t) {
+    if (t.off) return 0;
+    let d = (minutes(t.end) - minutes(t.start) + 1440) % 1440;
+    if (d === 0) d = 1440;
+    return d / 60;
+  }
+  function rangeLabel(t) {
+    if (t.off) return "volno";
+    if (t.start === t.end) return "24 h";
+    return `${t.start}–${t.end}`;
+  }
+  function textOn(hex) {
+    const c = String(hex || "#888888").replace("#", "");
+    const r = parseInt(c.slice(0, 2), 16) || 0, g = parseInt(c.slice(2, 4), 16) || 0, b = parseInt(c.slice(4, 6), 16) || 0;
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6 ? "#111827" : "#ffffff";
+  }
+  function monthEntries() {
+    const out = [];
+    const n = daysIn(view.y, view.m);
+    for (let d = 1; d <= n; d++) {
+      const code = data.shifts[keyOf(view.y, view.m, d)];
+      if (code && typeById(code)) out.push({ day: d, code, date: new Date(view.y, view.m, d) });
+    }
+    return out;
+  }
+  function calc() {
+    const per = {};
+    let hours = 0, pay = 0;
+    for (const e of monthEntries()) {
+      const t = typeById(e.code);
+      const h = hoursOf(t);
+      const rate = (Number(data.wage) || 0) * (t.night ? 1 + (Number(data.nightPct) || 0) / 100 : 1);
+      const p = h * rate;
+      const r = per[t.id] || (per[t.id] = { t, n: 0, h: 0, pay: 0 });
+      r.n++; r.h += h; r.pay += p;
+      hours += h; pay += p;
+    }
+    return { per, hours, pay };
+  }
+
+  // ---------- Render ----------
+  function renderMonthLabel() {
+    $("#monthLabel").textContent = `${MONTHS[view.m]} ${view.y}`;
+  }
+
+  function renderPalette() {
+    const pills = data.types.map(t =>
+      `<button class="pill${brush === t.id ? " on" : ""}" data-type="${esc(t.id)}" style="--c:${esc(t.color)};--t:${textOn(t.color)}">` +
+      `<b>${esc(shortOf(t))}</b><span>${esc(t.name)}</span></button>`);
+    pills.push(`<button class="pill clear${brush === "C" ? " on" : ""}" data-type="C"><b>✕</b><span>Smazat</span></button>`);
+    $("#palette").innerHTML = pills.join("");
+  }
+
+  function renderGrid() {
+    const grid = $("#grid");
+    grid.innerHTML = "";
+    const offset = (new Date(view.y, view.m, 1).getDay() + 6) % 7;
+    for (let i = 0; i < offset; i++) {
+      const e = document.createElement("div");
+      e.className = "day empty";
+      grid.appendChild(e);
+    }
+    const today = keyOf(now.getFullYear(), now.getMonth(), now.getDate());
+    const n = daysIn(view.y, view.m);
+    for (let d = 1; d <= n; d++) {
+      const k = keyOf(view.y, view.m, d);
+      const dow = new Date(view.y, view.m, d).getDay();
+      const t = typeById(data.shifts[k]);
+      const cell = document.createElement("button");
+      cell.className = "day" + (t ? " has" : "") + (dow === 0 || dow === 6 ? " weekend" : "") + (k === today ? " today" : "");
+      if (t) { cell.style.background = t.color; cell.style.color = textOn(t.color); }
+      cell.dataset.day = d;
+      cell.innerHTML = `<span>${d}</span><span class="code">${t ? esc(shortOf(t)) : ""}</span>`;
+      grid.appendChild(cell);
+    }
+  }
+
+  function renderStats() {
+    const c = calc();
+    $("#sHours").textContent = fmtH(c.hours);
+    $("#sPay").textContent = fmtInt(c.pay) + " Kč";
+  }
+
+  function renderSummary() {
+    const c = calc();
+    const rows = data.types
+      .filter(t => c.per[t.id])
+      .map(t => {
+        const r = c.per[t.id];
+        return `<div class="row"><span>${esc(t.name)}</span><span><b>${r.n}×</b>${r.h ? " · " + fmtH(r.h) : ""}</span></div>`;
+      });
+    $("#sumRows").innerHTML = (rows.length ? rows.join("") : `<p class="muted">Tento měsíc zatím nemá žádné služby.</p>`) +
+      `<div class="row"><span>Celkem odpracováno</span><b>${fmtH(c.hours)}</b></div>` +
+      `<div class="row"><span>Odhad mzdy</span><span class="total">${fmtInt(c.pay)} Kč</span></div>`;
+    $("#waText").value = buildWhatsApp();
+  }
+
+  function buildWhatsApp() {
+    const entries = monthEntries();
+    if (!entries.length) return "Zatím nejsou zadané žádné služby.";
+    const lines = entries.map(e => {
+      const t = typeById(e.code);
+      const dow = DAYS_SHORT[e.date.getDay()];
+      const detail = t.off ? "" : ` (${rangeLabel(t)}, ${fmtH(hoursOf(t))})`;
+      return `${e.day}. ${dow} – ${t.name}${detail}`;
+    });
+    return `*Služby – ${MONTHS[view.m]} ${view.y}*\n\n` + lines.join("\n") +
+      `\n\n⏱ Celkem: ${fmtH(calc().hours)}`;
+  }
+
+  // Seznam typů v nastavení. Při psaní se nepřekresluje, aby nezmizel focus.
+  function renderTypeList() {
+    $("#typeList").innerHTML = data.types.map(t => `
+      <div class="type" data-tid="${esc(t.id)}">
+        <div class="type-top">
+          <input type="color" class="swatch" data-f="color" value="${esc(t.color)}" aria-label="Barva">
+          <input class="grow" data-f="name" value="${esc(t.name)}" maxlength="60" aria-label="Název">
+          <input class="codein" data-f="code" value="${esc(t.code)}" maxlength="4" aria-label="Zkratka">
+        </div>
+        <div class="type-mid">
+          ${t.off ? "" : `
+          <label>Od <input type="time" data-f="start" value="${esc(t.start)}"></label>
+          <label>Do <input type="time" data-f="end" value="${esc(t.end)}"></label>`}
+          <span class="hrs" data-hours>${fmtH(hoursOf(t))}</span>
+        </div>
+        <div class="type-bot">
+          <label class="chk"><input type="checkbox" data-f="off" ${t.off ? "checked" : ""}> Volno (bez hodin)</label>
+          <label class="chk"><input type="checkbox" data-f="night" ${t.night ? "checked" : ""}> Příplatek za noc</label>
+          <button class="btn danger small" data-act="delType" data-tid="${esc(t.id)}">Smazat</button>
+        </div>
+      </div>`).join("");
+  }
+
+  function renderSettingsFields() {
+    $("#setWage").value = data.wage;
+    $("#setNight").value = data.nightPct;
+    $$("#themeChips .chip").forEach(c => c.classList.toggle("on", c.dataset.theme === data.theme));
+  }
+
+  function applyTheme() {
+    const dark = data.theme === "dark" ||
+      (data.theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = dark ? "#0b0f17" : "#f3f5f9";
+  }
+
+  function renderAll() {
+    renderMonthLabel();
+    renderPalette();
+    renderGrid();
+    renderStats();
+    renderSummary();
+    renderTypeList();
+    renderSettingsFields();
+    applyTheme();
+  }
+
+  function updateLive() {
+    renderPalette();
+    renderGrid();
+    renderStats();
+    renderSummary();
+  }
+
+  // ---------- Pomocné ----------
+  let toastTimer;
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  }
+
+  // Dvoukliková potvrzovací tlačítka (confirm() v prohlížeči artefaktu nefunguje)
+  function armButton(btn, label, onConfirm) {
+    if (btn.dataset.armed) {
+      clearTimeout(btn._t);
+      delete btn.dataset.armed;
+      onConfirm();
+      return;
+    }
+    const old = btn.textContent;
+    btn.dataset.armed = "1";
+    btn.textContent = label;
+    btn._t = setTimeout(() => { delete btn.dataset.armed; btn.textContent = old; }, 3000);
+  }
+
+  function showTab(name) {
+    $$(".view").forEach(v => v.classList.toggle("on", v.id === "view-" + name));
+    $$("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+    window.scrollTo(0, 0);
+  }
+
+  function toggleDay(day) {
+    const k = keyOf(view.y, view.m, day);
+    if (brush === "C" || data.shifts[k] === brush) delete data.shifts[k];
+    else data.shifts[k] = brush;
+    save();
+    renderGrid(); renderStats(); renderSummary();
+  }
+
+  function shiftMonth(delta) {
+    view.m += delta;
+    if (view.m < 0) { view.m = 11; view.y--; }
+    if (view.m > 11) { view.m = 0; view.y++; }
+    renderAll();
+  }
+
+  // ---------- Platba ----------
+  function mod97(str) {
+    let r = 0;
+    for (const ch of str) r = (r * 10 + Number(ch)) % 97;
+    return r;
+  }
+  function czToIban(input) {
+    const m = input.match(/^(?:(\d{1,6})-)?(\d{1,10})\/(\d{4})$/);
+    if (!m) return null;
+    const prefix = (m[1] || "0").padStart(6, "0");
+    const number = m[2].padStart(10, "0");
+    const bban = m[3] + prefix + number;
+    const check = String(98 - mod97(bban + "123500")).padStart(2, "0");
+    return "CZ" + check + bban;
+  }
+  function validIban(iban) {
+    const numeric = (iban.slice(4) + iban.slice(0, 4)).replace(/[A-Z]/g, c => String(c.charCodeAt(0) - 55));
+    return mod97(numeric) === 1;
+  }
+  function cleanMsg(s) {
+    return String(s).replace(/[*:%]/g, " ").trim().slice(0, 60);
+  }
+
+  function makeQr() {
+    const err = $("#donErr");
+    err.textContent = "";
+    const raw = $("#donAcc").value.replace(/\s/g, "").toUpperCase();
+    const iban = /^CZ\d{2}/.test(raw) ? raw : czToIban(raw);
+    if (!iban || !validIban(iban)) {
+      err.textContent = "Neplatný účet. Zadejte např. 123456-1234567890/0100 nebo IBAN.";
+      $("#qrBox").innerHTML = '<span style="color:#64748b">QR kód se zobrazí zde.</span>';
+      $("#spdBox").innerHTML = "";
+      return;
+    }
+    let spd = `SPD*1.0*ACC:${iban}`;
+    if (donAmount > 0) spd += `*AM:${donAmount.toFixed(2)}`;
+    spd += "*CC:CZK";
+    const msg = cleanMsg($("#donMsg").value);
+    if (msg) spd += `*MSG:${msg}`;
+    spd += "*";
+
+    const box = $("#qrBox");
+    if (typeof window.qrcode === "function") {
+      const qr = window.qrcode(0, "M");
+      qr.addData(spd);
+      qr.make();
+      box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2 });
+    } else {
+      box.innerHTML = '<span style="color:#64748b;font-size:13px;text-align:center">Knihovna QR se nenačetla. Níže je platební řetězec.</span>';
+    }
+    $("#spdBox").innerHTML = `<div class="spd" style="margin-top:8px">${esc(spd)}</div>` +
+      `<div class="btn-row one" style="margin-top:8px"><button class="btn" data-act="copySpd">Kopírovat platební řetězec</button></div>`;
+    $("#spdBox").dataset.spd = spd;
+  }
+
+  async function copyText(text, okMsg, fallbackEl) {
+    try { await navigator.clipboard.writeText(text); toast(okMsg); }
+    catch (_) {
+      if (fallbackEl) { fallbackEl.select(); }
+      try { document.execCommand("copy"); toast(okMsg); }
+      catch (__) { toast("Kopírování se nepovedlo. Text označte ručně."); }
+    }
+  }
+
+  // ---------- Delegace kliků ----------
+  document.addEventListener("click", e => {
+    const tab = e.target.closest("nav.tabs [data-tab]");
+    if (tab) return showTab(tab.dataset.tab);
+
+    const pill = e.target.closest("#palette .pill");
+    if (pill) { brush = pill.dataset.type; return renderPalette(); }
+
+    const dayBtn = e.target.closest(".day[data-day]");
+    if (dayBtn) return toggleDay(Number(dayBtn.dataset.day));
+
+    const amt = e.target.closest("#donAmounts .chip");
+    if (amt) {
+      donAmount = Number(amt.dataset.amt);
+      $$("#donAmounts .chip").forEach(c => c.classList.toggle("on", c === amt));
+      return;
+    }
+
+    const th = e.target.closest("#themeChips .chip");
+    if (th) { data.theme = th.dataset.theme; save(); return renderAll(); }
+
+    const act = e.target.closest("[data-act]");
+    if (!act) return;
+    switch (act.dataset.act) {
+      case "prev": return shiftMonth(-1);
+      case "next": return shiftMonth(1);
+
+      case "waOpen":
+        window.open("https://wa.me/?text=" + encodeURIComponent($("#waText").value), "_blank", "noopener");
+        return;
+      case "waCopy":
+        return copyText($("#waText").value, "Zkopírováno.", $("#waText"));
+      case "waShare": {
+        const text = $("#waText").value;
+        if (navigator.share) navigator.share({ text }).catch(() => {});
+        else toast("Sdílení tady není podporováno. Použijte Kopírovat.");
+        return;
+      }
+
+      case "qr": return makeQr();
+      case "copySpd":
+        return copyText($("#spdBox").dataset.spd || "", "Platební řetězec zkopírován.", null);
+
+      case "addType": {
+        const id = "T" + Date.now().toString(36);
+        data.types.push({
+          id, code: "", name: "Nový typ", start: "08:00", end: "16:00",
+          color: COLORS[data.types.length % COLORS.length], night: false, off: false
+        });
+        save(); renderAll();
+        toast("Přidán nový typ. Upravte ho v seznamu.");
+        return;
+      }
+      case "delType": {
+        const tid = act.dataset.tid;
+        if (data.types.length <= 1) return toast("Musí zůstat aspoň jeden typ.");
+        return armButton(act, "Klepněte znovu", () => {
+          data.types = data.types.filter(t => t.id !== tid);
+          for (const k of Object.keys(data.shifts)) if (data.shifts[k] === tid) delete data.shifts[k];
+          if (brush === tid) brush = data.types[0].id;
+          save(); renderAll();
+          toast("Typ smazán.");
+        });
+      }
+
+      case "clearMonth":
+        return armButton(act, "Klepněte znovu pro vymazání", () => {
+          const prefix = `${view.y}-${pad(view.m + 1)}-`;
+          Object.keys(data.shifts).filter(k => k.startsWith(prefix)).forEach(k => delete data.shifts[k]);
+          save(); renderAll();
+          toast("Měsíc vymazán.");
+        });
+      case "clearAll":
+        return armButton(act, "Klepněte znovu pro smazání vše", () => {
+          const types = data.types;
+          data = DEFAULT();
+          data.types = types.length ? types : data.types;
+          data.shifts = {};
+          save(); renderAll();
+          toast("Všechna data smazána.");
+        });
+
+      case "bkShow":
+        $("#bkOut").value = JSON.stringify(data);
+        return;
+      case "bkCopy":
+        return copyText($("#bkOut").value, "Záloha zkopírována.", $("#bkOut"));
+      case "bkRestore": {
+        let obj = null;
+        try { obj = JSON.parse($("#bkIn").value); } catch (_) { obj = null; }
+        if (!obj || !Array.isArray(obj.types) || !obj.types.length || typeof obj.shifts !== "object") {
+          return toast("Záloha není čitelná.");
+        }
+        data = { ...DEFAULT(), ...obj };
+        brush = data.types[0].id;
+        save(); renderAll();
+        $("#bkIn").value = "";
+        toast("Záloha obnovena.");
+        return;
+      }
+    }
+  });
+
+  // Úpravy typů (psaní bez překreslení seznamu)
+  $("#typeList").addEventListener("input", e => {
+    const row = e.target.closest("[data-tid]");
+    const f = e.target.dataset.f;
+    if (!row || !f) return;
+    const t = typeById(row.dataset.tid);
+    if (!t) return;
+    if (e.target.type === "checkbox") t[f] = e.target.checked;
+    else if (f === "code") t.code = e.target.value.trim().slice(0, 4);
+    else if (f === "name") t.name = e.target.value.slice(0, 60);
+    else if (f === "color") t.color = e.target.value;
+    else if (f === "start" || f === "end") { if (!e.target.value) return; t[f] = e.target.value; }
+    save();
+    const hr = row.querySelector("[data-hours]");
+    if (hr) hr.textContent = fmtH(hoursOf(t));
+    updateLive();
+  });
+  $("#typeList").addEventListener("change", e => {
+    if (e.target.dataset.f === "off") renderTypeList();
+  });
+
+  const bindNum = (sel, fn) => $(sel).addEventListener("change", e => {
+    fn(Math.max(0, Number(e.target.value) || 0));
+    save(); renderAll();
+  });
+  bindNum("#setWage", v => data.wage = v);
+  bindNum("#setNight", v => data.nightPct = v);
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
+
+  renderAll();
+})();
+</script>
+
+</html>
