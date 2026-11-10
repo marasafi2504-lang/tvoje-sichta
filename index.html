@@ -266,97 +266,6 @@
   .topic b { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg); color: var(--accent);
     display: grid; place-items: center; font-size: 20px; font-weight: 800; }
   .sheet { position: fixed; inset: 0; z-index: 50; background: var(--bg); color: var(--text); display: flex; flex-direction: column;
-    transform: translateY(100%); visibility: hidden; transition: transform .28s ease, ound: none; }
-  .day.today { outline: 2px solid var(--accent); outline-offset: -2px; }
-  .day .code { font-size: 11px; font-weight: 900; overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; }
-
-  .row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
-  .row:last-child { border-bottom: 0; }
-  .row b { font-weight: 800; }
-  .total { font-size: 17px; font-weight: 800; color: #059669; }
-
-  .btn { min-height: 46px; padding: 0 16px; border-radius: 14px; font-weight: 700; background: var(--card);
-    border: 1px solid var(--line); width: 100%; }
-  .btn.primary { background: var(--accent); color: var(--accent-on); border-color: transparent; }
-  .btn.danger { color: var(--danger); }
-  .btn.small { min-height: 38px; width: auto; padding: 0 12px; margin-left: auto; font-size: 13px; }
-  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .btn-row.one { grid-template-columns: 1fr; }
-  .stack { display: grid; gap: 8px; margin-top: 10px; }
-
-  .chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0 12px; }
-  .chip { min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); font-weight: 700; }
-  .chip.on { background: var(--accent); color: var(--accent-on); border-color: transparent; }
-
-  .field { display: grid; gap: 6px; margin-bottom: 12px; }
-  .field > span { font-size: 13px; color: var(--muted); font-weight: 600; }
-  .field.two { grid-template-columns: 1fr 1fr; gap: 10px; }
-
-  .type { border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
-  .type-top { display: flex; gap: 8px; align-items: center; }
-  .type-top .grow { flex: 1; min-width: 0; }
-  .swatch { width: 44px; height: 44px; flex: 0 0 44px; padding: 2px; border-radius: 12px; }
-  .codein { width: 74px; flex: 0 0 74px; text-align: center; text-transform: uppercase; }
-  .type-mid { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
-  .type-mid label { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); flex: 1; min-width: 130px; }
-  .type-mid input[type="time"] { width: auto; flex: 1; padding: 10px; }
-  .hrs { font-weight: 800; font-size: 14px; min-width: 60px; text-align: right; font-variant-numeric: tabular-nums; }
-  .type-bot { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
-  .chk { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
-  .chk input { min-height: 20px; }
-
-  .qr-box { background: #fff; border-radius: 14px; padding: 12px; display: grid; place-items: center; min-height: 220px; margin: 10px 0; }
-  .qr-box img, .qr-box svg { max-width: 220px; width: 100%; height: auto; }
-  .spd { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; word-break: break-all;
-    background: var(--bg); padding: 10px; border-radius: 10px; color: var(--muted); }
-  .error { color: var(--danger); font-size: 13px; min-height: 18px; margin: 4px 0 0; }
-
-  nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--line);
-    display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); z-index: 20; }
-  nav.tabs button { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; font-size: 11px;
-    color: var(--muted); font-weight: 600; min-height: 52px; }
-  nav.tabs button .ic { font-size: 20px; line-height: 1; }
-  nav.tabs button.on { color: var(--accent); }
-
-  .view { display: none; } .view.on { display: block; }
-  .about-head { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
-  .about-logo { width: 56px; height: 56px; flex: 0 0 56px; border-radius: 14px; background: #151b27; display: grid;
-    grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 9px; }
-  .about-logo i { border-radius: 3px; }
-  .about-name { font-family: "Fraunces", Georgia, serif; font-weight: 800; font-size: 20px; line-height: 1.1; }
-  .about-meta { color: var(--muted); font-size: 13px; }
-  .about p { margin: 0 0 10px; font-size: 14px; line-height: 1.55; }
-  .about ul, .about ol { margin: 0 0 4px; padding-left: 20px; font-size: 14px; line-height: 1.55; display: grid; gap: 4px; }
-  .about details { border-top: 1px solid var(--line); padding: 2px 0; }
-  .about summary { cursor: pointer; font-weight: 700; padding: 12px 0; list-style: none; display: flex; justify-content: space-between; gap: 8px; }
-  .about summary::-webkit-details-marker { display: none; }
-  .about summary::after { content: "+"; color: var(--muted); font-weight: 800; }
-  .about details[open] summary::after { content: "–"; }
-  .about details > div { padding: 0 0 12px; }
-  .about dt { font-weight: 700; font-size: 14px; margin-top: 8px; }
-  .about dd { margin: 2px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
-  .copy-line { color: var(--muted); font-size: 12px; text-align: center; margin-top: 12px; }
-
-  .info-btn { font-family: "Fraunces", Georgia, serif; font-weight: 800; font-size: 22px; font-style: italic; }
-  .scrim { position: fixed; inset: 0; background: rgba(5, 8, 15, .55); z-index: 40; opacity: 0; visibility: hidden;
-    transition: opacity .25s ease, visibility 0s linear .25s; }
-  .scrim.show { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
-  .drawer { position: fixed; top: 0; bottom: 0; left: 0; width: min(86vw, 380px); z-index: 41; background: var(--card);
-    color: var(--text); display: flex; flex-direction: column; border-radius: 0 22px 22px 0;
-    box-shadow: 0 0 40px rgba(0, 0, 0, .35); transform: translateX(-104%); visibility: hidden;
-    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: env(safe-area-inset-left, 0px);
-    transition: transform .28s ease, visibility 0s linear .28s; }
-  .drawer.open { transform: none; visibility: visible; transition: transform .28s ease, visibility 0s; }
-  .drawer-top { display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    padding: 12px 16px; border-bottom: 1px solid var(--line); font-weight: 800; font-size: 16px; }
-  .drawer-body { flex: 1; overflow-y: auto; padding: 16px; }
-  .topics { display: grid; margin: 6px 0 14px; }
-  .topic { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left;
-    padding: 15px 2px; border-top: 1px solid var(--line); font-weight: 700; font-size: 16px; color: var(--text); }
-  .topic:last-child { border-bottom: 1px solid var(--line); }
-  .topic b { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: var(--bg); color: var(--accent);
-    display: grid; place-items: center; font-size: 20px; font-weight: 800; }
-  .sheet { position: fixed; inset: 0; z-index: 50; background: var(--bg); color: var(--text); display: flex; flex-direction: column;
     transform: translateY(100%); visibility: hidden; transition: transform .28s ease, visibility 0s linear .28s;
     padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
   .sheet.open { transform: none; visibility: visible; transition: transform .28s ease, visibility 0s; }
@@ -400,6 +309,44 @@
     <button class="icon-btn" data-act="next" aria-label="Další měsíc">›</button>
   </div>
 
+  <div class="admin-bar" id="adminBar" hidden>
+    <label class="field" style="margin:0"><span>Rozpis pro</span><select id="viewUserSel" aria-label="Čí rozpis zobrazit"></select></label>
+    <div class="btn-row">
+      <button class="btn small" data-act="bulkToggle">Hromadné přiřazení</button>
+      <button class="btn small" id="pendingBtn" data-act="pendingToggle">Žádosti</button>
+    </div>
+  </div>
+
+  <div class="card" id="pendingCard" hidden>
+    <h2>Žádosti ke schválení</h2>
+    <div id="pendingList"></div>
+    <div class="stack"><button class="btn" data-act="reqApproveAll">Schválit vše</button></div>
+  </div>
+
+  <div class="card" id="bulkCard" hidden>
+    <h2>Hromadné přiřazení</h2>
+    <div class="field"><span>Komu</span><div class="wrapchips" id="bulkMembers"></div></div>
+    <div class="field two">
+      <label class="field"><span>Od</span><input type="date" id="bulkFrom"></label>
+      <label class="field"><span>Do</span><input type="date" id="bulkTo"></label>
+    </div>
+    <div class="field"><span>Dny v týdnu</span>
+      <div class="wrapchips" id="bulkDays">
+        <label class="chk pillchk"><input type="checkbox" value="1" checked> Po</label>
+        <label class="chk pillchk"><input type="checkbox" value="2" checked> Út</label>
+        <label class="chk pillchk"><input type="checkbox" value="3" checked> St</label>
+        <label class="chk pillchk"><input type="checkbox" value="4" checked> Čt</label>
+        <label class="chk pillchk"><input type="checkbox" value="5" checked> Pá</label>
+        <label class="chk pillchk"><input type="checkbox" value="6"> So</label>
+        <label class="chk pillchk"><input type="checkbox" value="0"> Ne</label>
+      </div>
+    </div>
+    <label class="field"><span>Služba</span><select id="bulkType"></select></label>
+    <label class="chk"><input type="checkbox" id="bulkOverwrite"> Přepsat služby, které už v rozsahu jsou</label>
+    <div class="stack"><button class="btn primary" data-act="bulkRun">Přiřadit</button></div>
+    <p class="muted" id="bulkInfo" style="margin:8px 0 0"></p>
+  </div>
+
   <!-- KALENDÁŘ -->
   <section class="view on" id="view-cal">
     <div class="stats">
@@ -408,6 +355,7 @@
     </div>
     <div class="palette" id="palette"></div>
     <p class="muted hint">Vyberte typ služby a klepněte na den. Druhé klepnutí na stejný den ho vymaže. Pod kalendářem uvidíte detail dne, jmeniny a svátky.</p>
+    <p class="muted hint" id="cloudHint" hidden>Služby, které přidáte, čekají na schválení staniční sestrou. Čárkovaný rámeček = čeká, přeškrtnutá = zamítnutá.</p>
     <div class="card" style="padding:10px">
       <div class="weekdays"><div>Po</div><div>Út</div><div>St</div><div>Čt</div><div>Pá</div><div>So</div><div>Ne</div></div>
       <div class="days" id="grid"></div>
@@ -450,10 +398,13 @@
       <button data-ask="Kolik hodin je od 19:00 do 7:00?">19:00 až 7:00</button>
       <button data-ask="Spočítej 12 * 8 + 15 %">Spočítej 12 * 8 + 15 %</button>
       <button data-ask="Dej mi tip">Tip</button>
+      <button data-ask="Dej mi příští úterý ranní">Dej mi příští úterý ranní</button>
+      <button data-ask="Chci volno v pátek">Chci volno v pátek</button>
       <button data-ask="Co umíš?">Co umíš?</button>
     </div>
     <form class="chat-form" id="chatForm" autocomplete="off">
       <input id="chatInput" maxlength="300" placeholder="Napište dotaz nebo příklad…" aria-label="Dotaz pro asistenta">
+      <button type="button" id="micBtn" class="mic" hidden aria-label="Zadat hlasem">🎤</button>
       <button type="submit" aria-label="Odeslat">➤</button>
     </form>
   </section>
@@ -489,11 +440,13 @@
 
   <!-- NASTAVENÍ -->
   <section class="view" id="view-set">
+    <div class="card" id="accountCard"></div>
+
     <div class="card">
       <h2>Typy služeb</h2>
       <p class="muted" style="margin-top:0">Upravte název, zkratku, čas nebo barvu. Hodiny se počítají z času. Můžete přidat vlastní typ, třeba vlastní UPS.</p>
       <div id="typeList"></div>
-      <div class="stack"><button class="btn primary" data-act="addType">+ Přidat typ služby</button></div>
+      <div class="stack"><button class="btn primary" id="addTypeBtn" data-act="addType">+ Přidat typ služby</button></div>
     </div>
 
     <div class="card">
@@ -515,12 +468,15 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="driveCard" hidden></div>
+
+    <div class="card" id="dataCard">
       <h2>Data</h2>
       <div class="stack" style="margin-top:0">
         <button class="btn danger" data-act="clearMonth">Vymazat tento měsíc</button>
-        <button class="btn danger" data-act="clearAll">Smazat všechna data</button>
+        <button class="btn danger" data-act="clearAll" data-local-only>Smazat všechna data</button>
       </div>
+      <div data-local-only>
       <h2 style="margin-top:16px">Záloha</h2>
       <p class="muted" style="margin-top:0">Zálohu zkopírujte do poznámek. Obnovení vložte do pole dole.</p>
       <div class="stack" style="margin-top:0">
@@ -529,6 +485,7 @@
         <button class="btn" data-act="bkCopy">Kopírovat zálohu</button>
         <textarea id="bkIn" rows="4" placeholder="Vložte zálohu sem"></textarea>
         <button class="btn" data-act="bkRestore">Obnovit ze zálohy</button>
+      </div>
       </div>
     </div>
 
@@ -655,922 +612,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-<script>
-// @ts-nocheck
-(function () {
-  "use strict";
-
-  const KEY = "tvoje-sichta-v1";
-  const OLD_KEY = "claudy-mobil-v1";
-  const MONTHS = ["leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"];
-  const DAYS_SHORT = ["Ne","Po","Út","St","Čt","Pá","So"];
-  const DAYS_FULL = ["neděle","pondělí","úterý","středa","čtvrtek","pátek","sobota"];
-  const MONTHS_GEN = ["ledna","února","března","dubna","května","června","července","srpna","září","října","listopadu","prosince"];
-  // Jmeniny podle českého občanského kalendáře (klíč měsíc-den)
-  const NAMEDAYS = {"1-1":"","1-2":"Karina","1-3":"Radmila","1-4":"Diana","1-5":"Dalimil","1-6":"","1-7":"Vilma","1-8":"Čestmír","1-9":"Vladan","1-10":"Břetislav","1-11":"Bohdana","1-12":"Pravoslav","1-13":"Edita","1-14":"Radovan","1-15":"Alice","1-16":"Ctirad","1-17":"Drahoslav","1-18":"Vladislav","1-19":"Doubravka","1-20":"Ilona","1-21":"Běla","1-22":"Slavomír","1-23":"Zdeněk","1-24":"Milena","1-25":"Miloš","1-26":"Zora","1-27":"Ingrid","1-28":"Otýlie","1-29":"Zdislava","1-30":"Robin","1-31":"Marika","2-1":"Hynek","2-2":"Nela","2-3":"Blažej","2-4":"Jarmila","2-5":"Dobromila","2-6":"Vanda","2-7":"Veronika","2-8":"Milada","2-9":"Apolena","2-10":"Mojmír","2-11":"Božena","2-12":"Slavěna","2-13":"Věnceslav","2-14":"Valentýn","2-15":"Jiřina","2-16":"Ljuba","2-17":"Miloslava","2-18":"Gizela","2-19":"Patrik","2-20":"Oldřich","2-21":"Lenka","2-22":"Petr","2-23":"Svatopluk","2-24":"Matěj","2-25":"Liliana","2-26":"Dorota","2-27":"Alexandr","2-28":"Lumír","2-29":"","3-1":"Bedřich","3-2":"Anežka","3-3":"Kamil","3-4":"Stela","3-5":"Kazimír","3-6":"Miroslav","3-7":"Tomáš","3-8":"Gabriela","3-9":"Františka","3-10":"Viktorie","3-11":"Anděla","3-12":"Řehoř","3-13":"Růžena","3-14":"Matylda, Rút","3-15":"Ida","3-16":"Elena, Herbert","3-17":"Vlastimil","3-18":"Eduard","3-19":"Josef","3-20":"Světlana","3-21":"Radek","3-22":"Leona","3-23":"Ivona","3-24":"Gabriel","3-25":"Marián","3-26":"Emanuel","3-27":"Dita","3-28":"Soňa","3-29":"Taťána","3-30":"Arnošt","3-31":"Kvido","4-1":"Hugo","4-2":"Erika","4-3":"Richard","4-4":"Ivana","4-5":"Miroslava","4-6":"Vendula","4-7":"Heřman, Hermína","4-8":"Ema","4-9":"Dušan","4-10":"Darja","4-11":"Izabela","4-12":"Julius","4-13":"Aleš","4-14":"Vincenc","4-15":"Anastázie","4-16":"Irena","4-17":"Rudolf","4-18":"Valérie","4-19":"Rostislav","4-20":"Marcela","4-21":"Alexandra","4-22":"Evženie","4-23":"Vojtěch","4-24":"Jiří","4-25":"Marek","4-26":"Oto","4-27":"Jaroslav","4-28":"Vlastislav","4-29":"Robert","4-30":"Blahoslav","5-1":"","5-2":"Zikmund","5-3":"Alexej","5-4":"Květoslav","5-5":"Klaudie","5-6":"Radoslav","5-7":"Stanislav","5-8":"","5-9":"Ctibor","5-10":"Blažena","5-11":"Svatava","5-12":"Pankrác","5-13":"Servác","5-14":"Bonifác","5-15":"Žofie","5-16":"Přemysl","5-17":"Aneta","5-18":"Nataša","5-19":"Ivo","5-20":"Zbyšek","5-21":"Monika","5-22":"Emil","5-23":"Vladimír","5-24":"Jana, Vanesa","5-25":"Viola","5-26":"Filip","5-27":"Valdemar","5-28":"Vilém","5-29":"Maxmilián","5-30":"Ferdinand","5-31":"Kamila","6-1":"Laura","6-2":"Jarmil","6-3":"Tamara","6-4":"Dalibor","6-5":"Dobroslav","6-6":"Norbert","6-7":"Iveta, Slavoj","6-8":"Medard","6-9":"Stanislava","6-10":"Gita","6-11":"Bruno","6-12":"Antonie","6-13":"Antonín","6-14":"Roland","6-15":"Vít","6-16":"Zbyněk","6-17":"Adolf","6-18":"Milan","6-19":"Leoš","6-20":"Květa","6-21":"Alois","6-22":"Pavla","6-23":"Zdeňka","6-24":"Jan","6-25":"Ivan","6-26":"Adriana","6-27":"Ladislav","6-28":"Lubomír","6-29":"Petr a Pavel","6-30":"Šárka","7-1":"Jaroslava","7-2":"Patricie","7-3":"Radomír","7-4":"Prokop","7-5":"Cyril a Metoděj","7-6":"","7-7":"Bohuslava","7-8":"Nora","7-9":"Drahoslava","7-10":"Libuše, Amálie","7-11":"Olga","7-12":"Bořek","7-13":"Markéta","7-14":"Karolína","7-15":"Jindřich","7-16":"Luboš","7-17":"Martina","7-18":"Drahomíra","7-19":"Čeněk","7-20":"Ilja","7-21":"Vítězslav","7-22":"Magdaléna","7-23":"Libor","7-24":"Kristýna","7-25":"Jakub","7-26":"Anna","7-27":"Věroslav","7-28":"Viktor","7-29":"Marta","7-30":"Bořivoj","7-31":"Ignác","8-1":"Oskar","8-2":"Gustav","8-3":"Miluše","8-4":"Dominik","8-5":"Kristián","8-6":"Oldřiška","8-7":"Lada","8-8":"Soběslav","8-9":"Roman","8-10":"Vavřinec","8-11":"Zuzana","8-12":"Klára","8-13":"Alena","8-14":"Alan","8-15":"Hana","8-16":"Jáchym","8-17":"Petra","8-18":"Helena","8-19":"Ludvík","8-20":"Bernard","8-21":"Johana","8-22":"Bohuslav","8-23":"Sandra","8-24":"Bartoloměj","8-25":"Radim","8-26":"Luděk","8-27":"Otakar","8-28":"Augustýn","8-29":"Evelína","8-30":"Vladěna","8-31":"Pavlína","9-1":"Linda, Samuel","9-2":"Adéla","9-3":"Bronislav","9-4":"Jindřiška","9-5":"Boris","9-6":"Boleslav","9-7":"Regína","9-8":"Mariana","9-9":"Daniela","9-10":"Irma","9-11":"Denisa, Denis","9-12":"Marie","9-13":"Lubor","9-14":"Radka","9-15":"Jolana","9-16":"Ludmila","9-17":"Naděžda","9-18":"Kryštof","9-19":"Zita","9-20":"Oleg","9-21":"Matouš","9-22":"Darina","9-23":"Berta","9-24":"Jaromír","9-25":"Zlata","9-26":"Andrea","9-27":"Jonáš","9-28":"Václav","9-29":"Michal","9-30":"Jeroným","10-1":"Igor","10-2":"Olívie, Oliver","10-3":"Bohumil","10-4":"František","10-5":"Eliška","10-6":"Hanuš","10-7":"Justýna","10-8":"Věra","10-9":"Štefan, Sára","10-10":"Marina","10-11":"Andrej","10-12":"Marcel","10-13":"Renáta","10-14":"Agáta","10-15":"Tereza","10-16":"Havel","10-17":"Hedvika","10-18":"Lukáš","10-19":"Michaela","10-20":"Vendelín","10-21":"Brigita","10-22":"Sabina","10-23":"Teodor","10-24":"Nina","10-25":"Beáta","10-26":"Erik","10-27":"Šarlota, Zoe","10-28":"","10-29":"Silvie","10-30":"Tadeáš","10-31":"Štěpánka","11-1":"Felix","11-2":"","11-3":"Hubert","11-4":"Karel","11-5":"Miriam","11-6":"Liběna","11-7":"Saskie","11-8":"Bohumír","11-9":"Bohdan","11-10":"Evžen","11-11":"Martin","11-12":"Benedikt","11-13":"Tibor","11-14":"Sáva","11-15":"Leopold","11-16":"Otmar","11-17":"Mahulena","11-18":"Romana","11-19":"Alžběta","11-20":"Nikola","11-21":"Albert","11-22":"Cecílie","11-23":"Klement","11-24":"Emílie","11-25":"Kateřina","11-26":"Artur","11-27":"Xenie","11-28":"René","11-29":"Zina","11-30":"Ondřej","12-1":"Iva","12-2":"Blanka","12-3":"Svatoslav","12-4":"Barbora","12-5":"Jitka","12-6":"Mikuláš","12-7":"Ambrož, Benjamín","12-8":"Květoslava","12-9":"Vratislav","12-10":"Julie","12-11":"Dana","12-12":"Simona","12-13":"Lucie","12-14":"Lýdie","12-15":"Radana, Radan","12-16":"Albína","12-17":"Daniel","12-18":"Miloslav","12-19":"Ester","12-20":"Dagmar","12-21":"Natálie","12-22":"Šimon","12-23":"Vlasta","12-24":"Adam a Eva","12-25":"","12-26":"Štěpán","12-27":"Žaneta","12-28":"Bohumila","12-29":"Judita","12-30":"David","12-31":"Silvestr"};
-  const nameDay = (m, d) => NAMEDAYS[(m + 1) + "-" + d] || "";
-  const fullDate = dt => `${DAYS_FULL[dt.getDay()]} ${dt.getDate()}. ${MONTHS_GEN[dt.getMonth()]} ${dt.getFullYear()}`;
-  const COLORS = ["#fcd34d","#fdba74","#818cf8","#34d399","#60a5fa","#f472b6","#c4b5fd","#86efac","#fca5a5","#93c5fd"];
-
-  const DEFAULT = () => ({
-    shifts: {},
-    wage: 200,
-    nightPct: 0,
-    holidayPct: 100,
-    weekendPct: 0,
-    theme: "dark",
-    types: [
-      { id: "R",   code: "R",   name: "Ranní",                              start: "06:00", end: "14:00", color: "#fcd34d", night: false, off: false },
-      { id: "O",   code: "O",   name: "Odpolední",                          start: "14:00", end: "22:00", color: "#fdba74", night: false, off: false },
-      { id: "N",   code: "N",   name: "Noční",                              start: "22:00", end: "06:00", color: "#818cf8", night: true,  off: false },
-      { id: "D",   code: "D",   name: "Denní služba",                       start: "07:00", end: "19:00", color: "#34d399", night: false, off: false },
-      { id: "NS",  code: "NS",  name: "Noční služba",                       start: "19:00", end: "07:00", color: "#60a5fa", night: true,  off: false },
-      { id: "UPS", code: "UPS", name: "Ústavní pohotovostní služba (24 h)", start: "00:00", end: "00:00", color: "#f472b6", night: false, off: false },
-      { id: "V",   code: "V",   name: "Volno",                              start: "00:00", end: "00:00", color: "#86efac", night: false, off: true  }
-    ]
-  });
-
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const pad = n => String(n).padStart(2, "0");
-  const keyOf = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
-  const daysIn = (y, m) => new Date(y, m + 1, 0).getDate();
-  const fmtInt = n => Math.round(n).toLocaleString("cs-CZ");
-  const fmtH = n => (Math.round(n * 10) / 10).toLocaleString("cs-CZ") + " h";
-  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-
-  // ---------- Uložení ----------
-  function load() {
-    let raw = null;
-    try { raw = JSON.parse(localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY) || "null"); } catch (e) { raw = null; }
-    const d = DEFAULT();
-    if (!raw || typeof raw !== "object") return d;
-    const out = { ...d, ...raw };
-    out.shifts = (raw.shifts && typeof raw.shifts === "object") ? raw.shifts : {};
-    if (!Array.isArray(raw.types) || !raw.types.length) out.types = d.types;
-    return out;
-  }
-  let data = load();
-  function save() {
-    try { localStorage.setItem(KEY, JSON.stringify(data)); }
-    catch (e) { toast("Nepodařilo se uložit data."); }
-  }
-
-  const now = new Date();
-  let view = { y: now.getFullYear(), m: now.getMonth() };
-  let brush = data.types[0].id;
-  let donAmount = 100;
-
-  // ---------- Typy a výpočty ----------
-  const typeById = id => data.types.find(t => t.id === id);
-  const shortOf = t => (t.code || t.name.slice(0, 3)).slice(0, 4);
-  function minutes(hhmm) {
-    const [h, m] = String(hhmm || "0:0").split(":").map(Number);
-    return (h || 0) * 60 + (m || 0);
-  }
-  function hoursOf(t) {
-    if (t.off) return 0;
-    let d = (minutes(t.end) - minutes(t.start) + 1440) % 1440;
-    if (d === 0) d = 1440;
-    return d / 60;
-  }
-  function rangeLabel(t) {
-    if (t.off) return "volno";
-    if (t.start === t.end) return "24 h";
-    return `${t.start}–${t.end}`;
-  }
-  function textOn(hex) {
-    const c = String(hex || "#888888").replace("#", "");
-    const r = parseInt(c.slice(0, 2), 16) || 0, g = parseInt(c.slice(2, 4), 16) || 0, b = parseInt(c.slice(4, 6), 16) || 0;
-    return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6 ? "#111827" : "#ffffff";
-  }
-  function monthEntries() {
-    const out = [];
-    const n = daysIn(view.y, view.m);
-    for (let d = 1; d <= n; d++) {
-      const code = data.shifts[keyOf(view.y, view.m, d)];
-      if (code && typeById(code)) out.push({ day: d, code, date: new Date(view.y, view.m, d) });
-    }
-    return out;
-  }
-  // ---------- Státní svátky ČR ----------
-  function easterSunday(y) {
-    const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4;
-    const f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
-    const h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4;
-    const l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
-    const month = Math.floor((h + l - 7 * m + 114) / 31) - 1, day = ((h + l - 7 * m + 114) % 31) + 1;
-    return new Date(y, month, day);
-  }
-  const holidayCache = {};
-  function holidaysOf(y) {
-    if (holidayCache[y]) return holidayCache[y];
-    const list = {
-      [keyOf(y, 0, 1)]: "Den obnovy samostatného českého státu, Nový rok",
-      [keyOf(y, 4, 1)]: "Svátek práce",
-      [keyOf(y, 4, 8)]: "Den vítězství",
-      [keyOf(y, 6, 5)]: "Den slovanských věrozvěstů Cyrila a Metoděje",
-      [keyOf(y, 6, 6)]: "Den upálení mistra Jana Husa",
-      [keyOf(y, 8, 28)]: "Den české státnosti",
-      [keyOf(y, 9, 28)]: "Den vzniku samostatného československého státu",
-      [keyOf(y, 10, 17)]: "Den boje za svobodu a demokracii",
-      [keyOf(y, 11, 24)]: "Štědrý den",
-      [keyOf(y, 11, 25)]: "1. svátek vánoční",
-      [keyOf(y, 11, 26)]: "2. svátek vánoční"
-    };
-    const es = easterSunday(y);
-    const fri = new Date(y, es.getMonth(), es.getDate() - 2);
-    const mon = new Date(y, es.getMonth(), es.getDate() + 1);
-    list[keyOf(fri.getFullYear(), fri.getMonth(), fri.getDate())] = "Velký pátek";
-    list[keyOf(mon.getFullYear(), mon.getMonth(), mon.getDate())] = "Velikonoční pondělí";
-    return (holidayCache[y] = list);
-  }
-  const holidayName = (y, m, d) => holidaysOf(y)[keyOf(y, m, d)] || "";
-
-  // Hodiny a odhad mzdy jedné služby podle dne, kdy začíná
-  function shiftPay(t, y, m, d) {
-    const h = hoursOf(t);
-    const dow = new Date(y, m, d).getDay();
-    const holiday = !!holidayName(y, m, d);
-    const weekend = dow === 0 || dow === 6;
-    const bonus = (t.night ? (Number(data.nightPct) || 0) : 0) +
-      (holiday ? (Number(data.holidayPct) || 0) : 0) +
-      (weekend ? (Number(data.weekendPct) || 0) : 0);
-    return { h, holiday, weekend, bonus, pay: h * (Number(data.wage) || 0) * (1 + bonus / 100) };
-  }
-
-  function calc() {
-    const per = {};
-    let hours = 0, pay = 0, holidayHours = 0, weekendHours = 0, count = 0;
-    for (const e of monthEntries()) {
-      const t = typeById(e.code);
-      const s = shiftPay(t, view.y, view.m, e.day);
-      const r = per[t.id] || (per[t.id] = { t, n: 0, h: 0, pay: 0 });
-      r.n++; r.h += s.h; r.pay += s.pay;
-      hours += s.h; pay += s.pay;
-      if (!t.off) count++;
-      if (s.holiday) holidayHours += s.h;
-      if (s.weekend) weekendHours += s.h;
-    }
-    return { per, hours, pay, holidayHours, weekendHours, count };
-  }
-
-  // ---------- Render ----------
-  function renderMonthLabel() {
-    $("#monthLabel").textContent = `${MONTHS[view.m]} ${view.y}`;
-  }
-
-  function renderPalette() {
-    const pills = data.types.map(t =>
-      `<button class="pill${brush === t.id ? " on" : ""}" data-type="${esc(t.id)}" style="--c:${esc(t.color)};--t:${textOn(t.color)}">` +
-      `<b>${esc(shortOf(t))}</b><span>${esc(t.name)}</span></button>`);
-    pills.push(`<button class="pill clear${brush === "C" ? " on" : ""}" data-type="C"><b>✕</b><span>Smazat</span></button>`);
-    $("#palette").innerHTML = pills.join("");
-  }
-
-  function renderGrid() {
-    if (!selDay || selDay > daysIn(view.y, view.m)) selDay = defaultSelDay();
-    const grid = $("#grid");
-    grid.innerHTML = "";
-    const offset = (new Date(view.y, view.m, 1).getDay() + 6) % 7;
-    for (let i = 0; i < offset; i++) {
-      const e = document.createElement("div");
-      e.className = "day empty";
-      grid.appendChild(e);
-    }
-    const today = keyOf(now.getFullYear(), now.getMonth(), now.getDate());
-    const n = daysIn(view.y, view.m);
-    for (let d = 1; d <= n; d++) {
-      const k = keyOf(view.y, view.m, d);
-      const dow = new Date(view.y, view.m, d).getDay();
-      const t = typeById(data.shifts[k]);
-      const cell = document.createElement("button");
-      const hol = holidayName(view.y, view.m, d);
-      cell.className = "day" + (t ? " has" : "") + (dow === 0 || dow === 6 ? " weekend" : "") + (hol ? " holiday" : "") + (k === today ? " today" : "") + (d === selDay ? " sel" : "");
-      cell.setAttribute("aria-label", `${fullDate(new Date(view.y, view.m, d))}${hol ? ", státní svátek" : ""}${t ? ", " + t.name : ""}`);
-      if (t) { cell.style.background = t.color; cell.style.color = textOn(t.color); }
-      cell.dataset.day = d;
-      cell.innerHTML = `<span>${d}</span><span class="code">${t ? esc(shortOf(t)) : ""}</span>`;
-      grid.appendChild(cell);
-    }
-    const hl = [];
-    for (let d = 1; d <= n; d++) {
-      const hol = holidayName(view.y, view.m, d);
-      if (hol) hl.push(`<div><b>${d}. ${view.m + 1}.</b><span>${esc(hol)}</span></div>`);
-    }
-    const box = $("#holidayList");
-    box.innerHTML = hl.join("");
-    box.hidden = !hl.length;
-    renderDayDetail();
-  }
-
-  // Detail vybraného dne pod kalendářem
-  let selDay = 0;
-  function defaultSelDay() {
-    return (now.getFullYear() === view.y && now.getMonth() === view.m) ? now.getDate() : 1;
-  }
-  function renderDayDetail() {
-    if (!selDay || selDay > daysIn(view.y, view.m)) selDay = defaultSelDay();
-    const dt = new Date(view.y, view.m, selDay);
-    const names = nameDay(view.m, selDay);
-    const hol = holidayName(view.y, view.m, selDay);
-    const t = typeById(data.shifts[keyOf(view.y, view.m, selDay)]);
-    let shift = `<div class="dd-row">Služba: <b>žádná</b></div>`;
-    if (t) {
-      const s = shiftPay(t, view.y, view.m, selDay);
-      shift = t.off
-        ? `<div class="dd-row">Služba: <b>${esc(t.name)}</b></div>`
-        : `<div class="dd-row">Služba: <b>${esc(t.name)}</b> ${esc(rangeLabel(t))} · ${fmtH(s.h)} · odhad <b>${fmtInt(s.pay)} Kč</b>${s.bonus ? ` (+${s.bonus} %)` : ""}</div>`;
-    }
-    $("#dayDetail").innerHTML =
-      `<div class="dd-date">${fullDate(dt)}</div>` +
-      `<div class="dd-row">Svátek má: <b>${names ? esc(names) : "—"}</b></div>` +
-      (hol ? `<div class="dd-row dd-hol">Státní svátek: <b>${esc(hol)}</b></div>` : "") +
-      shift;
-  }
-
-  function renderStats() {
-    const c = calc();
-    $("#sHours").textContent = fmtH(c.hours);
-    $("#sPay").textContent = fmtInt(c.pay) + " Kč";
-  }
-
-  function renderSummary() {
-    const c = calc();
-    const rows = data.types
-      .filter(t => c.per[t.id])
-      .map(t => {
-        const r = c.per[t.id];
-        return `<div class="row"><span>${esc(t.name)}</span><span><b>${r.n}×</b>${r.h ? " · " + fmtH(r.h) : ""}</span></div>`;
-      });
-    $("#sumRows").innerHTML = (rows.length ? rows.join("") : `<p class="muted">Tento měsíc zatím nemá žádné služby.</p>`) +
-      `<div class="row"><span>Celkem odpracováno</span><b>${fmtH(c.hours)}</b></div>` +
-      (c.holidayHours ? `<div class="row"><span>Z toho ve svátek</span><b>${fmtH(c.holidayHours)}</b></div>` : "") +
-      (c.weekendHours ? `<div class="row"><span>Z toho o víkendu</span><b>${fmtH(c.weekendHours)}</b></div>` : "") +
-      `<div class="row"><span>Odhad mzdy</span><span class="total">${fmtInt(c.pay)} Kč</span></div>`;
-    $("#waText").value = buildWhatsApp();
-  }
-
-  function buildWhatsApp() {
-    const entries = monthEntries();
-    if (!entries.length) return "Zatím nejsou zadané žádné služby.";
-    const lines = entries.map(e => {
-      const t = typeById(e.code);
-      const dow = DAYS_SHORT[e.date.getDay()];
-      const detail = t.off ? "" : ` (${rangeLabel(t)}, ${fmtH(hoursOf(t))})`;
-      const hol = holidayName(view.y, view.m, e.day);
-      return `${e.day}. ${dow} – ${t.name}${detail}${hol ? ` 🎉 ${hol}` : ""}`;
-    });
-    return `*Služby – ${MONTHS[view.m]} ${view.y}*\n\n` + lines.join("\n") +
-      `\n\n⏱ Celkem: ${fmtH(calc().hours)}`;
-  }
-
-  // Seznam typů v nastavení. Při psaní se nepřekresluje, aby nezmizel focus.
-  function renderTypeList() {
-    $("#typeList").innerHTML = data.types.map(t => `
-      <div class="type" data-tid="${esc(t.id)}">
-        <div class="type-top">
-          <input type="color" class="swatch" data-f="color" value="${esc(t.color)}" aria-label="Barva">
-          <input class="grow" data-f="name" value="${esc(t.name)}" maxlength="60" aria-label="Název">
-          <input class="codein" data-f="code" value="${esc(t.code)}" maxlength="4" aria-label="Zkratka">
-        </div>
-        <div class="type-mid">
-          ${t.off ? "" : `
-          <label>Od <input type="time" data-f="start" value="${esc(t.start)}"></label>
-          <label>Do <input type="time" data-f="end" value="${esc(t.end)}"></label>`}
-          <span class="hrs" data-hours>${fmtH(hoursOf(t))}</span>
-        </div>
-        <div class="type-bot">
-          <label class="chk"><input type="checkbox" data-f="off" ${t.off ? "checked" : ""}> Volno (bez hodin)</label>
-          <label class="chk"><input type="checkbox" data-f="night" ${t.night ? "checked" : ""}> Příplatek za noc</label>
-          <button class="btn danger small" data-act="delType" data-tid="${esc(t.id)}">Smazat</button>
-        </div>
-      </div>`).join("");
-  }
-
-  function renderSettingsFields() {
-    $("#setWage").value = data.wage;
-    $("#setNight").value = data.nightPct;
-    $("#setHoliday").value = data.holidayPct;
-    $("#setWeekend").value = data.weekendPct;
-    $$("#themeChips .chip").forEach(c => c.classList.toggle("on", c.dataset.theme === (isDark() ? "dark" : "light")));
-  }
-
-  // Vzhled: výchozí je tmavý, tlačítkem 🌙 / ☀️ se dá přepnout na světlý
-  const isDark = () => data.theme !== "light";
-
-  function applyTheme() {
-    const dark = isDark();
-    document.documentElement.dataset.theme = dark ? "dark" : "light";
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = dark ? "#312e81" : "#4f46e5";
-    const btn = $("#themeBtn");
-    if (btn) {
-      btn.textContent = dark ? "🌙" : "☀️";
-      btn.setAttribute("aria-label", dark ? "Tmavý vzhled. Klepnutím přepnete na světlý." : "Světlý vzhled. Klepnutím přepnete na tmavý.");
-    }
-  }
-
-  function renderAll() {
-    renderMonthLabel();
-    renderPalette();
-    renderGrid();
-    renderStats();
-    renderSummary();
-    renderTypeList();
-    renderSettingsFields();
-    applyTheme();
-  }
-
-  function updateLive() {
-    renderPalette();
-    renderGrid();
-    renderStats();
-    renderSummary();
-  }
-
-  // ---------- Pomocné ----------
-  let toastTimer;
-  function toast(msg) {
-    const t = $("#toast");
-    t.textContent = msg;
-    t.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
-  }
-
-  // Dvoukliková potvrzovací tlačítka (confirm() v prohlížeči artefaktu nefunguje)
-  function armButton(btn, label, onConfirm) {
-    if (btn.dataset.armed) {
-      clearTimeout(btn._t);
-      delete btn.dataset.armed;
-      onConfirm();
-      return;
-    }
-    const old = btn.textContent;
-    btn.dataset.armed = "1";
-    btn.textContent = label;
-    btn._t = setTimeout(() => { delete btn.dataset.armed; btn.textContent = old; }, 3000);
-  }
-
-  function showTab(name) {
-    $("#monthBar").hidden = !(name === "cal" || name === "sum");
-    $$(".view").forEach(v => v.classList.toggle("on", v.id === "view-" + name));
-    $$("nav.tabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === name));
-    window.scrollTo(0, 0);
-    if (name === "ai") openAssistant();
-  }
-
-  function toggleDay(day) {
-    selDay = day;
-    const k = keyOf(view.y, view.m, day);
-    if (brush === "C" || data.shifts[k] === brush) delete data.shifts[k];
-    else data.shifts[k] = brush;
-    save();
-    renderGrid(); renderStats(); renderSummary();
-  }
-
-  function shiftMonth(delta) {
-    view.m += delta;
-    if (view.m < 0) { view.m = 11; view.y--; }
-    if (view.m > 11) { view.m = 0; view.y++; }
-    selDay = defaultSelDay();
-    renderAll();
-  }
-
-  // ---------- Platba ----------
-  function mod97(str) {
-    let r = 0;
-    for (const ch of str) r = (r * 10 + Number(ch)) % 97;
-    return r;
-  }
-  function czToIban(input) {
-    const m = input.match(/^(?:(\d{1,6})-)?(\d{1,10})\/(\d{4})$/);
-    if (!m) return null;
-    const prefix = (m[1] || "0").padStart(6, "0");
-    const number = m[2].padStart(10, "0");
-    const bban = m[3] + prefix + number;
-    const check = String(98 - mod97(bban + "123500")).padStart(2, "0");
-    return "CZ" + check + bban;
-  }
-  function validIban(iban) {
-    const numeric = (iban.slice(4) + iban.slice(0, 4)).replace(/[A-Z]/g, c => String(c.charCodeAt(0) - 55));
-    return mod97(numeric) === 1;
-  }
-  function cleanMsg(s) {
-    return String(s).replace(/[*:%]/g, " ").trim().slice(0, 60);
-  }
-
-  const DON_IBAN = "CZ2655000000000598701011";
-  const DON_NAME = "MAREK SAFRANEK";
-
-  function donAmountValue() {
-    if (donAmount > 0) return donAmount;
-    const v = Math.round(Number($("#donCustom").value) || 0);
-    return v > 0 ? v : 0;
-  }
-
-  function makeQr() {
-    let spd = `SPD*1.0*ACC:${DON_IBAN}`;
-    const amt = donAmountValue();
-    if (amt > 0) spd += `*AM:${amt.toFixed(2)}`;
-    spd += `*CC:CZK*RN:${DON_NAME}`;
-    // bez diakritiky, aby QR kód přečetly všechny banky
-    const msg = cleanMsg($("#donMsg").value).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    if (msg) spd += `*MSG:${msg}`;
-    spd += "*";
-
-    const box = $("#qrBox");
-    if (typeof window.qrcode === "function") {
-      const qr = window.qrcode(0, "M");
-      qr.addData(spd, "Byte");
-      qr.make();
-      box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2 });
-    } else {
-      box.innerHTML = '<span style="color:#64748b;font-size:13px;text-align:center">QR kód se nenačetl (zkontrolujte připojení). Zkuste to prosím později.</span>';
-    }
-  }
-
-  function initDonate() {
-    makeQr();
-  }
-
-  async function copyText(text, okMsg, fallbackEl) {
-    try { await navigator.clipboard.writeText(text); toast(okMsg); }
-    catch (_) {
-      if (fallbackEl) { fallbackEl.select(); }
-      try { document.execCommand("copy"); toast(okMsg); }
-      catch (__) { toast("Kopírování se nepovedlo. Text označte ručně."); }
-    }
-  }
-
-
-  // ---------- Postranní panel O aplikaci ----------
-  const drawerOpen = () => $("#drawer").classList.contains("open");
-  const sheetOpen = () => $("#sheet").classList.contains("open");
-  function showDrawer() {
-    $("#drawer").classList.add("open"); $("#scrim").classList.add("show");
-    $("#drawer").setAttribute("aria-hidden", "false");
-  }
-  function hideDrawer() {
-    $("#drawer").classList.remove("open"); $("#scrim").classList.remove("show");
-    $("#drawer").setAttribute("aria-hidden", "true");
-  }
-  function showSheet(id) {
-    const tpl = document.getElementById(id);
-    if (!tpl) return;
-    $("#sheetTitle").textContent = tpl.dataset.title;
-    const body = $("#sheetBody");
-    body.innerHTML = "";
-    body.appendChild(tpl.content.cloneNode(true));
-    body.scrollTop = 0;
-    $("#sheet").classList.add("open");
-  }
-  function hideSheet() { $("#sheet").classList.remove("open"); }
-  function pushUi(ui) { try { history.pushState({ ui }, ""); } catch (_) {} }
-  function closeUi(ui, hide) {
-    if (history.state && history.state.ui === ui) { try { history.back(); return; } catch (_) {} }
-    hide();
-  }
-  window.addEventListener("popstate", () => {
-    if (sheetOpen()) hideSheet();
-    else if (drawerOpen()) hideDrawer();
-  });
-  document.addEventListener("keydown", e => {
-    if (e.key !== "Escape") return;
-    if (sheetOpen()) closeUi("sheet", hideSheet);
-    else if (drawerOpen()) closeUi("drawer", hideDrawer);
-  });
-
-
-  // ---------- Asistent (běží v aplikaci, bez internetu) ----------
-  const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, " ").trim();
-  const NAME_INDEX = (() => {
-    const idx = {};
-    for (const k in NAMEDAYS) {
-      const [m, d] = k.split("-").map(Number);
-      NAMEDAYS[k].split(/,\s*|\s+a\s+/).filter(Boolean).forEach(n => {
-        (idx[norm(n)] = idx[norm(n)] || { name: n, dates: [] }).dates.push([m - 1, d]);
-      });
-    }
-    return idx;
-  })();
-
-  const BAD = [/\bkurv/, /\bpic[aeiouy]/, /\bkokot/, /\bcurak/, /\bzmrd/, /\bmrd/, /\bjeb/, /\bvyjeb/, /\bprdel/, /\bhovn/,
-    /\bdebil/, /\bkreten/, /\bsuka(t|l|m|s)/, /\bfuck/, /\bshit/, /\bbitch/, /\bporn/, /\bsex/, /\bnah(a|e|y) /, /\bdrog(a|y|u|ou|ami)?\b/,
-    /\bpervitin/, /\bkokain/, /\bheroin/, /\bmarihuan/, /\bzbran/, /\bbomb/];
-  const RISK = [/zabit se/, /zabiju se/, /sebevra/, /nechci (uz )?zit/, /ublizit si/, /skoncit se zivotem/, /chci umrit/];
-
-  const TIPS = [
-    "Na začátku měsíce si naklikejte celý rozpis a pošlete ho rodině přes Přehled → WhatsApp. Všichni pak vědí, kdy jste v práci.",
-    "Jednou za měsíc si udělejte zálohu v Nastavení → Záloha a pošlete si ji do poznámek nebo e-mailu.",
-    "Služba přes půlnoc? Zadejte začátek a konec, třeba 19:00 a 07:00. Aplikace sama spočítá 12 hodin.",
-    "Ve státní svátek se ke službě automaticky přičte příplatek za svátek. Výši najdete v Nastavení → Mzda.",
-    "Pro vlastní druh služby stačí v Nastavení klepnout na + Přidat typ služby a nastavit čas a barvu.",
-    "Po noční službě si dopřejte spánek ve tmě a tichu. Pomáhá zatemnění a vypnutý telefon.",
-    "Při dlouhé službě pijte průběžně, ne až na konci. Malé doušky po celou dobu udrží pozornost.",
-    "Klepnutím na den v kalendáři uvidíte, kdo má svátek, jestli je státní svátek a kolik vám služba vydělá.",
-    "Tlačítkem 🌙 / ☀️ vpravo nahoře přepnete tmavý a světlý vzhled."
-  ];
-
-  function greetingWord(h) {
-    if (h < 4) return "Dobrý večer";
-    if (h < 9) return "Dobré ráno";
-    if (h < 12) return "Dobré dopoledne";
-    if (h < 18) return "Dobré odpoledne";
-    if (h < 22) return "Dobrý večer";
-    return "Dobrý večer";
-  }
-  const timeStr = d => `${d.getHours()}:${pad(d.getMinutes())}`;
-
-  function todayInfo() {
-    const n = new Date();
-    const tm = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1);
-    const names = nameDay(n.getMonth(), n.getDate());
-    const tNames = nameDay(tm.getMonth(), tm.getDate());
-    const hol = holidayName(n.getFullYear(), n.getMonth(), n.getDate());
-    const t = typeById(data.shifts[keyOf(n.getFullYear(), n.getMonth(), n.getDate())]);
-    let s = `Dnes je <b>${fullDate(n)}</b> a je <b>${timeStr(n)}</b>.`;
-    s += names ? ` Svátek má <b>${esc(names)}</b>` : " Dnes nemá svátek nikdo z kalendáře";
-    s += tNames ? `, zítra <b>${esc(tNames)}</b>.` : ".";
-    if (hol) s += `<br>Dnes je státní svátek: <b>${esc(hol)}</b>.`;
-    if (t) s += t.off ? `<br>Dnes máte <b>volno</b>. Užijte si ho.` : `<br>Dnes máte službu <b>${esc(t.name)}</b> (${esc(rangeLabel(t))}).`;
-    return s;
-  }
-
-  function nextHolidays(count) {
-    const out = [];
-    const n = new Date();
-    const start = new Date(n.getFullYear(), n.getMonth(), n.getDate());
-    for (let y = n.getFullYear(); y <= n.getFullYear() + 1 && out.length < count; y++) {
-      const list = Object.entries(holidaysOf(y)).sort((a, b) => a[0] < b[0] ? -1 : 1);
-      for (const [k, name] of list) {
-        const [yy, mm, dd] = k.split("-").map(Number);
-        const dt = new Date(yy, mm - 1, dd);
-        if (dt >= start) out.push({ dt, name });
-        if (out.length >= count) break;
-      }
-    }
-    return out;
-  }
-
-  function daysUntil(dt) {
-    const n = new Date();
-    const a = Date.UTC(n.getFullYear(), n.getMonth(), n.getDate());
-    const b = Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate());
-    return Math.round((b - a) / 864e5);
-  }
-  const inDays = k => k === 0 ? "dnes" : k === 1 ? "zítra" : k < 5 ? `za ${k} dny` : `za ${k} dní`;
-
-  // Bezpečná kalkulačka: + - * / ^ ( ) a procenta, bez eval
-  function calcExpr(src) {
-    let s = src.replace(/×|x/gi, "*").replace(/÷|:/g, "/").replace(/,/g, ".").replace(/\s+/g, "");
-    // "… + b %" na konci = celý příklad navýšený o b procent, "… - b %" = snížený; jinde "b %" = b/100
-    const tail = s.match(/^(.+)([+\-])(\d+(?:\.\d+)?)%$/);
-    if (tail) s = `(${tail[1]})*(1${tail[2]}${tail[3]}/100)`;
-    s = s.replace(/(\d+(?:\.\d+)?)%/g, "($1/100)");
-    if (!/^[\d.+\-*/^()]+$/.test(s) || !/[+\-*/^]/.test(s.replace(/^-/, ""))) return null;
-    const tokens = s.match(/\d+(?:\.\d+)?|[+\-*/^()]/g);
-    if (!tokens) return null;
-    let i = 0;
-    const peek = () => tokens[i];
-    function prim() {
-      const tk = tokens[i++];
-      if (tk === "(") { const v = add(); if (tokens[i++] !== ")") throw 0; return v; }
-      if (tk === "-") return -prim();
-      if (tk === "+") return prim();
-      if (tk !== undefined && /^\d/.test(tk)) return parseFloat(tk);
-      throw 0;
-    }
-    function pow() { const b = prim(); if (peek() === "^") { i++; return Math.pow(b, pow()); } return b; }
-    function mul() { let v = pow(); while (peek() === "*" || peek() === "/") { const op = tokens[i++]; const r = pow(); v = op === "*" ? v * r : v / r; } return v; }
-    function add() { let v = mul(); while (peek() === "+" || peek() === "-") { const op = tokens[i++]; const r = mul(); v = op === "+" ? v + r : v - r; } return v; }
-    try {
-      const v = add();
-      if (i !== tokens.length || !isFinite(v)) return null;
-      return v;
-    } catch (_) { return null; }
-  }
-  const fmtNum = v => (Math.round(v * 1e6) / 1e6).toLocaleString("cs-CZ", { maximumFractionDigits: 6 });
-
-  function findDate(q) {
-    if (/\bdnes\b/.test(q)) return 0;
-    if (/\bzitra\b/.test(q)) return 1;
-    if (/\bpozitri\b/.test(q)) return 2;
-    if (/\bvcera\b/.test(q)) return -1;
-    const m = q.match(/\b(\d{1,2})\.\s?(\d{1,2})\.?/);
-    if (m) return { d: +m[1], m: +m[2] - 1 };
-    for (let k = 0; k < 12; k++) {
-      const mm = q.match(new RegExp("\\b(\\d{1,2})\\.?\\s?" + norm(MONTHS_GEN[k]) + "\\b"));
-      if (mm) return { d: +mm[1], m: k };
-    }
-    return null;
-  }
-
-  function findName(text) {
-    const STOP = new Set(["kdy","ma","svatek","jmeniny","kdo","dnes","zitra","vcera","pozitri","prosim","mi","rekni","a","jake","jaky","je","the","slavi","oslavuje","name"]);
-    const words = norm(text).replace(/[^a-z\s]/g, " ").split(" ").filter(w => w.length > 1 && !STOP.has(w));
-    for (const w of words) if (NAME_INDEX[w]) return NAME_INDEX[w];
-    const ends = ["ovi","ou","em","e","u","y","a","i"];
-    for (const w of words) for (const e of ends) {
-      if (w.endsWith(e) && w.length - e.length >= 2) {
-        const base = w.slice(0, -e.length);
-        if (NAME_INDEX[base]) return NAME_INDEX[base];
-        if (NAME_INDEX[base + "a"]) return NAME_INDEX[base + "a"];
-      }
-    }
-    return null;
-  }
-
-  function monthReport() {
-    const c = calc();
-    const head = `${MONTHS[view.m]} ${view.y}`;
-    if (!c.count && !c.hours) return `V měsíci <b>${head}</b> zatím nemáte žádné služby. Naklikejte je v Kalendáři.`;
-    let s = `Za <b>${head}</b>: <b>${c.count}</b> ${c.count === 1 ? "služba" : c.count < 5 ? "služby" : "služeb"}, celkem <b>${fmtH(c.hours)}</b>.`;
-    const parts = [];
-    if (c.holidayHours) parts.push(`ve svátek ${fmtH(c.holidayHours)}`);
-    if (c.weekendHours) parts.push(`o víkendu ${fmtH(c.weekendHours)}`);
-    if (parts.length) s += ` Z toho ${parts.join(", ")}.`;
-    return s;
-  }
-  function payReport() {
-    const c = calc();
-    if (!c.hours) return `Tento měsíc zatím nemáte žádné odpracované hodiny, takže odhad je 0 Kč.`;
-    return `Odhad mzdy za <b>${MONTHS[view.m]} ${view.y}</b> je <b>${fmtInt(c.pay)} Kč</b> hrubého ` +
-      `(${fmtH(c.hours)} × ${fmtInt(data.wage)} Kč/h a příplatky: noc ${data.nightPct || 0} %, svátek ${data.holidayPct || 0} %, víkend ${data.weekendPct || 0} %).` +
-      `<br>Je to jen orientační částka bez daní a odvodů. Sazby změníte v Nastavení → Mzda.`;
-  }
-
-  function reply(text) {
-    const q = norm(text);
-    if (!q) return null;
-    if (RISK.some(r => r.test(q))) {
-      return "Je mi líto, že je vám takhle těžko. Nemusíte na to být sami. Zavolejte prosím na <b>Linku první psychické pomoci 116 123</b> (nonstop, zdarma), nebo se ozvěte někomu blízkému. Pokud jste v ohrožení, volejte <b>155</b> nebo <b>112</b>.";
-    }
-    if (BAD.some(r => r.test(q))) {
-      return "Tohle sem nepatří 🙂 Jsem tu na služby, svátky, výpočty a rady k aplikaci. Zkuste se zeptat třeba „Kolik mám tento měsíc hodin?“";
-    }
-    if (/^(ahoj|cau|cus|nazdar|zdravim|dobry den|dobre rano|dobry vecer|hello|hi|hej)\b/.test(q)) {
-      return `${greetingWord(new Date().getHours())}! ${todayInfo()}`;
-    }
-    if (/\b(diky|dekuji|dekuju|dik|super|paráda|parada)\b/.test(q)) return "Rádo se stalo. Kdyby něco, jsem tady.";
-    if (/co umis|napoveda|\bhelp\b|jak ti|co dokazes|s cim/.test(q)) {
-      return "Umím tohle:<ul><li>kdo má dnes, zítra nebo v určitý den svátek, a kdy má svátek konkrétní jméno,</li><li>státní svátky a kolik zbývá do nejbližšího,</li><li>kolik máte tento měsíc služeb, hodin a odhad mzdy,</li><li>délku služby (třeba „od 19:00 do 7:00“),</li><li>kalkulačku: + − × ÷, závorky, mocniny a procenta,</li><li>tipy k aplikaci a k práci na směny.</li></ul>Jsem jednoduchý pomocník přímo v aplikaci, ne umělá inteligence s internetem, takže na obecné otázky mimo tato témata neodpovím.";
-    }
-    // délka služby
-    const tm = q.match(/(\d{1,2})[:.](\d{2})\s*(?:-|–|do|az)\s*(\d{1,2})[:.](\d{2})/) || q.match(/\bod (\d{1,2})(?:[:.](\d{2}))? do (\d{1,2})(?:[:.](\d{2}))?/);
-    if (tm) {
-      const a = (+tm[1]) * 60 + (+(tm[2] || 0)), b = (+tm[3]) * 60 + (+(tm[4] || 0));
-      if (+tm[1] < 25 && +tm[3] < 25) {
-        let dmin = (b - a + 1440) % 1440; if (dmin === 0) dmin = 1440;
-        const hh = Math.floor(dmin / 60), mm = dmin % 60;
-        return `Od ${tm[1]}:${pad(+(tm[2] || 0))} do ${tm[3]}:${pad(+(tm[4] || 0))} je to <b>${hh} h${mm ? " " + mm + " min" : ""}</b>${b <= a ? " (přes půlnoc)" : ""}.`;
-      }
-    }
-    // procenta "x % z y"
-    const pz = q.match(/(\d+(?:[.,]\d+)?)\s*%\s*z\s*(\d+(?:[.,]\d+)?)/);
-    if (pz) {
-      const v = parseFloat(pz[1].replace(",", ".")) / 100 * parseFloat(pz[2].replace(",", "."));
-      return `${pz[1]} % z ${pz[2]} je <span class="calc">${fmtNum(v)}</span>`;
-    }
-    // jmeniny
-    if (/svatek|jmenin/.test(q) && !/statni|statnich/.test(q)) {
-      const when = findDate(q);
-      if (/\bkdo\b|\bdnes\b|\bzitra\b|\bvcera\b|\bpozitri\b/.test(q) || (when && typeof when === "object")) {
-        let dt;
-        if (typeof when === "number") { const n = new Date(); dt = new Date(n.getFullYear(), n.getMonth(), n.getDate() + when); }
-        else if (when) dt = new Date(new Date().getFullYear(), when.m, when.d);
-        else dt = new Date();
-        const names = nameDay(dt.getMonth(), dt.getDate());
-        const hol = holidayName(dt.getFullYear(), dt.getMonth(), dt.getDate());
-        let s = `${fullDate(dt).replace(/^./, c => c.toUpperCase())}: `;
-        s += names ? `svátek má <b>${esc(names)}</b>.` : "podle kalendáře nemá svátek nikdo.";
-        if (hol) s += `<br>Je to státní svátek: <b>${esc(hol)}</b>.`;
-        return s;
-      }
-      const f = findName(text);
-      if (f) {
-        const list = f.dates.map(([m, d]) => {
-          const n = new Date();
-          let dt = new Date(n.getFullYear(), m, d);
-          if (daysUntil(dt) < 0) dt = new Date(n.getFullYear() + 1, m, d);
-          return `<b>${d}. ${MONTHS_GEN[m]}</b> (${inDays(daysUntil(dt))})`;
-        });
-        return `${esc(f.name)} má svátek ${list.join(" a ")}.`;
-      }
-      return "To jméno v českém kalendáři nenacházím. Zkuste ho napsat v prvním pádě, třeba „Kdy má svátek Petr?“";
-    }
-    // státní svátky
-    if (/statni|svatky|volno ze zakona|velikonoc|vanoc/.test(q)) {
-      const list = nextHolidays(5);
-      const first = list[0];
-      return `Nejbližší státní svátek je <b>${esc(first.name)}</b>, ${fullDate(first.dt)} (${inDays(daysUntil(first.dt))}).` +
-        `<ul>${list.slice(1).map(h => `<li>${h.dt.getDate()}. ${MONTHS_GEN[h.dt.getMonth()]} ${h.dt.getFullYear()}: ${esc(h.name)}</li>`).join("")}</ul>`;
-    }
-    // čas a datum
-    if (/kolik je hodin|\bcas\b|kolik je ted/.test(q)) return `Je <b>${timeStr(new Date())}</b>.`;
-    if (/datum|jaky je (dnes )?den|co je dnes|ktery je dnes/.test(q)) return todayInfo();
-    // mzda a hodiny
-    if (/vydel|mzd|vyplat|penez|penize|kolik dostanu|plat\b/.test(q)) return payReport();
-    if (/hodin|sluzb|smen|odpracov|prehled/.test(q)) return monthReport();
-    if (/priplat/.test(q)) {
-      return `Aplikace počítá tři příplatky, které nastavíte v Nastavení → Mzda: za noc (teď ${data.nightPct || 0} %), za státní svátek (${data.holidayPct || 0} %) a za víkend (${data.weekendPct || 0} %). Sčítají se. Zákoník práce určuje minimum 10 % za noc a víkend a 100 % za svátek, pokud nedostanete náhradní volno. Ve státní sféře (plat) platí jiné sazby.`;
-    }
-    // nápověda k aplikaci
-    if (/zaloh/.test(q)) return "Záloha: Nastavení → Záloha → <b>Vytvořit zálohu</b> → <b>Kopírovat zálohu</b>. Text si pošlete do poznámek nebo e-mailu. Obnovíte ji vložením do pole a klepnutím na Obnovit ze zálohy.";
-    if (/whats|poslat|sdilet|export/.test(q)) return "Rozpis pošlete v záložce <b>Přehled</b> → <b>Otevřít ve WhatsAppu</b>. Můžete ho i zkopírovat nebo sdílet jinam.";
-    if (/\bups\b|pohotovost/.test(q)) return "UPS (ústavní pohotovostní služba) je předvolená jako 24hodinová služba. Čas a barvu upravíte v Nastavení → Typy služeb.";
-    if (/typ|pridat|nova sluzba|vlastni/.test(q)) return "Nový typ služby přidáte v Nastavení → <b>+ Přidat typ služby</b>. Nastavte název, zkratku, začátek, konec a barvu.";
-    if (/\btip|\brad[au]|poradi|doporuc/.test(q)) return "💡 " + TIPS[Math.floor(Math.random() * TIPS.length)];
-    // kalkulačka
-    const expr = text.replace(/^(.*?)(spocitej|spočítej|vypocitej|vypočítej|kolik je|kolik dela|kolik dělá)\s*/i, "").replace(/[=?]\s*$/, "").trim();
-    const v = calcExpr(expr);
-    if (v !== null) return `${esc(expr)} = <span class="calc">${fmtNum(v)}</span>`;
-    return "Tomu úplně nerozumím. Zkuste třeba „Kdo má zítra svátek?“, „Kolik vydělám?“, „od 19:00 do 7:00“ nebo příklad „1250 * 1,1“. Napište „Co umíš?“ a ukážu vám víc.";
-  }
-
-  function addMsg(html, who) {
-    const el = document.createElement("div");
-    el.className = "msg " + who;
-    el.innerHTML = html;
-    $("#chat").appendChild(el);
-    requestAnimationFrame(() => window.scrollTo(0, document.body.scrollHeight));
-  }
-  let greeted = false;
-  function openAssistant() {
-    if (greeted) return;
-    greeted = true;
-    addMsg(`${greetingWord(new Date().getHours())}, vítejte v aplikaci Tvoje šichta! ${todayInfo()}<br>Na co se chcete zeptat?`, "bot");
-  }
-  function ask(text) {
-    const q = String(text).trim().slice(0, 300);
-    if (!q) return;
-    addMsg(esc(q), "me");
-    const r = reply(q);
-    if (r) setTimeout(() => addMsg(r, "bot"), 250);
-  }
-  $("#chatForm").addEventListener("submit", e => {
-    e.preventDefault();
-    const inp = $("#chatInput");
-    ask(inp.value);
-    inp.value = "";
-  });
-  $("#chatChips").addEventListener("click", e => {
-    const b = e.target.closest("[data-ask]");
-    if (b) ask(b.dataset.ask);
-  });
-
-  // ---------- Delegace kliků ----------
-  document.addEventListener("click", e => {
-    const tab = e.target.closest("nav.tabs [data-tab]");
-    if (tab) return showTab(tab.dataset.tab);
-
-    const pill = e.target.closest("#palette .pill");
-    if (pill) { brush = pill.dataset.type; return renderPalette(); }
-
-    const dayBtn = e.target.closest(".day[data-day]");
-    if (dayBtn) return toggleDay(Number(dayBtn.dataset.day));
-
-    const amt = e.target.closest("#donAmounts .chip");
-    if (amt) {
-      donAmount = Number(amt.dataset.amt);
-      $$("#donAmounts .chip").forEach(c => c.classList.toggle("on", c === amt));
-      $("#donCustom").hidden = donAmount !== 0;
-      if (donAmount === 0) $("#donCustom").focus();
-      makeQr();
-      return;
-    }
-
-    const th = e.target.closest("#themeChips .chip");
-    if (th) { data.theme = th.dataset.theme; save(); return renderAll(); }
-
-    const act = e.target.closest("[data-act]");
-    if (!act) return;
-    switch (act.dataset.act) {
-      case "themeCycle": {
-        data.theme = isDark() ? "light" : "dark";
-        save(); renderAll();
-        return;
-      }
-      case "prev": return shiftMonth(-1);
-      case "next": return shiftMonth(1);
-
-      case "waOpen":
-        window.open("https://wa.me/?text=" + encodeURIComponent($("#waText").value), "_blank", "noopener");
-        return;
-      case "waCopy":
-        return copyText($("#waText").value, "Zkopírováno.", $("#waText"));
-      case "waShare": {
-        const text = $("#waText").value;
-        if (navigator.share) navigator.share({ text }).catch(() => {});
-        else toast("Sdílení tady není podporováno. Použijte Kopírovat.");
-        return;
-      }
-
-      case "goDon": hideSheet(); hideDrawer(); return showTab("don");
-      case "aboutOpen": showDrawer(); pushUi("drawer"); return;
-      case "aboutClose": return closeUi("drawer", hideDrawer);
-      case "topic": showSheet(act.dataset.topic); pushUi("sheet"); return;
-      case "sheetClose": return closeUi("sheet", hideSheet);
-
-      case "addType": {
-        const id = "T" + Date.now().toString(36);
-        data.types.push({
-          id, code: "", name: "Nový typ", start: "08:00", end: "16:00",
-          color: COLORS[data.types.length % COLORS.length], night: false, off: false
-        });
-        save(); renderAll();
-        toast("Přidán nový typ. Upravte ho v seznamu.");
-        return;
-      }
-      case "delType": {
-        const tid = act.dataset.tid;
-        if (data.types.length <= 1) return toast("Musí zůstat aspoň jeden typ.");
-        return armButton(act, "Klepněte znovu", () => {
-          data.types = data.types.filter(t => t.id !== tid);
-          for (const k of Object.keys(data.shifts)) if (data.shifts[k] === tid) delete data.shifts[k];
-          if (brush === tid) brush = data.types[0].id;
-          save(); renderAll();
-          toast("Typ smazán.");
-        });
-      }
-
-      case "clearMonth":
-        return armButton(act, "Klepněte znovu pro vymazání", () => {
-          const prefix = `${view.y}-${pad(view.m + 1)}-`;
-          Object.keys(data.shifts).filter(k => k.startsWith(prefix)).forEach(k => delete data.shifts[k]);
-          save(); renderAll();
-          toast("Měsíc vymazán.");
-        });
-      case "clearAll":
-        return armButton(act, "Klepněte znovu pro smazání vše", () => {
-          const types = data.types;
-          data = DEFAULT();
-          data.types = types.length ? types : data.types;
-          data.shifts = {};
-          save(); renderAll();
-          toast("Všechna data smazána.");
-        });
-
-      case "bkShow":
-        $("#bkOut").value = JSON.stringify(data);
-        return;
-      case "bkCopy":
-        return copyText($("#bkOut").value, "Záloha zkopírována.", $("#bkOut"));
-      case "bkRestore": {
-        let obj = null;
-        try { obj = JSON.parse($("#bkIn").value); } catch (_) { obj = null; }
-        if (!obj || !Array.isArray(obj.types) || !obj.types.length || typeof obj.shifts !== "object") {
-          return toast("Záloha není čitelná.");
-        }
-        data = { ...DEFAULT(), ...obj };
-        brush = data.types[0].id;
-        save(); renderAll();
-        $("#bkIn").value = "";
-        toast("Záloha obnovena.");
-        return;
-      }
-    }
-  });
-
-  // Úpravy typů (psaní bez překreslení seznamu)
-  $("#typeList").addEventListener("input", e => {
-    const row = e.target.closest("[data-tid]");
-    const f = e.target.dataset.f;
-    if (!row || !f) return;
-    const t = typeById(row.dataset.tid);
-    if (!t) return;
-    if (e.target.type === "checkbox") t[f] = e.target.checked;
-    else if (f === "code") t.code = e.target.value.trim().slice(0, 4);
-    else if (f === "name") t.name = e.target.value.slice(0, 60);
-    else if (f === "color") t.color = e.target.value;
-    else if (f === "start" || f === "end") { if (!e.target.value) return; t[f] = e.target.value; }
-    save();
-    const hr = row.querySelector("[data-hours]");
-    if (hr) hr.textContent = fmtH(hoursOf(t));
-    updateLive();
-  });
-  $("#typeList").addEventListener("change", e => {
-    if (e.target.dataset.f === "off") renderTypeList();
-  });
-
-  const bindNum = (sel, fn) => $(sel).addEventListener("change", e => {
-    fn(Math.max(0, Number(e.target.value) || 0));
-    save(); renderAll();
-  });
-  bindNum("#setWage", v => data.wage = v);
-  bindNum("#setNight", v => data.nightPct = v);
-  bindNum("#setHoliday", v => data.holidayPct = v);
-  bindNum("#setWeekend", v => data.weekendPct = v);
-
-  $("#donMsg").addEventListener("input", makeQr);
-  $("#donCustom").addEventListener("input", makeQr);
-  window.addEventListener("load", makeQr);
-
-
-  renderAll();
-  initDonate();
-})();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.97.0"></script>
+<script src="app.js?v=2"></script>
 
 </html>
