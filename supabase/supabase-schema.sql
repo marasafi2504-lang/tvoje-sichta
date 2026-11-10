@@ -28,7 +28,7 @@ create table if not exists public.profiles (
   created_at   timestamptz not null default now()
 );
 
--- Typy služeb – společné pro celý tým, spravuje admin.
+-- Typy služeb z dřívějších verzí. Aplikace je už nepoužívá, služba má vlastní čas od–do.
 create table if not exists public.shift_types (
   id          uuid primary key default gen_random_uuid(),
   team_id     uuid not null references public.teams(id) on delete cascade,
@@ -50,7 +50,10 @@ create table if not exists public.shifts (
   team_id     uuid not null references public.teams(id) on delete cascade,
   user_id     uuid not null references public.profiles(id) on delete cascade,
   day         date not null,
-  type_id     uuid not null references public.shift_types(id) on delete cascade,
+  type_id     uuid references public.shift_types(id) on delete set null, -- starší verze, už se nepoužívá
+  start_time  text not null default '',  -- začátek služby HH:MM
+  end_time    text not null default '',  -- konec služby HH:MM (stejný čas = 24 h)
+  off         boolean not null default false, -- true = volno
   status      text not null default 'approved' check (status in ('approved', 'pending', 'rejected')),
   note        text not null default '' check (char_length(note) <= 200),
   created_by  uuid references auth.users(id) on delete set null,
@@ -141,14 +144,6 @@ begin
   perform set_config('app.trusted', 'on', true);
   insert into public.teams (name, created_by) values (trim(p_name), auth.uid()) returning * into t;
   update public.profiles set team_id = t.id, role = 'admin' where id = auth.uid();
-  insert into public.shift_types (team_id, code, name, start_time, end_time, color, night, off, sort) values
-    (t.id, 'R',   'Ranní',                              '06:00', '14:00', '#fcd34d', false, false, 1),
-    (t.id, 'O',   'Odpolední',                          '14:00', '22:00', '#fdba74', false, false, 2),
-    (t.id, 'N',   'Noční',                              '22:00', '06:00', '#818cf8', true,  false, 3),
-    (t.id, 'D',   'Denní služba',                       '07:00', '19:00', '#34d399', false, false, 4),
-    (t.id, 'NS',  'Noční služba',                       '19:00', '07:00', '#60a5fa', true,  false, 5),
-    (t.id, 'UPS', 'Ústavní pohotovostní služba (24 h)', '00:00', '00:00', '#f472b6', false, false, 6),
-    (t.id, 'V',   'Volno',                              '00:00', '00:00', '#86efac', false, true,  7);
   return t;
 end $$;
 
@@ -176,7 +171,7 @@ begin
   select count(*) into admins from public.profiles where team_id = t and role = 'admin';
   if admins = 1 and public.is_team_admin(t) and
      (select count(*) from public.profiles where team_id = t) > 1 then
-    raise exception 'Nejdřív jmenujte jiného admina.';
+    raise exception 'Nejdřív jmenujte jiného správce.';
   end if;
   perform set_config('app.trusted', 'on', true);
   delete from public.shifts where user_id = auth.uid();
@@ -330,14 +325,6 @@ begin
   end if;
   insert into public.teams (name, created_by) values (trim(p_name), auth.uid()) returning * into t;
   update public.profiles set team_id = t.id, role = 'admin' where id = auth.uid();
-  insert into public.shift_types (team_id, code, name, start_time, end_time, color, night, off, sort) values
-    (t.id, 'R',   'Ranní',                              '06:00', '14:00', '#fcd34d', false, false, 1),
-    (t.id, 'O',   'Odpolední',                          '14:00', '22:00', '#fdba74', false, false, 2),
-    (t.id, 'N',   'Noční',                              '22:00', '06:00', '#818cf8', true,  false, 3),
-    (t.id, 'D',   'Denní služba',                       '07:00', '19:00', '#34d399', false, false, 4),
-    (t.id, 'NS',  'Noční služba',                       '19:00', '07:00', '#60a5fa', true,  false, 5),
-    (t.id, 'UPS', 'Ústavní pohotovostní služba (24 h)', '00:00', '00:00', '#f472b6', false, false, 6),
-    (t.id, 'V',   'Volno',                              '00:00', '00:00', '#86efac', false, true,  7);
   return t;
 end $$;
 
@@ -362,7 +349,7 @@ begin
   select count(*) into admins from public.profiles where team_id = t and role = 'admin';
   if admins = 1 and public.is_team_admin(t) and
      (select count(*) from public.profiles where team_id = t) > 1 then
-    raise exception 'Nejdřív jmenujte jiného admina.';
+    raise exception 'Nejdřív jmenujte jiného správce.';
   end if;
   delete from public.shifts where user_id = auth.uid();
   update public.profiles set team_id = null, role = 'user' where id = auth.uid();
@@ -398,3 +385,40 @@ drop policy if exists requests_own on public.ai_requests;
 create policy requests_own on public.ai_requests for all to authenticated
   using (user_id = auth.uid()) with check (user_id = auth.uid());
 revoke all on public.ai_requests from anon;
+
+-- =====================================================================
+--  OBECNÉ SLUŽBY: čas od–do místo typů služeb (listopad 2026)
+--  Bezpečné spustit opakovaně. Starší služby se převedou podle jejich typu.
+-- =====================================================================
+alter table public.shifts alter column type_id drop not null;
+alter table public.shifts add column if not exists start_time text not null default '';
+alter table public.shifts add column if not exists end_time   text not null default '';
+alter table public.shifts add column if not exists off        boolean not null default false;
+
+-- Převod služeb ze starých typů na čas od–do
+update public.shifts s
+   set start_time = t.start_time, end_time = t.end_time, off = t.off
+  from public.shift_types t
+ where s.type_id = t.id and s.start_time = '' and s.off = false;
+
+-- Nová služba musí mít čas od–do, nebo být označená jako volno.
+alter table public.shifts drop constraint if exists shifts_time_chk;
+alter table public.shifts add constraint shifts_time_chk
+  check (off or type_id is not null or (start_time ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$' and end_time ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$'))
+  not valid;
+
+-- Nový tým už nezakládá žádné předvolené typy služeb.
+create or replace function public.create_team(p_name text)
+returns public.teams language plpgsql security definer set search_path = public as $$
+declare t public.teams;
+begin
+  if auth.uid() is null then raise exception 'Nejste přihlášeni.'; end if;
+  if (select team_id from public.profiles where id = auth.uid()) is not null then
+    raise exception 'Už jste členem týmu.';
+  end if;
+  insert into public.teams (name, created_by) values (trim(p_name), auth.uid()) returning * into t;
+  update public.profiles set team_id = t.id, role = 'admin' where id = auth.uid();
+  return t;
+end $$;
+revoke all on function public.create_team(text) from public, anon;
+grant execute on function public.create_team(text) to authenticated;

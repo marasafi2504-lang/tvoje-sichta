@@ -80,16 +80,6 @@
   .stat .k { font-size: 12px; color: var(--muted); }
   .stat .v { font-size: 20px; font-weight: 800; margin-top: 2px; font-variant-numeric: tabular-nums; }
 
-  .palette { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 8px; margin-bottom: 2px; scrollbar-width: none; }
-  .palette::-webkit-scrollbar { display: none; }
-  .pill { flex: 0 0 auto; min-width: 78px; min-height: 58px; border-radius: 14px; background: var(--c);
-    color: var(--t); display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 6px 10px; border: 2px solid transparent; }
-  .pill b { font-weight: 800; font-size: 15px; }
-  .pill span { font-size: 10px; font-weight: 600; opacity: .85; max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .pill.clear { background: var(--card); color: var(--muted); border-color: var(--line); }
-  .pill.on { border-color: var(--text); box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--text); }
-
   .weekdays, .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
   .weekdays { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
   .day { aspect-ratio: 1 / 1.05; min-height: 46px; border-radius: 12px; border: 1px solid var(--line);
@@ -177,7 +167,7 @@
   .holidays b { color: var(--holiday); min-width: 44px; font-variant-numeric: tabular-nums; }
   .day.empty { border: 0; background: none; }
   .day.today { outline: 2px solid var(--accent); outline-offset: -2px; }
-  .day .code { font-size: 11px; font-weight: 900; overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; }
+  .day .code { font-size: 10px; letter-spacing: -.02em; font-weight: 900; overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; }
 
   .row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
   .row:last-child { border-bottom: 0; }
@@ -201,16 +191,6 @@
   .field > span { font-size: 13px; color: var(--muted); font-weight: 600; }
   .field.two { grid-template-columns: 1fr 1fr; gap: 10px; }
 
-  .type { border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
-  .type-top { display: flex; gap: 8px; align-items: center; }
-  .type-top .grow { flex: 1; min-width: 0; }
-  .swatch { width: 44px; height: 44px; flex: 0 0 44px; padding: 2px; border-radius: 12px; }
-  .codein { width: 74px; flex: 0 0 74px; text-align: center; text-transform: uppercase; }
-  .type-mid { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
-  .type-mid label { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); flex: 1; min-width: 130px; }
-  .type-mid input[type="time"] { width: auto; flex: 1; padding: 10px; }
-  .hrs { font-weight: 800; font-size: 14px; min-width: 60px; text-align: right; font-variant-numeric: tabular-nums; }
-  .type-bot { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
   .chk { display: flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
   .chk input { min-height: 20px; }
 
@@ -278,7 +258,40 @@
   .sheet-body h3 { font-size: 16px; margin: 16px 0 6px; }
   .sheet-body h3:first-child { margin-top: 0; }
   .sheet-body dt { font-size: 16px; margin-top: 14px; }
-  @media (prefers-reduced-motion: reduce) { .scrim, .drawer, .sheet { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .scrim, .drawer, .sheet, .daymodal, .dm-card { transition: none; } }
+
+  /* Okno dne: čtvercová karta uprostřed obrazovky */
+  .daymodal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 16px;
+    background: rgba(5, 8, 15, .62); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+    opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s linear .25s; }
+  .daymodal.open { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
+  .dm-card { position: relative; width: min(88vw, 360px, 88dvh); aspect-ratio: 1 / 1; overflow-y: auto;
+    background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .45); padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 8px;
+    transform: translateY(16px) scale(.93); opacity: 0;
+    transition: transform .3s cubic-bezier(.2, .8, .2, 1), opacity .22s ease; }
+  .daymodal.open .dm-card { transform: none; opacity: 1; }
+  .dm-x { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg); color: var(--muted); font-size: 16px; display: grid; place-items: center; }
+  .dm-head { padding-right: 40px; }
+  .dm-title { font-weight: 800; font-size: 17px; line-height: 1.25; }
+  .dm-title::first-letter { text-transform: uppercase; }
+  .dm-sub { color: var(--muted); font-size: 12px; margin-top: 2px; line-height: 1.35; }
+  .dm-times { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 2px; }
+  .dm-times label { display: grid; gap: 3px; min-width: 0; }
+  .dm-times span { font-size: 12px; color: var(--muted); font-weight: 700; text-align: center; }
+  .dm-times input { font-size: 21px; font-weight: 800; text-align: center; padding: 8px 2px; border-radius: 14px; }
+  .dm-times input::-webkit-calendar-picker-indicator { margin: 0 0 0 2px; padding: 0; width: 16px; opacity: .7; }
+  .dm-times input:disabled { opacity: .4; }
+  .dm-hint { min-height: 16px; font-size: 12px; color: var(--muted); text-align: center; }
+  .dm-off { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid var(--line);
+    border-radius: 14px; background: var(--bg); font-weight: 700; font-size: 15px; cursor: pointer; }
+  .dm-off input { width: 20px; height: 20px; flex: 0 0 20px; accent-color: var(--accent); }
+  #dmNote { padding: 10px 12px; font-size: 15px; }
+  .dm-msg { font-size: 12px; color: var(--muted); text-align: center; }
+  .dm-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
+  .dm-btns .btn { min-height: 44px; }
+  #dmDel[hidden] + #dmSave { grid-column: 1 / -1; }
   .toast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px);
     background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600;
     opacity: 0; transition: .25s; pointer-events: none; z-index: 30; max-width: 90vw; text-align: center; }
@@ -341,7 +354,14 @@
         <label class="chk pillchk"><input type="checkbox" value="0"> Ne</label>
       </div>
     </div>
-    <label class="field"><span>Služba</span><select id="bulkType"></select></label>
+    <div class="field two">
+      <label class="field"><span>Čas od</span><input type="time" id="bulkTimeFrom" value="06:00"></label>
+      <label class="field"><span>Čas do</span><input type="time" id="bulkTimeTo" value="14:00"></label>
+    </div>
+    <div class="wrapchips" style="margin-bottom:10px">
+      <label class="chk pillchk"><input type="checkbox" id="bulkOff"> Volno</label>
+      <label class="chk pillchk"><input type="checkbox" id="bulkDelete"> Místo přidělení služby smazat</label>
+    </div>
     <label class="chk"><input type="checkbox" id="bulkOverwrite"> Přepsat služby, které už v rozsahu jsou</label>
     <div class="stack"><button class="btn primary" data-act="bulkRun">Přiřadit</button></div>
     <p class="muted" id="bulkInfo" style="margin:8px 0 0"></p>
@@ -350,12 +370,11 @@
   <!-- KALENDÁŘ -->
   <section class="view on" id="view-cal">
     <div class="stats">
-      <div class="stat"><div class="k">Odpracováno</div><div class="v" id="sHours">0 h</div></div>
-      <div class="stat"><div class="k">Odhad mzdy</div><div class="v" id="sPay">0 Kč</div></div>
+      <div class="stat"><div class="k">Služeb</div><div class="v" id="sCount">0</div></div>
+      <div class="stat"><div class="k">Dní volna</div><div class="v" id="sOff">0</div></div>
     </div>
-    <div class="palette" id="palette"></div>
-    <p class="muted hint">Vyberte typ služby a klepněte na den. Druhé klepnutí na stejný den ho vymaže. Pod kalendářem uvidíte detail dne, jmeniny a svátky.</p>
-    <p class="muted hint" id="cloudHint" hidden>Služby, které přidáte, čekají na schválení staniční sestrou. Čárkovaný rámeček = čeká, přeškrtnutá = zamítnutá.</p>
+    <p class="muted hint">Klepněte na den a nastavte čas Od a Do. Pod kalendářem uvidíte detail dne, jmeniny a svátky.</p>
+    <p class="muted hint" id="cloudHint" hidden>Služby, které přidáte, čekají na schválení správcem týmu. Čárkovaný rámeček = čeká, přeškrtnutá = zamítnutá.</p>
     <div class="card" style="padding:10px">
       <div class="weekdays"><div>Po</div><div>Út</div><div>St</div><div>Čt</div><div>Pá</div><div>So</div><div>Ne</div></div>
       <div class="days" id="grid"></div>
@@ -393,12 +412,12 @@
     <div class="chat-chips" id="chatChips">
       <button data-ask="Kdo má dnes svátek?">Kdo má dnes svátek?</button>
       <button data-ask="Nejbližší státní svátek">Nejbližší státní svátek</button>
-      <button data-ask="Kolik mám hodin tento měsíc?">Kolik mám hodin?</button>
-      <button data-ask="Kolik vydělám?">Kolik vydělám?</button>
+      <button data-ask="Kolik mám služeb tento měsíc?">Kolik mám služeb?</button>
       <button data-ask="Kolik hodin je od 19:00 do 7:00?">19:00 až 7:00</button>
       <button data-ask="Spočítej 12 * 8 + 15 %">Spočítej 12 * 8 + 15 %</button>
       <button data-ask="Dej mi tip">Tip</button>
       <button data-ask="Dej mi příští úterý ranní">Dej mi příští úterý ranní</button>
+      <button data-ask="Dej mi zítra 7-19">Dej mi zítra 7-19</button>
       <button data-ask="Chci volno v pátek">Chci volno v pátek</button>
       <button data-ask="Co umíš?">Co umíš?</button>
     </div>
@@ -443,24 +462,6 @@
     <div class="card" id="accountCard"></div>
 
     <div class="card">
-      <h2>Typy služeb</h2>
-      <p class="muted" style="margin-top:0">Upravte název, zkratku, čas nebo barvu. Hodiny se počítají z času. Můžete přidat vlastní typ, třeba vlastní UPS.</p>
-      <div id="typeList"></div>
-      <div class="stack"><button class="btn primary" id="addTypeBtn" data-act="addType">+ Přidat typ služby</button></div>
-    </div>
-
-    <div class="card">
-      <h2>Mzda</h2>
-      <div class="field two">
-        <label class="field"><span>Hodinová sazba (Kč)</span><input id="setWage" type="number" min="0" step="1"></label>
-        <label class="field"><span>Příplatek za noc (%)</span><input id="setNight" type="number" min="0" step="1"></label>
-        <label class="field"><span>Příplatek za svátek (%)</span><input id="setHoliday" type="number" min="0" step="1"></label>
-        <label class="field"><span>Příplatek za víkend (%)</span><input id="setWeekend" type="number" min="0" step="1"></label>
-      </div>
-      <p class="muted">Příplatek za noc se počítá u typů se zaškrtnutým „Příplatek za noc“. Příplatek za svátek se přičte ke každé službě, která začíná ve státní svátek. Zákoník práce určuje za práci ve svátek příplatek nejméně 100 % průměrného výdělku, pokud nedostanete náhradní volno. Pokud náhradní volno dostáváte, nastavte 0 %. Příplatek za víkend se přičte ke službě, která začíná v sobotu nebo v neděli (zákon určuje nejméně 10 %).</p>
-    </div>
-
-    <div class="card">
       <h2>Vzhled</h2>
       <div class="chips" id="themeChips" style="grid-template-columns:repeat(2,1fr)">
         <button class="chip" data-theme="dark" aria-label="Tmavý vzhled" style="font-size:22px">🌙</button>
@@ -502,6 +503,28 @@
 </nav>
 
 
+<div class="daymodal" id="dayModal" aria-hidden="true">
+  <div class="dm-card" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
+    <button class="dm-x" data-act="dayClose" aria-label="Zavřít">✕</button>
+    <div class="dm-head">
+      <div class="dm-title" id="dmTitle"></div>
+      <div class="dm-sub" id="dmSub" hidden></div>
+    </div>
+    <div class="dm-times">
+      <label><span>Od</span><input type="time" id="dmFrom" aria-label="Začátek služby"></label>
+      <label><span>Do</span><input type="time" id="dmTo" aria-label="Konec služby"></label>
+    </div>
+    <div class="dm-hint" id="dmHint"></div>
+    <label class="dm-off"><input type="checkbox" id="dmOff"> Volno</label>
+    <input id="dmNote" maxlength="60" placeholder="Poznámka (nepovinné)" aria-label="Poznámka">
+    <div class="dm-msg" id="dmMsg" hidden></div>
+    <div class="dm-btns">
+      <button class="btn danger" id="dmDel" data-act="dayDel">Smazat</button>
+      <button class="btn primary" id="dmSave" data-act="daySave">Uložit</button>
+    </div>
+  </div>
+</div>
+
 <div class="scrim" id="scrim" data-act="aboutClose"></div>
 <aside class="drawer" id="drawer" aria-hidden="true" aria-label="O aplikaci">
   <div class="drawer-top">
@@ -520,14 +543,14 @@
           <div class="about-meta">Verze 1.0 · by Marek Šafránek</div>
         </div>
       </div>
-      <p>Jednoduchý plánovač služeb pro zdravotníky a všechny, kdo pracují na směny. Naklikáte si měsíc, aplikace spočítá hodiny a odhad mzdy a rozpis pošlete kolegům nebo rodině přes WhatsApp.</p>
+      <p>Jednoduchý evidenční kalendář pro každého, kdo pracuje na směny nebo si hlídá rozpis: zdravotníky, prodavače, řidiče, brigádníky i celé rodiny. Klepnete na den, nastavíte čas od–do a rozpis pošlete kolegům nebo rodině přes WhatsApp.</p>
 
       
     <div class="topics">
         <button class="topic" data-act="topic" data-topic="topic-0"><span>Co aplikace umí</span><b aria-hidden="true">+</b></button>
         <button class="topic" data-act="topic" data-topic="topic-1"><span>Jak začít</span><b aria-hidden="true">+</b></button>
         <button class="topic" data-act="topic" data-topic="topic-2"><span>Ochrana osobních údajů</span><b aria-hidden="true">+</b></button>
-        <button class="topic" data-act="topic" data-topic="topic-3"><span>Výpočet mzdy</span><b aria-hidden="true">+</b></button>
+        <button class="topic" data-act="topic" data-topic="topic-3"><span>Služby a čas</span><b aria-hidden="true">+</b></button>
         <button class="topic" data-act="topic" data-topic="topic-4"><span>Časté dotazy</span><b aria-hidden="true">+</b></button>
         <button class="topic" data-act="topic" data-topic="topic-5"><span>Co je nového</span><b aria-hidden="true">+</b></button>
     </div>
@@ -547,64 +570,67 @@
 </div>
 <template id="topic-0" data-title="Co aplikace umí">
           <ul>
-            <li>Rychlé naklikávání služeb do kalendáře jedním klepnutím.</li>
-            <li>Předvolené typy: ranní, odpolední, noční, denní služba, noční služba, UPS (24 h) a volno.</li>
-            <li>Vlastní typy služeb s názvem, zkratkou, časem a barvou.</li>
-            <li>Automatický výpočet odpracovaných hodin, i u služeb přes půlnoc.</li>
-            <li>Odhad mzdy podle hodinové sazby, příplatku za noc a za práci ve svátek.</li>
-            <li>České státní svátky v kalendáři i s názvy.</li>
-            <li>Přehled měsíce podle typů služeb.</li>
-            <li>Export rozpisu pro WhatsApp, kopírování a sdílení.</li>
+            <li>Klepnete na den v kalendáři a nastavíte, od kolika do kolika máte službu.</li>
+            <li>Žádné pevné typy služeb. Čas si zadáte sami a barva se nastaví podle toho, kdy služba začíná.</li>
+            <li>Volno a poznámka ke každému dni.</li>
+            <li>Služby přes půlnoc i 24hodinové služby.</li>
+            <li>České státní svátky a jmeniny v kalendáři.</li>
+            <li>Přehled měsíce a export rozpisu pro WhatsApp, kopírování a sdílení.</li>
+            <li>Volitelně týmy: správce rozpisuje, ostatní vidí svůj rozpis.</li>
+            <li>Volitelně šifrovaná záloha na Google Disk.</li>
+            <li>Asistent, který rozumí větám jako „dej mi zítra 6-14“ nebo „chci volno v pátek“.</li>
             <li>Tmavý vzhled a možnost přepnout na světlý tlačítkem 🌙 / ☀️ vpravo nahoře.</li>
-            <li>Záloha a obnovení dat.</li>
             <li>QR platba pro podporu vývoje.</li>
           </ul>
         </template>
 <template id="topic-1" data-title="Jak začít">
           <ol>
-            <li>V Nastavení zkontrolujte typy služeb a časy. Upravte je podle svého pracoviště.</li>
-            <li>Zadejte hodinovou sazbu a případný příplatek za noc.</li>
-            <li>V Kalendáři vyberte nahoře typ služby a klepejte na dny.</li>
-            <li>Opakované klepnutí na stejný den službu smaže. Tlačítkem ✕ mažete libovolné dny.</li>
-            <li>V Přehledu najdete součty a tlačítko pro odeslání do WhatsAppu.</li>
+            <li>V Kalendáři klepněte na den.</li>
+            <li>Nastavte čas Od a Do, nebo zaškrtněte Volno. Můžete připsat poznámku.</li>
+            <li>Klepněte na Uložit. Službu smažete tlačítkem Smazat v témže okně.</li>
+            <li>V Přehledu uvidíte rozpis měsíce a tlačítko pro odeslání do WhatsAppu.</li>
+            <li>Chcete-li sdílet rozpis v týmu, přihlaste se v Nastavení → Účet a tým.</li>
           </ol>
         </template>
 <template id="topic-2" data-title="Ochrana osobních údajů">
-          <p>Všechna data zůstávají jen ve vašem zařízení. Aplikace nemá účty, nic neodesílá na server, nesleduje vás a nezobrazuje reklamy.</p>
+          <p>Bez přihlášení zůstávají všechna data jen ve vašem zařízení. Aplikace nic neodesílá, nesleduje vás a nezobrazuje reklamy.</p>
+          <p>Pokud se přihlásíte a vstoupíte do týmu, ukládají se vaše služby na zabezpečený server. Vidíte je vy a správce týmu. Ostatní členové týmu vidí jen vaše jméno.</p>
+          <p>Záloha na Google Disk, pokud je zapnutá, je zašifrovaná vaším heslem a leží ve skryté složce aplikace.</p>
           <p>QR kód v sekci Podpořit vede na účet autora aplikace. Aplikace sama žádné peníze neposílá. Platbu vždy zadáváte a potvrzujete vy ve své bance.</p>
-          <p>Pokud aplikaci odinstalujete nebo smažete data prohlížeče, záznamy se smažou také. Proto si pravidelně dělejte zálohu.</p>
+          <p>Pokud aplikaci odinstalujete nebo smažete data prohlížeče, záznamy uložené jen v zařízení se smažou také. Proto si dělejte zálohu.</p>
         </template>
-<template id="topic-3" data-title="Výpočet mzdy">
-          <p>Částka je orientační: hodiny × hodinová sazba, u služeb s příplatkem za noc navýšená o zadané procento.</p>
-          <p>Ve státní svátek se ke službě přičte příplatek za svátek. Výchozí je 100 %, změníte ho v Nastavení → Mzda. Příplatky za noc a za svátek se sčítají. Rozhoduje den, kdy služba začíná.</p>
-          <p>O víkendu se přičte příplatek za víkend, pokud ho máte v Nastavení vyplněný. Všechny příplatky se sčítají.</p>
-          <p>Nezahrnuje daně, odvody ani přesčasy. Zákon počítá příplatek z průměrného výdělku, aplikace pro jednoduchost z hodinové sazby. Skutečnou výplatu určuje vaše smlouva a mzdová účtárna.</p>
+<template id="topic-3" data-title="Služby a čas">
+          <p>Službu zadáte časem Od a Do, například 06:00 a 14:00. Aplikace čas zobrazí v kalendáři zkráceně, třeba 6–14.</p>
+          <p>Když konec vychází dřív než začátek, například 19:00 a 07:00, aplikace pozná, že služba pokračuje do dalšího dne.</p>
+          <p>Stejný čas na začátku i konci, například 07:00 a 07:00, znamená 24hodinovou službu.</p>
+          <p>Barva dne se nastaví sama podle začátku služby. Volno je zelené.</p>
+          <p>Aplikace nepočítá hodiny ani mzdu. Je to evidence, kdy kdo slouží.</p>
         </template>
 <template id="topic-4" data-title="Časté dotazy">
           <dl style="margin:0">
             <dt>Jak přenesu data do nového telefonu?</dt>
-            <dd>V Nastavení → Záloha klepněte na Vytvořit zálohu a Kopírovat zálohu. Text si pošlete, v novém telefonu ho vložte do pole a klepněte na Obnovit ze zálohy.</dd>
+            <dd>V Nastavení → Záloha klepněte na Vytvořit zálohu a Kopírovat zálohu. Text si pošlete, v novém telefonu ho vložte do pole a klepněte na Obnovit ze zálohy. Přihlášení k týmu ukládá služby na server, takže se po přihlášení objeví samy.</dd>
             <dt>Proč mi zmizely služby?</dt>
             <dd>Nejčastěji kvůli smazání dat prohlížeče nebo aplikace. Bez zálohy je obnovit nelze.</dd>
             <dt>Jak zadám službu přes půlnoc?</dt>
-            <dd>Nastavte začátek a konec, třeba 19:00 a 07:00. Aplikace pozná, že služba pokračuje do dalšího dne, a spočítá 12 hodin.</dd>
-            <dt>Jak zadám 24hodinovou službu?</dt>
-            <dd>Nastavte stejný začátek i konec, například 07:00 a 07:00. Aplikace ji spočítá jako 24 hodin.</dd>
-            <dt>Co se stane, když smažu typ služby?</dt>
-            <dd>Zmizí i ze všech dní, kde byl zadaný. Před smazáním si udělejte zálohu.</dd>
+            <dd>Klepněte na den a nastavte začátek a konec, třeba 19:00 a 07:00.</dd>
+            <dt>Jak službu smažu?</dt>
+            <dd>Klepněte na den a zvolte Smazat. Celý měsíc smažete v Nastavení → Data.</dd>
+            <dt>Můžu aplikaci používat i mimo zdravotnictví?</dt>
+            <dd>Ano. Je to obecný evidenční kalendář. Hodí se kdekoli, kde se střídají směny.</dd>
           </dl>
         </template>
 <template id="topic-5" data-title="Co je nového">
-          <h3>Verze 1.0 – první vydání</h3>
+          <h3>Verze 1.0</h3>
           <ul>
-            <li>Kalendář služeb s rychlým naklikáváním.</li>
-            <li>Předvolené i vlastní typy služeb včetně UPS (24 h).</li>
-            <li>Automatický výpočet hodin a odhad mzdy s příplatkem za noc a za svátek.</li>
-            <li>České státní svátky v kalendáři i s názvy.</li>
+            <li>Kalendář s oknem dne: klepnete na datum a zadáte čas Od a Do.</li>
+            <li>Volno a poznámka ke každému dni.</li>
+            <li>České státní svátky a jmeniny v kalendáři.</li>
             <li>Přehled měsíce a export rozpisu pro WhatsApp.</li>
+            <li>Týmy s rolemi správce a člen, schvalování služeb.</li>
+            <li>Šifrovaná záloha na Google Disk.</li>
+            <li>Asistent pro zadávání služeb větou nebo hlasem.</li>
             <li>Barevné záhlaví a přepínač tmavého a světlého vzhledu.</li>
-            <li>Informace o aplikaci v postranním panelu pod tlačítkem ⓘ.</li>
-            <li>Záloha a obnovení dat.</li>
             <li>QR platba pro podporu autora.</li>
           </ul>
         </template>
@@ -613,6 +639,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.97.0"></script>
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 
 </html>

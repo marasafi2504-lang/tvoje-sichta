@@ -20,8 +20,8 @@ const json = (body: unknown, status = 200) =>
 const MODEL = Deno.env.get("AI_MODEL") ?? "claude-haiku-5-5";
 const LIMIT_PER_HOUR = Number(Deno.env.get("AI_LIMIT_PER_HOUR") ?? "40");
 
-type ShiftType = { id: string; name: string; code?: string; start?: string; end?: string; off?: boolean };
 type Member = { id: string; name: string };
+const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 const TOOL = {
   name: "navrh_sluzeb",
@@ -31,7 +31,9 @@ const TOOL = {
     properties: {
       action: { type: "string", enum: ["set", "delete"], description: "set = přidělit službu, delete = smazat službu" },
       dates: { type: "array", items: { type: "string", description: "Datum ve tvaru YYYY-MM-DD" }, maxItems: 62 },
-      type_id: { type: "string", description: "Přesné id typu služby ze seznamu. U delete vynech." },
+      from: { type: "string", description: "Začátek služby ve tvaru HH:MM (24 hodin). U delete a u volna vynech." },
+      to: { type: "string", description: "Konec služby ve tvaru HH:MM (24 hodin). Stejný čas jako začátek = 24hodinová služba. U delete a u volna vynech." },
+      off: { type: "boolean", description: "true = volno, dovolená nebo náhradní volno (bez času). Jinak vynech." },
       target: { type: "string", description: "Přesné id člena týmu, kterému služba patří. Když jde o uživatele samotného nebo seznam členů chybí, vynech." },
       note: { type: "string", description: "Krátká česká poznámka, když něco chybí nebo je nejasné." },
     },
@@ -61,12 +63,9 @@ Deno.serve(async (req) => {
   const text = String(body?.text ?? "").slice(0, 300).trim();
   const today = /^\d{4}-\d{2}-\d{2}$/.test(body?.today) ? body.today : new Date().toISOString().slice(0, 10);
   const weekday = String(body?.weekday ?? "").slice(0, 12);
-  const types: ShiftType[] = (Array.isArray(body?.types) ? body.types : []).slice(0, 40)
-    .map((t: ShiftType) => ({ id: String(t.id).slice(0, 40), name: String(t.name ?? "").slice(0, 60), code: String(t.code ?? "").slice(0, 4),
-      start: String(t.start ?? ""), end: String(t.end ?? ""), off: !!t.off }));
   const members: Member[] = (Array.isArray(body?.members) ? body.members : []).slice(0, 200)
     .map((m: Member) => ({ id: String(m.id).slice(0, 40), name: String(m.name ?? "").slice(0, 80) }));
-  if (!text || !types.length) return json({ error: "Chybí text nebo typy služeb." }, 400);
+  if (!text) return json({ error: "Chybí text." }, 400);
 
   // Limit dotazů za hodinu (ochrana před náklady)
   const since = new Date(Date.now() - 3600_000).toISOString();
@@ -83,11 +82,9 @@ Deno.serve(async (req) => {
   const examples = (fb ?? []).map((r) => {
     const c = r.corrected ?? {};
     const when = String(r.created_at ?? "").slice(0, 10);
-    return `Dne ${when} uživatel napsal: "${String(r.input_text).replace(/"/g, "'")}"\nSprávný výsledek: ${JSON.stringify({ action: c.action, dates: c.dates, type_id: c.type_id, target: c.target })}`;
+    return `Dne ${when} uživatel napsal: "${String(r.input_text).replace(/"/g, "'")}"\nSprávný výsledek: ${JSON.stringify({ action: c.action, dates: c.dates, from: c.from, to: c.to, off: c.off, target: c.target })}`;
   }).join("\n\n");
 
-  const typeLines = types.map((t) =>
-    `- id="${t.id}": ${t.name}${t.code ? ` (zkratka ${t.code})` : ""}${t.off ? ", volno" : t.start ? `, ${t.start}–${t.end}` : ""}`).join("\n");
   const memberLines = members.map((m) => `- id="${m.id}": ${m.name}`).join("\n");
 
   const system = [
@@ -96,14 +93,14 @@ Deno.serve(async (req) => {
     `Dnes je ${weekday} ${today}, časové pásmo Europe/Prague. Týden začíná pondělím.`,
     "„Příští úterý“ = úterý v příštím týdnu. „Tento pátek“ = pátek v tomto týdnu. Datum bez roku = nejbližší budoucí výskyt.",
     "„Každé úterý v prosinci“ = všechna úterý v prosinci (od dneška dál). Rozsah „od 10. do 14.“ = všechny dny včetně.",
-    "Volno, dovolená a náhradní volno jsou typ služby (action set s typem volna, pokud v seznamu je).",
+    "Služba je čas od–do. Když uživatel řekne konkrétní čas („od 6 do 14“, „7-19“, „18:30 do 6:30“), použij ho přesně.",
+    "Běžná slova: ranní = 06:00–14:00, odpolední = 14:00–22:00, noční = 22:00–06:00, denní = 07:00–19:00, noční služba = 19:00–07:00, 24hodinová služba/pohotovost = 00:00–00:00.",
+    "Volno, dovolená a náhradní volno: action set a off true, bez času.",
     "Slova smaž, zruš, odstraň znamenají action delete.",
-    "Typy služeb (do type_id dej přesně hodnotu id):",
-    typeLines,
     members.length
       ? `Členové týmu (do target dej přesně id; „mi“, „mně“, „sobě“ = uživatel sám, pak target vynech):\n${memberLines}`
       : "Uživatel zadává služby sám sobě, pole target vynech.",
-    "Nevymýšlej si. Když chybí den nebo typ služby, nech pole prázdné a do note krátce česky napiš, co doplnit.",
+    "Nevymýšlej si. Když chybí den nebo čas, nech pole prázdné a do note krátce česky napiš, co doplnit.",
     examples ? `Opravy od tohoto uživatele. Řiď se jimi, ukazují jeho zvyklosti a slova:\n${examples}` : "",
   ].filter(Boolean).join("\n");
 
@@ -137,7 +134,6 @@ Deno.serve(async (req) => {
   const p = use.input ?? {};
 
   // Kontrola výstupu: jen platná data, existující typy a členové
-  const typeIds = new Set(types.map((t) => t.id));
   const memberIds = new Set(members.map((m) => m.id));
   const dates = (Array.isArray(p.dates) ? p.dates : [])
     .filter((d: unknown) => typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d) && !isNaN(Date.parse(d)))
@@ -146,7 +142,9 @@ Deno.serve(async (req) => {
   return json({
     action: p.action === "delete" ? "delete" : "set",
     dates,
-    type_id: typeof p.type_id === "string" && typeIds.has(p.type_id) ? p.type_id : null,
+    from: p.off !== true && typeof p.from === "string" && TIME_RE.test(p.from) ? p.from : null,
+    to: p.off !== true && typeof p.to === "string" && TIME_RE.test(p.to) ? p.to : null,
+    off: p.action !== "delete" && p.off === true,
     target: typeof p.target === "string" && memberIds.has(p.target) ? p.target : null,
     note: typeof p.note === "string" ? p.note.slice(0, 200) : "",
   });

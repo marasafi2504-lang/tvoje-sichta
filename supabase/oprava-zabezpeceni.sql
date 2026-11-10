@@ -52,14 +52,6 @@ begin
   end if;
   insert into public.teams (name, created_by) values (trim(p_name), auth.uid()) returning * into t;
   update public.profiles set team_id = t.id, role = 'admin' where id = auth.uid();
-  insert into public.shift_types (team_id, code, name, start_time, end_time, color, night, off, sort) values
-    (t.id, 'R',   'Ranní',                              '06:00', '14:00', '#fcd34d', false, false, 1),
-    (t.id, 'O',   'Odpolední',                          '14:00', '22:00', '#fdba74', false, false, 2),
-    (t.id, 'N',   'Noční',                              '22:00', '06:00', '#818cf8', true,  false, 3),
-    (t.id, 'D',   'Denní služba',                       '07:00', '19:00', '#34d399', false, false, 4),
-    (t.id, 'NS',  'Noční služba',                       '19:00', '07:00', '#60a5fa', true,  false, 5),
-    (t.id, 'UPS', 'Ústavní pohotovostní služba (24 h)', '00:00', '00:00', '#f472b6', false, false, 6),
-    (t.id, 'V',   'Volno',                              '00:00', '00:00', '#86efac', false, true,  7);
   return t;
 end $$;
 
@@ -84,7 +76,7 @@ begin
   select count(*) into admins from public.profiles where team_id = t and role = 'admin';
   if admins = 1 and public.is_team_admin(t) and
      (select count(*) from public.profiles where team_id = t) > 1 then
-    raise exception 'Nejdřív jmenujte jiného admina.';
+    raise exception 'Nejdřív jmenujte jiného správce.';
   end if;
   delete from public.shifts where user_id = auth.uid();
   update public.profiles set team_id = null, role = 'user' where id = auth.uid();

@@ -23,45 +23,76 @@
   const NAMEDAYS = {"1-1":"","1-2":"Karina","1-3":"Radmila","1-4":"Diana","1-5":"Dalimil","1-6":"","1-7":"Vilma","1-8":"Čestmír","1-9":"Vladan","1-10":"Břetislav","1-11":"Bohdana","1-12":"Pravoslav","1-13":"Edita","1-14":"Radovan","1-15":"Alice","1-16":"Ctirad","1-17":"Drahoslav","1-18":"Vladislav","1-19":"Doubravka","1-20":"Ilona","1-21":"Běla","1-22":"Slavomír","1-23":"Zdeněk","1-24":"Milena","1-25":"Miloš","1-26":"Zora","1-27":"Ingrid","1-28":"Otýlie","1-29":"Zdislava","1-30":"Robin","1-31":"Marika","2-1":"Hynek","2-2":"Nela","2-3":"Blažej","2-4":"Jarmila","2-5":"Dobromila","2-6":"Vanda","2-7":"Veronika","2-8":"Milada","2-9":"Apolena","2-10":"Mojmír","2-11":"Božena","2-12":"Slavěna","2-13":"Věnceslav","2-14":"Valentýn","2-15":"Jiřina","2-16":"Ljuba","2-17":"Miloslava","2-18":"Gizela","2-19":"Patrik","2-20":"Oldřich","2-21":"Lenka","2-22":"Petr","2-23":"Svatopluk","2-24":"Matěj","2-25":"Liliana","2-26":"Dorota","2-27":"Alexandr","2-28":"Lumír","2-29":"","3-1":"Bedřich","3-2":"Anežka","3-3":"Kamil","3-4":"Stela","3-5":"Kazimír","3-6":"Miroslav","3-7":"Tomáš","3-8":"Gabriela","3-9":"Františka","3-10":"Viktorie","3-11":"Anděla","3-12":"Řehoř","3-13":"Růžena","3-14":"Matylda, Rút","3-15":"Ida","3-16":"Elena, Herbert","3-17":"Vlastimil","3-18":"Eduard","3-19":"Josef","3-20":"Světlana","3-21":"Radek","3-22":"Leona","3-23":"Ivona","3-24":"Gabriel","3-25":"Marián","3-26":"Emanuel","3-27":"Dita","3-28":"Soňa","3-29":"Taťána","3-30":"Arnošt","3-31":"Kvido","4-1":"Hugo","4-2":"Erika","4-3":"Richard","4-4":"Ivana","4-5":"Miroslava","4-6":"Vendula","4-7":"Heřman, Hermína","4-8":"Ema","4-9":"Dušan","4-10":"Darja","4-11":"Izabela","4-12":"Julius","4-13":"Aleš","4-14":"Vincenc","4-15":"Anastázie","4-16":"Irena","4-17":"Rudolf","4-18":"Valérie","4-19":"Rostislav","4-20":"Marcela","4-21":"Alexandra","4-22":"Evženie","4-23":"Vojtěch","4-24":"Jiří","4-25":"Marek","4-26":"Oto","4-27":"Jaroslav","4-28":"Vlastislav","4-29":"Robert","4-30":"Blahoslav","5-1":"","5-2":"Zikmund","5-3":"Alexej","5-4":"Květoslav","5-5":"Klaudie","5-6":"Radoslav","5-7":"Stanislav","5-8":"","5-9":"Ctibor","5-10":"Blažena","5-11":"Svatava","5-12":"Pankrác","5-13":"Servác","5-14":"Bonifác","5-15":"Žofie","5-16":"Přemysl","5-17":"Aneta","5-18":"Nataša","5-19":"Ivo","5-20":"Zbyšek","5-21":"Monika","5-22":"Emil","5-23":"Vladimír","5-24":"Jana, Vanesa","5-25":"Viola","5-26":"Filip","5-27":"Valdemar","5-28":"Vilém","5-29":"Maxmilián","5-30":"Ferdinand","5-31":"Kamila","6-1":"Laura","6-2":"Jarmil","6-3":"Tamara","6-4":"Dalibor","6-5":"Dobroslav","6-6":"Norbert","6-7":"Iveta, Slavoj","6-8":"Medard","6-9":"Stanislava","6-10":"Gita","6-11":"Bruno","6-12":"Antonie","6-13":"Antonín","6-14":"Roland","6-15":"Vít","6-16":"Zbyněk","6-17":"Adolf","6-18":"Milan","6-19":"Leoš","6-20":"Květa","6-21":"Alois","6-22":"Pavla","6-23":"Zdeňka","6-24":"Jan","6-25":"Ivan","6-26":"Adriana","6-27":"Ladislav","6-28":"Lubomír","6-29":"Petr a Pavel","6-30":"Šárka","7-1":"Jaroslava","7-2":"Patricie","7-3":"Radomír","7-4":"Prokop","7-5":"Cyril a Metoděj","7-6":"","7-7":"Bohuslava","7-8":"Nora","7-9":"Drahoslava","7-10":"Libuše, Amálie","7-11":"Olga","7-12":"Bořek","7-13":"Markéta","7-14":"Karolína","7-15":"Jindřich","7-16":"Luboš","7-17":"Martina","7-18":"Drahomíra","7-19":"Čeněk","7-20":"Ilja","7-21":"Vítězslav","7-22":"Magdaléna","7-23":"Libor","7-24":"Kristýna","7-25":"Jakub","7-26":"Anna","7-27":"Věroslav","7-28":"Viktor","7-29":"Marta","7-30":"Bořivoj","7-31":"Ignác","8-1":"Oskar","8-2":"Gustav","8-3":"Miluše","8-4":"Dominik","8-5":"Kristián","8-6":"Oldřiška","8-7":"Lada","8-8":"Soběslav","8-9":"Roman","8-10":"Vavřinec","8-11":"Zuzana","8-12":"Klára","8-13":"Alena","8-14":"Alan","8-15":"Hana","8-16":"Jáchym","8-17":"Petra","8-18":"Helena","8-19":"Ludvík","8-20":"Bernard","8-21":"Johana","8-22":"Bohuslav","8-23":"Sandra","8-24":"Bartoloměj","8-25":"Radim","8-26":"Luděk","8-27":"Otakar","8-28":"Augustýn","8-29":"Evelína","8-30":"Vladěna","8-31":"Pavlína","9-1":"Linda, Samuel","9-2":"Adéla","9-3":"Bronislav","9-4":"Jindřiška","9-5":"Boris","9-6":"Boleslav","9-7":"Regína","9-8":"Mariana","9-9":"Daniela","9-10":"Irma","9-11":"Denisa, Denis","9-12":"Marie","9-13":"Lubor","9-14":"Radka","9-15":"Jolana","9-16":"Ludmila","9-17":"Naděžda","9-18":"Kryštof","9-19":"Zita","9-20":"Oleg","9-21":"Matouš","9-22":"Darina","9-23":"Berta","9-24":"Jaromír","9-25":"Zlata","9-26":"Andrea","9-27":"Jonáš","9-28":"Václav","9-29":"Michal","9-30":"Jeroným","10-1":"Igor","10-2":"Olívie, Oliver","10-3":"Bohumil","10-4":"František","10-5":"Eliška","10-6":"Hanuš","10-7":"Justýna","10-8":"Věra","10-9":"Štefan, Sára","10-10":"Marina","10-11":"Andrej","10-12":"Marcel","10-13":"Renáta","10-14":"Agáta","10-15":"Tereza","10-16":"Havel","10-17":"Hedvika","10-18":"Lukáš","10-19":"Michaela","10-20":"Vendelín","10-21":"Brigita","10-22":"Sabina","10-23":"Teodor","10-24":"Nina","10-25":"Beáta","10-26":"Erik","10-27":"Šarlota, Zoe","10-28":"","10-29":"Silvie","10-30":"Tadeáš","10-31":"Štěpánka","11-1":"Felix","11-2":"","11-3":"Hubert","11-4":"Karel","11-5":"Miriam","11-6":"Liběna","11-7":"Saskie","11-8":"Bohumír","11-9":"Bohdan","11-10":"Evžen","11-11":"Martin","11-12":"Benedikt","11-13":"Tibor","11-14":"Sáva","11-15":"Leopold","11-16":"Otmar","11-17":"Mahulena","11-18":"Romana","11-19":"Alžběta","11-20":"Nikola","11-21":"Albert","11-22":"Cecílie","11-23":"Klement","11-24":"Emílie","11-25":"Kateřina","11-26":"Artur","11-27":"Xenie","11-28":"René","11-29":"Zina","11-30":"Ondřej","12-1":"Iva","12-2":"Blanka","12-3":"Svatoslav","12-4":"Barbora","12-5":"Jitka","12-6":"Mikuláš","12-7":"Ambrož, Benjamín","12-8":"Květoslava","12-9":"Vratislav","12-10":"Julie","12-11":"Dana","12-12":"Simona","12-13":"Lucie","12-14":"Lýdie","12-15":"Radana, Radan","12-16":"Albína","12-17":"Daniel","12-18":"Miloslav","12-19":"Ester","12-20":"Dagmar","12-21":"Natálie","12-22":"Šimon","12-23":"Vlasta","12-24":"Adam a Eva","12-25":"","12-26":"Štěpán","12-27":"Žaneta","12-28":"Bohumila","12-29":"Judita","12-30":"David","12-31":"Silvestr"};
   const nameDay = (m, d) => NAMEDAYS[(m + 1) + "-" + d] || "";
   const fullDate = dt => `${DAYS_FULL[dt.getDay()]} ${dt.getDate()}. ${MONTHS_GEN[dt.getMonth()]} ${dt.getFullYear()}`;
-  const COLORS = ["#fcd34d","#fdba74","#818cf8","#34d399","#60a5fa","#f472b6","#c4b5fd","#86efac","#fca5a5","#93c5fd"];
-
-  const DEFAULT = () => ({
-    shifts: {},
-    wage: 200,
-    nightPct: 0,
-    holidayPct: 100,
-    weekendPct: 0,
-    theme: "dark",
-    types: [
-      { id: "R",   code: "R",   name: "Ranní",                              start: "06:00", end: "14:00", color: "#fcd34d", night: false, off: false },
-      { id: "O",   code: "O",   name: "Odpolední",                          start: "14:00", end: "22:00", color: "#fdba74", night: false, off: false },
-      { id: "N",   code: "N",   name: "Noční",                              start: "22:00", end: "06:00", color: "#818cf8", night: true,  off: false },
-      { id: "D",   code: "D",   name: "Denní služba",                       start: "07:00", end: "19:00", color: "#34d399", night: false, off: false },
-      { id: "NS",  code: "NS",  name: "Noční služba",                       start: "19:00", end: "07:00", color: "#60a5fa", night: true,  off: false },
-      { id: "UPS", code: "UPS", name: "Ústavní pohotovostní služba (24 h)", start: "00:00", end: "00:00", color: "#f472b6", night: false, off: false },
-      { id: "V",   code: "V",   name: "Volno",                              start: "00:00", end: "00:00", color: "#86efac", night: false, off: true  }
-    ]
-  });
+  // Výchozí typy ze starších verzí. Používají se jen při převodu starých dat na čas od–do.
+  const LEGACY_TYPES = [
+    { id: "R",   start: "06:00", end: "14:00" },
+    { id: "O",   start: "14:00", end: "22:00" },
+    { id: "N",   start: "22:00", end: "06:00" },
+    { id: "D",   start: "07:00", end: "19:00" },
+    { id: "NS",  start: "19:00", end: "07:00" },
+    { id: "UPS", start: "00:00", end: "00:00" },
+    { id: "V",   start: "00:00", end: "00:00", off: true }
+  ];
+  // Běžná slova pro asistenta (ranní, noční…). V kalendáři se žádné typy nevybírají.
+  const PRESETS = {
+    R: { from: "06:00", to: "14:00" }, O: { from: "14:00", to: "22:00" }, N: { from: "22:00", to: "06:00" },
+    D: { from: "07:00", to: "19:00" }, NS: { from: "19:00", to: "07:00" }, UPS: { from: "00:00", to: "00:00" }, V: { off: true }
+  };
+  const DEFAULT = () => ({ shifts: {}, theme: "dark", last: { from: "06:00", to: "14:00" } });
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const pad = n => String(n).padStart(2, "0");
   const keyOf = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
   const daysIn = (y, m) => new Date(y, m + 1, 0).getDate();
-  const fmtInt = n => Math.round(n).toLocaleString("cs-CZ");
-  const fmtH = n => (Math.round(n * 10) / 10).toLocaleString("cs-CZ") + " h";
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   // ---------- Uložení ----------
+  const okTime = s => /^([01]?\d|2[0-3]):[0-5]\d$/.test(String(s || ""));
+  const hhmm = s => { const [h, m] = String(s).split(":").map(Number); return `${pad(h)}:${pad(m)}`; };
+  // Jedna služba = { from, to, off, note }. Starší verze ukládaly jen id typu služby, ty se převedou.
+  function normEntry(v, legacy) {
+    if (!v) return null;
+    if (typeof v === "string") {
+      const t = (legacy || LEGACY_TYPES).find(x => x.id === v);
+      if (!t) return null;
+      return t.off ? { from: "", to: "", off: true, note: "" } : { from: hhmm(t.start || "00:00"), to: hhmm(t.end || "00:00"), off: false, note: "" };
+    }
+    if (typeof v !== "object") return null;
+    const note = String(v.note || "").slice(0, 60);
+    if (v.off) return { from: "", to: "", off: true, note };
+    if (!okTime(v.from) || !okTime(v.to)) return null;
+    return { from: hhmm(v.from), to: hhmm(v.to), off: false, note };
+  }
+  function normalizeData(raw) {
+    const d = DEFAULT();
+    if (!raw || typeof raw !== "object") return d;
+    const legacy = Array.isArray(raw.types) && raw.types.length ? raw.types : LEGACY_TYPES;
+    const shifts = {};
+    if (raw.shifts && typeof raw.shifts === "object") {
+      for (const k of Object.keys(raw.shifts)) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(k)) continue;
+        const e = normEntry(raw.shifts[k], legacy);
+        if (e) shifts[k] = e;
+      }
+    }
+    const out = { ...d, shifts, theme: raw.theme === "light" ? "light" : "dark" };
+    if (raw.last && okTime(raw.last.from) && okTime(raw.last.to)) out.last = { from: hhmm(raw.last.from), to: hhmm(raw.last.to) };
+    if (raw.aiLearn && typeof raw.aiLearn === "object") {
+      const al = {};
+      const src = raw.aiLearn.aliases && typeof raw.aiLearn.aliases === "object" ? raw.aiLearn.aliases : {};
+      for (const w of Object.keys(src)) {
+        const e = normEntry(src[w], legacy);
+        if (e) al[w] = { from: e.from, to: e.to, off: e.off };
+      }
+      out.aiLearn = { aliases: al, history: Array.isArray(raw.aiLearn.history) ? raw.aiLearn.history.slice(-100) : [] };
+    }
+    return out;
+  }
   function load() {
     let raw = null;
     try { raw = JSON.parse(localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY) || "null"); } catch (e) { raw = null; }
-    const d = DEFAULT();
-    if (!raw || typeof raw !== "object") return d;
-    const out = { ...d, ...raw };
-    out.shifts = (raw.shifts && typeof raw.shifts === "object") ? raw.shifts : {};
-    if (!Array.isArray(raw.types) || !raw.types.length) out.types = d.types;
-    return out;
+    return normalizeData(raw);
   }
   let data = load();
   function save() {
@@ -73,26 +104,35 @@
 
   const now = new Date();
   let view = { y: now.getFullYear(), m: now.getMonth() };
-  let brush = data.types[0] ? data.types[0].id : "C";
   let donAmount = 100;
 
-  // ---------- Typy a výpočty ----------
-  const typeById = id => data.types.find(t => t.id === id);
-  const shortOf = t => (t.code || t.name.slice(0, 3)).slice(0, 4);
-  function minutes(hhmm) {
-    const [h, m] = String(hhmm || "0:0").split(":").map(Number);
+  // ---------- Služby a pomocné funkce ----------
+  const shortT = s => { const [h, m] = String(s).split(":").map(Number); return m ? `${h}:${pad(m)}` : String(h); };
+  const isFull = e => !e.off && e.from === e.to;
+  function minutes(t) {
+    const [h, m] = String(t || "0:0").split(":").map(Number);
     return (h || 0) * 60 + (m || 0);
   }
-  function hoursOf(t) {
-    if (t.off) return 0;
-    let d = (minutes(t.end) - minutes(t.start) + 1440) % 1440;
-    if (d === 0) d = 1440;
-    return d / 60;
+  // Krátký popisek do kalendáře: „6–14“, „22–6“, „volno“, „24 h“
+  function rangeLabel(e) {
+    if (e.off) return "volno";
+    if (isFull(e)) return "24 h";
+    return `${shortT(e.from)}–${shortT(e.to)}`;
   }
-  function rangeLabel(t) {
-    if (t.off) return "volno";
-    if (t.start === t.end) return "24 h";
-    return `${t.start}–${t.end}`;
+  // Delší popis: „06:00–14:00“
+  function rangeLong(e) {
+    if (e.off) return "volno";
+    if (isFull(e)) return `${e.from}–${e.to} (24 h)`;
+    return `${e.from}–${e.to}`;
+  }
+  // Barva se určí sama podle začátku služby
+  function colorOf(e) {
+    if (e.off) return "#86efac";
+    if (isFull(e)) return "#f472b6";
+    const h = minutes(e.from) / 60;
+    if (h >= 4 && h < 11) return "#fcd34d";
+    if (h >= 11 && h < 17) return "#fdba74";
+    return "#818cf8";
   }
   function textOn(hex) {
     const c = String(hex || "#888888").replace("#", "");
@@ -104,8 +144,8 @@
     const n = daysIn(view.y, view.m);
     for (let d = 1; d <= n; d++) {
       const k = keyOf(view.y, view.m, d);
-      const code = data.shifts[k];
-      if (code && typeById(code)) out.push({ day: d, code, date: new Date(view.y, view.m, d), status: isCloud() ? (cloud.status[k] || "approved") : "approved" });
+      const e = data.shifts[k];
+      if (e) out.push({ day: d, e, date: new Date(view.y, view.m, d), status: isCloud() ? (cloud.status[k] || "approved") : "approved" });
     }
     return out;
   }
@@ -143,46 +183,19 @@
   }
   const holidayName = (y, m, d) => holidaysOf(y)[keyOf(y, m, d)] || "";
 
-  // Hodiny a odhad mzdy jedné služby podle dne, kdy začíná
-  function shiftPay(t, y, m, d) {
-    const h = hoursOf(t);
-    const dow = new Date(y, m, d).getDay();
-    const holiday = !!holidayName(y, m, d);
-    const weekend = dow === 0 || dow === 6;
-    const bonus = (t.night ? (Number(data.nightPct) || 0) : 0) +
-      (holiday ? (Number(data.holidayPct) || 0) : 0) +
-      (weekend ? (Number(data.weekendPct) || 0) : 0);
-    return { h, holiday, weekend, bonus, pay: h * (Number(data.wage) || 0) * (1 + bonus / 100) };
-  }
-
+  // Počet služeb a dní volna v zobrazeném měsíci
   function calc() {
-    const per = {};
-    let hours = 0, pay = 0, holidayHours = 0, weekendHours = 0, count = 0;
-    for (const e of monthEntries()) {
-      if (e.status !== "approved") continue; // čekající a zamítnuté se nepočítají
-      const t = typeById(e.code);
-      const s = shiftPay(t, view.y, view.m, e.day);
-      const r = per[t.id] || (per[t.id] = { t, n: 0, h: 0, pay: 0 });
-      r.n++; r.h += s.h; r.pay += s.pay;
-      hours += s.h; pay += s.pay;
-      if (!t.off) count++;
-      if (s.holiday) holidayHours += s.h;
-      if (s.weekend) weekendHours += s.h;
+    let count = 0, off = 0;
+    for (const x of monthEntries()) {
+      if (x.status !== "approved") continue; // čekající a zamítnuté se nepočítají
+      if (x.e.off) off++; else count++;
     }
-    return { per, hours, pay, holidayHours, weekendHours, count };
+    return { count, off };
   }
 
   // ---------- Render ----------
   function renderMonthLabel() {
     $("#monthLabel").textContent = `${MONTHS[view.m]} ${view.y}`;
-  }
-
-  function renderPalette() {
-    const pills = data.types.map(t =>
-      `<button class="pill${brush === t.id ? " on" : ""}" data-type="${esc(t.id)}" style="--c:${esc(t.color)};--t:${textOn(t.color)}">` +
-      `<b>${esc(shortOf(t))}</b><span>${esc(t.name)}</span></button>`);
-    pills.push(`<button class="pill clear${brush === "C" ? " on" : ""}" data-type="C"><b>✕</b><span>Smazat</span></button>`);
-    $("#palette").innerHTML = pills.join("");
   }
 
   function renderGrid() {
@@ -200,14 +213,14 @@
     for (let d = 1; d <= n; d++) {
       const k = keyOf(view.y, view.m, d);
       const dow = new Date(view.y, view.m, d).getDay();
-      const t = typeById(data.shifts[k]);
+      const t = data.shifts[k];
       const cell = document.createElement("button");
       const hol = holidayName(view.y, view.m, d);
       cell.className = "day" + (t ? " has" : "") + (dow === 0 || dow === 6 ? " weekend" : "") + (hol ? " holiday" : "") + (k === today ? " today" : "") + (d === selDay ? " sel" : "") + (isCloud() && cloud.status[k] && cloud.status[k] !== "approved" ? " " + cloud.status[k] : "");
-      cell.setAttribute("aria-label", `${fullDate(new Date(view.y, view.m, d))}${hol ? ", státní svátek" : ""}${t ? ", " + t.name : ""}`);
-      if (t) { cell.style.background = t.color; cell.style.color = textOn(t.color); }
+      cell.setAttribute("aria-label", `${fullDate(new Date(view.y, view.m, d))}${hol ? ", státní svátek" : ""}${t ? ", " + rangeLong(t) : ""}`);
+      if (t) { cell.style.background = colorOf(t); cell.style.color = textOn(colorOf(t)); }
       cell.dataset.day = d;
-      cell.innerHTML = `<span>${d}</span><span class="code">${t ? esc(shortOf(t)) : ""}</span>`;
+      cell.innerHTML = `<span>${d}</span><span class="code">${t ? esc(rangeLabel(t)) : ""}</span>`;
       grid.appendChild(cell);
     }
     const hl = [];
@@ -231,17 +244,16 @@
     const dt = new Date(view.y, view.m, selDay);
     const names = nameDay(view.m, selDay);
     const hol = holidayName(view.y, view.m, selDay);
-    const t = typeById(data.shifts[keyOf(view.y, view.m, selDay)]);
+    const k = keyOf(view.y, view.m, selDay);
+    const t = data.shifts[k];
     let shift = `<div class="dd-row">Služba: <b>žádná</b></div>`;
     if (t) {
-      const s = shiftPay(t, view.y, view.m, selDay);
-      shift = t.off
-        ? `<div class="dd-row">Služba: <b>${esc(t.name)}</b></div>`
-        : `<div class="dd-row">Služba: <b>${esc(t.name)}</b> ${esc(rangeLabel(t))} · ${fmtH(s.h)} · odhad <b>${fmtInt(s.pay)} Kč</b>${s.bonus ? ` (+${s.bonus} %)` : ""}</div>`;
+      shift = `<div class="dd-row">Služba: <b>${esc(rangeLong(t))}</b></div>` +
+        (t.note ? `<div class="dd-row">Poznámka: <b>${esc(t.note)}</b></div>` : "");
     }
-    const st = isCloud() ? cloud.status[keyOf(view.y, view.m, selDay)] : null;
-    if (st === "pending") shift += `<div class="dd-row">Stav: <b>čeká na schválení</b> (zatím se nezapočítává)</div>`;
-    if (st === "rejected") shift += `<div class="dd-row">Stav: <b>zamítnuto</b> – klepnutím na den žádost smažete nebo pošlete jinou</div>`;
+    const st = isCloud() ? cloud.status[k] : null;
+    if (st === "pending") shift += `<div class="dd-row">Stav: <b>čeká na schválení</b></div>`;
+    if (st === "rejected") shift += `<div class="dd-row">Stav: <b>zamítnuto</b>. Klepnutím na den ji upravíte nebo smažete.</div>`;
     $("#dayDetail").innerHTML =
       `<div class="dd-date">${fullDate(dt)}</div>` +
       `<div class="dd-row">Svátek má: <b>${names ? esc(names) : "—"}</b></div>` +
@@ -251,71 +263,38 @@
 
   function renderStats() {
     const c = calc();
-    $("#sHours").textContent = fmtH(c.hours);
-    $("#sPay").textContent = fmtInt(c.pay) + " Kč";
+    $("#sCount").textContent = c.count;
+    $("#sOff").textContent = c.off;
   }
 
   function renderSummary() {
     const c = calc();
-    const rows = data.types
-      .filter(t => c.per[t.id])
-      .map(t => {
-        const r = c.per[t.id];
-        return `<div class="row"><span>${esc(t.name)}</span><span><b>${r.n}×</b>${r.h ? " · " + fmtH(r.h) : ""}</span></div>`;
-      });
+    const rows = monthEntries().filter(x => x.status !== "rejected").map(x => {
+      const dow = DAYS_SHORT[x.date.getDay()];
+      const hol = holidayName(view.y, view.m, x.day);
+      return `<div class="row"><span>${x.day}. ${dow}${hol ? " 🎉" : ""}</span><span><b>${esc(rangeLabel(x.e))}</b>${x.e.note ? " · " + esc(x.e.note) : ""}${x.status === "pending" ? " · čeká" : ""}</span></div>`;
+    });
     $("#sumRows").innerHTML = (rows.length ? rows.join("") : `<p class="muted">Tento měsíc zatím nemá žádné služby.</p>`) +
-      `<div class="row"><span>Celkem odpracováno</span><b>${fmtH(c.hours)}</b></div>` +
-      (c.holidayHours ? `<div class="row"><span>Z toho ve svátek</span><b>${fmtH(c.holidayHours)}</b></div>` : "") +
-      (c.weekendHours ? `<div class="row"><span>Z toho o víkendu</span><b>${fmtH(c.weekendHours)}</b></div>` : "") +
-      `<div class="row"><span>Odhad mzdy</span><span class="total">${fmtInt(c.pay)} Kč</span></div>`;
+      `<div class="row"><span>Služeb celkem</span><b>${c.count}</b></div>` +
+      `<div class="row"><span>Dní volna</span><b>${c.off}</b></div>`;
     $("#waText").value = buildWhatsApp();
   }
 
   function buildWhatsApp() {
-    const entries = monthEntries().filter(e => e.status !== "rejected");
+    const entries = monthEntries().filter(x => x.status !== "rejected");
     if (!entries.length) return "Zatím nejsou zadané žádné služby.";
-    const lines = entries.map(e => {
-      const t = typeById(e.code);
-      const dow = DAYS_SHORT[e.date.getDay()];
-      const detail = t.off ? "" : ` (${rangeLabel(t)}, ${fmtH(hoursOf(t))})`;
-      const hol = holidayName(view.y, view.m, e.day);
-      return `${e.day}. ${dow} – ${t.name}${detail}${hol ? ` 🎉 ${hol}` : ""}${e.status === "pending" ? " (čeká na schválení)" : ""}`;
+    const lines = entries.map(x => {
+      const dow = DAYS_SHORT[x.date.getDay()];
+      const hol = holidayName(view.y, view.m, x.day);
+      return `${x.day}. ${dow} – ${rangeLong(x.e)}${x.e.note ? ` (${x.e.note})` : ""}${hol ? ` 🎉 ${hol}` : ""}${x.status === "pending" ? " (čeká na schválení)" : ""}`;
     });
     const who = isAdmin() && cloud.viewUser !== me() ? ` – ${memberName(cloud.viewUser)}` : "";
-    return `*Služby${who} – ${MONTHS[view.m]} ${view.y}*\n\n` + lines.join("\n") +
-      `\n\n⏱ Celkem: ${fmtH(calc().hours)}`;
-  }
-
-  // Seznam typů v nastavení. Při psaní se nepřekresluje, aby nezmizel focus.
-  function renderTypeList() {
-    const ro = isCloud() && !isAdmin();
-    $("#typeList").innerHTML = (ro ? `<p class="muted" style="margin:0 0 8px">Typy služeb spravuje staniční sestra.</p>` : "") +
-      `<fieldset class="plain"${ro ? " disabled" : ""}>` + data.types.map(t => `
-      <div class="type" data-tid="${esc(t.id)}">
-        <div class="type-top">
-          <input type="color" class="swatch" data-f="color" value="${esc(t.color)}" aria-label="Barva">
-          <input class="grow" data-f="name" value="${esc(t.name)}" maxlength="60" aria-label="Název">
-          <input class="codein" data-f="code" value="${esc(t.code)}" maxlength="4" aria-label="Zkratka">
-        </div>
-        <div class="type-mid">
-          ${t.off ? "" : `
-          <label>Od <input type="time" data-f="start" value="${esc(t.start)}"></label>
-          <label>Do <input type="time" data-f="end" value="${esc(t.end)}"></label>`}
-          <span class="hrs" data-hours>${fmtH(hoursOf(t))}</span>
-        </div>
-        <div class="type-bot">
-          <label class="chk"><input type="checkbox" data-f="off" ${t.off ? "checked" : ""}> Volno (bez hodin)</label>
-          <label class="chk"><input type="checkbox" data-f="night" ${t.night ? "checked" : ""}> Příplatek za noc</label>
-          <button class="btn danger small" data-act="delType" data-tid="${esc(t.id)}">Smazat</button>
-        </div>
-      </div>`).join("") + `</fieldset>`;
+    const c = calc();
+    return `*Rozpis${who} – ${MONTHS[view.m]} ${view.y}*\n\n` + lines.join("\n") +
+      `\n\n📅 Služeb: ${c.count}${c.off ? `, volno: ${c.off}` : ""}`;
   }
 
   function renderSettingsFields() {
-    $("#setWage").value = data.wage;
-    $("#setNight").value = data.nightPct;
-    $("#setHoliday").value = data.holidayPct;
-    $("#setWeekend").value = data.weekendPct;
     $$("#themeChips .chip").forEach(c => c.classList.toggle("on", c.dataset.theme === (isDark() ? "dark" : "light")));
   }
 
@@ -336,11 +315,9 @@
 
   function renderAll() {
     renderMonthLabel();
-    renderPalette();
     renderGrid();
     renderStats();
     renderSummary();
-    renderTypeList();
     renderSettingsFields();
     applyTheme();
     renderAccount();
@@ -348,7 +325,6 @@
   }
 
   function updateLive() {
-    renderPalette();
     renderGrid();
     renderStats();
     renderSummary();
@@ -389,19 +365,94 @@
     renderAdmin();
   }
 
-  function toggleDay(day) {
+  // ---------- Okno dne (klepnutí na datum) ----------
+  let dayKey = null, dayLocked = false;
+  const dayOpen = () => $("#dayModal").classList.contains("open");
+  function hideDay() {
+    $("#dayModal").classList.remove("open");
+    $("#dayModal").setAttribute("aria-hidden", "true");
+    dayKey = null;
+  }
+  function dayHint() {
+    const h = $("#dmHint");
+    if ($("#dmOff").checked) { h.textContent = "Celý den volno."; return; }
+    const a = $("#dmFrom").value, b = $("#dmTo").value;
+    if (!a || !b) h.textContent = "Vyberte začátek a konec.";
+    else if (a === b) h.textContent = "Stejný čas = celých 24 hodin.";
+    else if (minutes(b) < minutes(a)) h.textContent = "Služba pokračuje do dalšího dne.";
+    else h.textContent = "";
+  }
+  function setDayMsg(t) { const m = $("#dmMsg"); m.textContent = t || ""; m.hidden = !t; }
+  function openDay(day) {
     selDay = day;
     const k = keyOf(view.y, view.m, day);
-    if (isCloud()) {
-      const cur = data.shifts[k];
-      cloudSetDay(k, (brush === "C" || cur === brush) ? null : (typeById(brush) ? brush : null));
-      return;
-    }
-    if (brush === "C" || data.shifts[k] === brush) delete data.shifts[k];
-    else data.shifts[k] = brush;
-    save();
-    renderGrid(); renderStats(); renderSummary();
+    dayKey = k;
+    const dt = new Date(view.y, view.m, day);
+    const e = data.shifts[k];
+    const st = isCloud() ? cloud.status[k] : null;
+    dayLocked = isCloud() && !isAdmin() && st === "approved";
+    const names = nameDay(view.m, day);
+    const hol = holidayName(view.y, view.m, day);
+    $("#dmTitle").textContent = fullDate(dt);
+    $("#dmSub").textContent = [names ? "Svátek má " + names : "", hol ? "Státní svátek: " + hol : ""].filter(Boolean).join(" · ");
+    $("#dmSub").hidden = !$("#dmSub").textContent;
+    $("#dmOff").checked = !!(e && e.off);
+    $("#dmFrom").value = e && !e.off ? e.from : data.last.from;
+    $("#dmTo").value = e && !e.off ? e.to : data.last.to;
+    $("#dmNote").value = e ? e.note || "" : "";
+    $("#dmFrom").disabled = $("#dmTo").disabled = $("#dmOff").checked || dayLocked;
+    $("#dmOff").disabled = $("#dmNote").disabled = dayLocked;
+    $("#dmSave").hidden = dayLocked;
+    $("#dmDel").hidden = dayLocked || !e;
+    setDayMsg(dayLocked ? "Schválenou službu může změnit jen správce týmu." :
+      st === "pending" ? "Čeká na schválení správcem." : st === "rejected" ? "Žádost byla zamítnuta. Můžete poslat jinou." : "");
+    dayHint();
+    $("#dayModal").classList.add("open");
+    $("#dayModal").setAttribute("aria-hidden", "false");
+    pushUi("day");
+    renderGrid();
   }
+  async function saveDay() {
+    if (!dayKey || dayLocked) return;
+    const off = $("#dmOff").checked;
+    const from = $("#dmFrom").value, to = $("#dmTo").value;
+    const note = $("#dmNote").value.trim().slice(0, 60);
+    if (!off && (!from || !to)) return setDayMsg("Vyberte začátek i konec.");
+    const entry = off ? { from: "", to: "", off: true, note } : { from, to, off: false, note };
+    const k = dayKey;
+    if (!off) data.last = { from, to };
+    if (isCloud()) {
+      $("#dmSave").disabled = true;
+      const ok = await cloudSetDay(k, entry);
+      $("#dmSave").disabled = false;
+      if (!ok) return;
+    } else {
+      data.shifts[k] = entry;
+      save(); renderGrid(); renderStats(); renderSummary();
+      toast("Uloženo.");
+    }
+    closeUi("day", hideDay);
+  }
+  async function deleteDay() {
+    if (!dayKey || dayLocked) return;
+    const k = dayKey;
+    if (isCloud()) {
+      const ok = await cloudSetDay(k, null);
+      if (!ok) return;
+    } else {
+      delete data.shifts[k];
+      save(); renderGrid(); renderStats(); renderSummary();
+      toast("Smazáno.");
+    }
+    closeUi("day", hideDay);
+  }
+  $("#dmOff").addEventListener("change", () => {
+    $("#dmFrom").disabled = $("#dmTo").disabled = $("#dmOff").checked;
+    dayHint();
+  });
+  $("#dmFrom").addEventListener("input", dayHint);
+  $("#dmTo").addEventListener("input", dayHint);
+  $("#dmNote").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); saveDay(); } });
 
   function shiftMonth(delta) {
     view.m += delta;
@@ -507,12 +558,14 @@
     hide();
   }
   window.addEventListener("popstate", () => {
-    if (sheetOpen()) hideSheet();
+    if (dayOpen()) hideDay();
+    else if (sheetOpen()) hideSheet();
     else if (drawerOpen()) hideDrawer();
   });
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
-    if (sheetOpen()) closeUi("sheet", hideSheet);
+    if (dayOpen()) closeUi("day", hideDay);
+    else if (sheetOpen()) closeUi("sheet", hideSheet);
     else if (drawerOpen()) closeUi("drawer", hideDrawer);
   });
 
@@ -538,12 +591,12 @@
   const TIPS = [
     "Na začátku měsíce si naklikejte celý rozpis a pošlete ho rodině přes Přehled → WhatsApp. Všichni pak vědí, kdy jste v práci.",
     "Jednou za měsíc si udělejte zálohu v Nastavení → Záloha a pošlete si ji do poznámek nebo e-mailu.",
-    "Služba přes půlnoc? Zadejte začátek a konec, třeba 19:00 a 07:00. Aplikace sama spočítá 12 hodin.",
-    "Ve státní svátek se ke službě automaticky přičte příplatek za svátek. Výši najdete v Nastavení → Mzda.",
-    "Pro vlastní druh služby stačí v Nastavení klepnout na + Přidat typ služby a nastavit čas a barvu.",
+    "Služba přes půlnoc? Zadejte začátek a konec, třeba 19:00 a 07:00. Aplikace pozná, že pokračuje do dalšího dne.",
+    "Státní svátky jsou v kalendáři označené tečkou. Jejich název uvidíte po klepnutí na den.",
+    "K dni si můžete napsat poznámku, třeba oddělení nebo za koho zastupujete.",
     "Po noční službě si dopřejte spánek ve tmě a tichu. Pomáhá zatemnění a vypnutý telefon.",
     "Při dlouhé službě pijte průběžně, ne až na konci. Malé doušky po celou dobu udrží pozornost.",
-    "Klepnutím na den v kalendáři uvidíte, kdo má svátek, jestli je státní svátek a kolik vám služba vydělá.",
+    "Klepnutím na den v kalendáři nastavíte čas Od a Do a uvidíte, kdo má svátek.",
     "Tlačítkem 🌙 / ☀️ vpravo nahoře přepnete tmavý a světlý vzhled."
   ];
 
@@ -563,12 +616,12 @@
     const names = nameDay(n.getMonth(), n.getDate());
     const tNames = nameDay(tm.getMonth(), tm.getDate());
     const hol = holidayName(n.getFullYear(), n.getMonth(), n.getDate());
-    const t = typeById(data.shifts[keyOf(n.getFullYear(), n.getMonth(), n.getDate())]);
+    const t = data.shifts[keyOf(n.getFullYear(), n.getMonth(), n.getDate())];
     let s = `Dnes je <b>${fullDate(n)}</b> a je <b>${timeStr(n)}</b>.`;
     s += names ? ` Svátek má <b>${esc(names)}</b>` : " Dnes nemá svátek nikdo z kalendáře";
     s += tNames ? `, zítra <b>${esc(tNames)}</b>.` : ".";
     if (hol) s += `<br>Dnes je státní svátek: <b>${esc(hol)}</b>.`;
-    if (t) s += t.off ? `<br>Dnes máte <b>volno</b>. Užijte si ho.` : `<br>Dnes máte službu <b>${esc(t.name)}</b> (${esc(rangeLabel(t))}).`;
+    if (t) s += t.off ? `<br>Dnes máte <b>volno</b>. Užijte si ho.` : `<br>Dnes máte službu <b>${esc(rangeLong(t))}</b>.`;
     return s;
   }
 
@@ -659,20 +712,12 @@
   function monthReport() {
     const c = calc();
     const head = `${MONTHS[view.m]} ${view.y}`;
-    if (!c.count && !c.hours) return `V měsíci <b>${head}</b> zatím nemáte žádné služby. Naklikejte je v Kalendáři.`;
-    let s = `Za <b>${head}</b>: <b>${c.count}</b> ${c.count === 1 ? "služba" : c.count < 5 ? "služby" : "služeb"}, celkem <b>${fmtH(c.hours)}</b>.`;
-    const parts = [];
-    if (c.holidayHours) parts.push(`ve svátek ${fmtH(c.holidayHours)}`);
-    if (c.weekendHours) parts.push(`o víkendu ${fmtH(c.weekendHours)}`);
-    if (parts.length) s += ` Z toho ${parts.join(", ")}.`;
-    return s;
+    if (!c.count && !c.off) return `V měsíci <b>${head}</b> zatím nemáte žádné služby. Klepněte na den v Kalendáři a zadejte je.`;
+    return `Za <b>${head}</b>: <b>${c.count}</b> ${c.count === 1 ? "služba" : c.count < 5 ? "služby" : "služeb"}` +
+      (c.off ? ` a <b>${c.off}</b> ${c.off === 1 ? "den volna" : "dní volna"}` : "") + ".";
   }
   function payReport() {
-    const c = calc();
-    if (!c.hours) return `Tento měsíc zatím nemáte žádné odpracované hodiny, takže odhad je 0 Kč.`;
-    return `Odhad mzdy za <b>${MONTHS[view.m]} ${view.y}</b> je <b>${fmtInt(c.pay)} Kč</b> hrubého ` +
-      `(${fmtH(c.hours)} × ${fmtInt(data.wage)} Kč/h a příplatky: noc ${data.nightPct || 0} %, svátek ${data.holidayPct || 0} %, víkend ${data.weekendPct || 0} %).` +
-      `<br>Je to jen orientační částka bez daní a odvodů. Sazby změníte v Nastavení → Mzda.`;
+    return "Mzdu ani výdělek aplikace nepočítá, slouží jen jako evidence služeb. Na vlastní výpočet použijte kalkulačku, třeba „160 * 250“.";
   }
 
   function reply(text) {
@@ -682,14 +727,14 @@
       return "Je mi líto, že je vám takhle těžko. Nemusíte na to být sami. Zavolejte prosím na <b>Linku první psychické pomoci 116 123</b> (nonstop, zdarma), nebo se ozvěte někomu blízkému. Pokud jste v ohrožení, volejte <b>155</b> nebo <b>112</b>.";
     }
     if (BAD.some(r => r.test(q))) {
-      return "Tohle sem nepatří 🙂 Jsem tu na služby, svátky, výpočty a rady k aplikaci. Zkuste se zeptat třeba „Kolik mám tento měsíc hodin?“";
+      return "Tohle sem nepatří 🙂 Jsem tu na služby, svátky, výpočty a rady k aplikaci. Zkuste se zeptat třeba „Kolik mám tento měsíc služeb?“";
     }
     if (/^(ahoj|cau|cus|nazdar|zdravim|dobry den|dobre rano|dobry vecer|hello|hi|hej)\b/.test(q)) {
       return `${greetingWord(new Date().getHours())}! ${todayInfo()}`;
     }
     if (/\b(diky|dekuji|dekuju|dik|super|paráda|parada)\b/.test(q)) return "Rádo se stalo. Kdyby něco, jsem tady.";
     if (/co umis|napoveda|\bhelp\b|jak ti|co dokazes|s cim/.test(q)) {
-      return "Umím tohle:<ul><li>kdo má dnes, zítra nebo v určitý den svátek, a kdy má svátek konkrétní jméno,</li><li>státní svátky a kolik zbývá do nejbližšího,</li><li>kolik máte tento měsíc služeb, hodin a odhad mzdy,</li><li>délku služby (třeba „od 19:00 do 7:00“),</li><li>kalkulačku: + − × ÷, závorky, mocniny a procenta,</li><li>tipy k aplikaci a k práci na směny,</li><li>zapsat službu příkazem, třeba „dej mi příští úterý ranní“, „chci volno v pátek“, „zruš mi zítřek“ nebo „dej mi noční každou středu v prosinci“. Když mě opravíte, zapamatuji si to.</li></ul>Jsem jednoduchý pomocník přímo v aplikaci, ne umělá inteligence s internetem, takže na obecné otázky mimo tato témata neodpovím.";
+      return "Umím tohle:<ul><li>kdo má dnes, zítra nebo v určitý den svátek, a kdy má svátek konkrétní jméno,</li><li>státní svátky a kolik zbývá do nejbližšího,</li><li>kolik máte tento měsíc služeb a dní volna,</li><li>délku služby (třeba „od 19:00 do 7:00“),</li><li>kalkulačku: + − × ÷, závorky, mocniny a procenta,</li><li>tipy k aplikaci a k práci na směny,</li><li>zapsat službu příkazem, třeba „dej mi příští úterý ranní“, „dej mi zítra 6-14“, „chci volno v pátek“, „zruš mi zítřek“ nebo „dej mi noční každou středu v prosinci“. Když mě opravíte, zapamatuji si to.</li></ul>Jsem jednoduchý pomocník přímo v aplikaci, ne umělá inteligence s internetem, takže na obecné otázky mimo tato témata neodpovím.";
     }
     // délka služby
     const tm = q.match(/(\d{1,2})[:.](\d{2})\s*(?:-|–|do|az)\s*(\d{1,2})[:.](\d{2})/) || q.match(/\bod (\d{1,2})(?:[:.](\d{2}))? do (\d{1,2})(?:[:.](\d{2}))?/);
@@ -744,23 +789,20 @@
     // čas a datum
     if (/kolik je hodin|\bcas\b|kolik je ted/.test(q)) return `Je <b>${timeStr(new Date())}</b>.`;
     if (/datum|jaky je (dnes )?den|co je dnes|ktery je dnes/.test(q)) return todayInfo();
-    // mzda a hodiny
+    // mzda a počty služeb
     if (/vydel|mzd|vyplat|penez|penize|kolik dostanu|plat\b/.test(q)) return payReport();
-    if (/hodin|sluzb|smen|odpracov|prehled/.test(q)) return monthReport();
-    if (/priplat/.test(q)) {
-      return `Aplikace počítá tři příplatky, které nastavíte v Nastavení → Mzda: za noc (teď ${data.nightPct || 0} %), za státní svátek (${data.holidayPct || 0} %) a za víkend (${data.weekendPct || 0} %). Sčítají se. Zákoník práce určuje minimum 10 % za noc a víkend a 100 % za svátek, pokud nedostanete náhradní volno. Ve státní sféře (plat) platí jiné sazby.`;
-    }
+    if (/hodin|sluzb|sluzeb|smen|odpracov|prehled/.test(q)) return monthReport();
+    if (/priplat/.test(q)) return payReport();
     // nápověda k aplikaci
     if (/zaloh/.test(q)) return "Záloha: Nastavení → Záloha → <b>Vytvořit zálohu</b> → <b>Kopírovat zálohu</b>. Text si pošlete do poznámek nebo e-mailu. Obnovíte ji vložením do pole a klepnutím na Obnovit ze zálohy.";
     if (/whats|poslat|sdilet|export/.test(q)) return "Rozpis pošlete v záložce <b>Přehled</b> → <b>Otevřít ve WhatsAppu</b>. Můžete ho i zkopírovat nebo sdílet jinam.";
-    if (/\bups\b|pohotovost/.test(q)) return "UPS (ústavní pohotovostní služba) je předvolená jako 24hodinová služba. Čas a barvu upravíte v Nastavení → Typy služeb.";
-    if (/typ|pridat|nova sluzba|vlastni/.test(q)) return "Nový typ služby přidáte v Nastavení → <b>+ Přidat typ služby</b>. Nastavte název, zkratku, začátek, konec a barvu.";
+    if (/typ|pridat|nova sluzba|vlastni/.test(q)) return "Službu zapíšete klepnutím na den v kalendáři. Otevře se okno, kde nastavíte čas <b>Od</b> a <b>Do</b>, případně <b>Volno</b> a poznámku. Žádné typy služeb vybírat nemusíte.";
     if (/\btip|\brad[au]|poradi|doporuc/.test(q)) return "💡 " + TIPS[Math.floor(Math.random() * TIPS.length)];
     // kalkulačka
     const expr = text.replace(/^(.*?)(spocitej|spočítej|vypocitej|vypočítej|kolik je|kolik dela|kolik dělá)\s*/i, "").replace(/[=?]\s*$/, "").trim();
     const v = calcExpr(expr);
     if (v !== null) return `${esc(expr)} = <span class="calc">${fmtNum(v)}</span>`;
-    return "Tomu úplně nerozumím. Zkuste třeba „Kdo má zítra svátek?“, „Kolik vydělám?“, „od 19:00 do 7:00“ nebo příklad „1250 * 1,1“. Napište „Co umíš?“ a ukážu vám víc.";
+    return "Tomu úplně nerozumím. Zkuste třeba „Kdo má zítra svátek?“, „Kolik mám služeb?“, „od 19:00 do 7:00“ nebo příklad „1250 * 1,1“. Napište „Co umíš?“ a ukážu vám víc.";
   }
 
   function addMsg(html, who) {
@@ -829,22 +871,13 @@
     return m || "Něco se nepovedlo.";
   };
 
-  const mapType = r => ({ id: r.id, code: r.code || "", name: r.name, start: r.start_time, end: r.end_time,
-    color: r.color, night: !!r.night, off: !!r.off, sort: r.sort || 0 });
+  const rowOf = e => ({ start_time: e.off ? "" : e.from, end_time: e.off ? "" : e.to, off: !!e.off, note: e.note || "" });
+  const rowEntry = r => normEntry({ from: r.start_time, to: r.end_time, off: r.off, note: r.note });
 
-  function enterCloudMode(types) {
-    const p = cloud.profile;
+  function enterCloudMode() {
     const learned = (data.aiLearn && cloud.wasCloud) ? data.aiLearn : { aliases: {}, history: [] };
-    data = {
-      ...DEFAULT(),
-      theme: readTheme(),
-      shifts: {},
-      types: types.map(mapType),
-      wage: Number(p.wage), nightPct: Number(p.night_pct), holidayPct: Number(p.holiday_pct), weekendPct: Number(p.weekend_pct),
-      aiLearn: learned
-    };
+    data = { ...DEFAULT(), theme: readTheme(), last: data.last || DEFAULT().last, shifts: {}, aiLearn: learned };
     cloud.wasCloud = true;
-    if (!typeById(brush) && brush !== "C") brush = data.types[0] ? data.types[0].id : "C";
   }
 
   function leaveCloudMode() {
@@ -853,7 +886,6 @@
       cloud.wasCloud = false;
       cloud.status = {}; cloud.pending = []; cloud.members = []; cloud.team = null;
       data = load();
-      brush = data.types[0] ? data.types[0].id : "C";
       renderAll();
     }
     renderAccount(); renderAdmin();
@@ -869,16 +901,15 @@
     if (error) { toast("Cloud: " + czErr(error)); return; }
     cloud.profile = prof;
     if (!prof || !prof.team_id) { cloud.team = null; leaveCloudMode(); return; }
-    const [t, m, ty] = await Promise.all([
+    const [t, m] = await Promise.all([
       sb.from("teams").select("*").eq("id", prof.team_id).maybeSingle(),
-      sb.from("profiles").select("id, full_name, role").eq("team_id", prof.team_id).order("full_name"),
-      sb.from("shift_types").select("*").eq("team_id", prof.team_id).order("sort").order("created_at")
+      sb.from("profiles").select("id, full_name, role").eq("team_id", prof.team_id).order("full_name")
     ]);
     if (seq !== loadSeq) return;
-    if (t.error || m.error || ty.error) { toast("Cloud: " + czErr(t.error || m.error || ty.error)); return; }
+    if (t.error || m.error) { toast("Cloud: " + czErr(t.error || m.error)); return; }
     cloud.team = t.data; cloud.members = m.data || [];
     if (!cloud.viewUser || !cloud.members.some(x => x.id === cloud.viewUser) || prof.role !== "admin") cloud.viewUser = me();
-    enterCloudMode(ty.data || []);
+    enterCloudMode();
     await loadShifts();
     await loadLearned();
     subscribeCloud();
@@ -890,27 +921,20 @@
     if (!isCloud()) return;
     const from = `${view.y - 1}-01-01`, to = `${view.y + 1}-12-31`;
     const { data: rows, error } = await cloud.sb.from("shifts")
-      .select("day, type_id, status").eq("user_id", cloud.viewUser).gte("day", from).lte("day", to).limit(3000);
+      .select("day, start_time, end_time, off, note, status").eq("user_id", cloud.viewUser).gte("day", from).lte("day", to).limit(3000);
     if (error) { toast("Cloud: " + czErr(error)); return; }
     cloud.loadedYear = view.y;
     data.shifts = {}; cloud.status = {};
-    for (const r of rows || []) { data.shifts[r.day] = r.type_id; cloud.status[r.day] = r.status; }
-  }
-
-  async function reloadTypes() {
-    if (!isCloud()) return;
-    const { data: rows, error } = await cloud.sb.from("shift_types").select("*").eq("team_id", cloud.team.id).order("sort").order("created_at");
-    if (error) return;
-    data.types = (rows || []).map(mapType);
-    if (!typeById(brush) && brush !== "C") brush = data.types[0] ? data.types[0].id : "C";
-    updateLive();
-    if (!document.activeElement || !document.activeElement.closest("#typeList")) renderTypeList();
+    for (const r of rows || []) {
+      const e = rowEntry(r);
+      if (e) { data.shifts[r.day] = e; cloud.status[r.day] = r.status; }
+    }
   }
 
   async function loadPending() {
     if (!isAdmin()) { cloud.pending = []; return; }
     const { data: rows, error } = await cloud.sb.from("shifts")
-      .select("id, day, type_id, user_id").eq("team_id", cloud.team.id).eq("status", "pending").order("day").limit(200);
+      .select("id, day, start_time, end_time, off, note, user_id").eq("team_id", cloud.team.id).eq("status", "pending").order("day").limit(200);
     cloud.pending = error ? [] : (rows || []);
     renderPending();
   }
@@ -924,27 +948,26 @@
         clearTimeout(rtTimer);
         rtTimer = setTimeout(async () => { await loadShifts(); await loadPending(); updateLive(); renderAdmin(); }, 400);
       })
-      .on("postgres_changes", { event: "*", schema: "public", table: "shift_types", filter: f }, () => reloadTypes())
       .subscribe();
   }
 
   // Uložení / smazání jedné služby (optimisticky, při chybě se vrátí zpět)
-  async function cloudSetDay(k, typeId, userId) {
+  async function cloudSetDay(k, entry, userId) {
     const target = userId || cloud.viewUser;
     const admin = isAdmin();
     const viewing = target === cloud.viewUser;
     const prev = data.shifts[k], prevSt = cloud.status[k];
     if (!admin && viewing && prevSt === "approved") {
-      toast("Schválenou službu může změnit jen staniční sestra.");
+      toast("Schválenou službu může změnit jen správce týmu.");
       return false;
     }
     if (viewing) {
-      if (typeId) { data.shifts[k] = typeId; cloud.status[k] = admin ? "approved" : "pending"; }
+      if (entry) { data.shifts[k] = { ...entry }; cloud.status[k] = admin ? "approved" : "pending"; }
       else { delete data.shifts[k]; delete cloud.status[k]; }
       renderGrid(); renderStats(); renderSummary();
     }
-    const res = typeId
-      ? await cloud.sb.from("shifts").upsert({ team_id: cloud.team.id, user_id: target, day: k, type_id: typeId,
+    const res = entry
+      ? await cloud.sb.from("shifts").upsert({ team_id: cloud.team.id, user_id: target, day: k, ...rowOf(entry),
           status: admin ? "approved" : "pending", created_by: me() }, { onConflict: "user_id,day" })
       : await cloud.sb.from("shifts").delete().eq("user_id", target).eq("day", k);
     if (res.error) {
@@ -955,22 +978,10 @@
       toast("Neuloženo: " + czErr(res.error));
       return false;
     }
-    if (!admin && typeId) toast("Odesláno ke schválení staniční sestře.");
+    if (!admin && entry) toast("Odesláno ke schválení správci týmu.");
+    else toast(entry ? "Uloženo." : "Smazáno.");
     if (admin) loadPending();
     return true;
-  }
-
-  const saveTypeTimers = {};
-  function cloudSaveType(t) {
-    if (!isAdmin()) return;
-    clearTimeout(saveTypeTimers[t.id]);
-    saveTypeTimers[t.id] = setTimeout(async () => {
-      const { error } = await cloud.sb.from("shift_types").update({
-        code: t.code, name: t.name || "Bez názvu", start_time: t.start, end_time: t.end,
-        color: t.color, night: !!t.night, off: !!t.off
-      }).eq("id", t.id);
-      if (error) toast("Typ neuložen: " + czErr(error));
-    }, 600);
   }
 
   async function cloudSaveProfile(patch) {
@@ -989,7 +1000,7 @@
     $("#addTypeBtn") && ($("#addTypeBtn").hidden = isCloud() && !isAdmin());
     const note = cloud.msg ? `<p class="acc-msg">${esc(cloud.msg)}</p>` : "";
     if (!SUPABASE_URL || !SUPABASE_KEY) {
-      box.innerHTML = `<h2>Účet a tým</h2><p class="muted" style="margin:0">Aplikace teď běží jen v tomto telefonu. Pro sdílení se staniční a kolegy je potřeba propojit cloud (správce aplikace vyplní adresu a klíč Supabase v kódu).</p>`;
+      box.innerHTML = `<h2>Účet a tým</h2><p class="muted" style="margin:0">Aplikace teď běží jen v tomto telefonu. Pro sdílení rozpisu s kolegy je potřeba propojit cloud (správce aplikace vyplní adresu a klíč Supabase v kódu).</p>`;
       return;
     }
     if (!cloud.sb) {
@@ -1004,7 +1015,7 @@
     }
     if (!cloud.user) {
       box.innerHTML = `<h2>Účet a tým</h2>
-        <p class="muted" style="margin-top:0">Přihlaste se a vaše služby se uloží do cloudu. Uvidí je i staniční sestra a nepřijdete o ně při výměně telefonu.</p>
+        <p class="muted" style="margin-top:0">Přihlaste se a vaše služby se uloží do cloudu. Uvidí je i správce týmu a nepřijdete o ně při výměně telefonu.</p>
         <label class="field"><span>E-mail</span><input id="accEmail" type="email" autocomplete="email" inputmode="email"></label>
         <label class="field"><span>Heslo</span><input id="accPass" type="password" autocomplete="current-password"></label>
         <label class="field" id="accNameWrap" hidden><span>Jméno a příjmení</span><input id="accName" autocomplete="name" maxlength="60"></label>
@@ -1020,10 +1031,10 @@
     const who = `<div class="acc-who"><b>${esc(p.full_name || cloud.user.email)}</b><span>${esc(cloud.user.email || "")}</span></div>`;
     if (!cloud.team) {
       box.innerHTML = `<h2>Účet a tým</h2>${who}
-        <p class="muted">Ještě nejste v žádném týmu. Staniční sestra tým založí, ostatní se připojí kódem, který jim pošle.</p>
-        <label class="field"><span>Kód týmu od staniční</span><input id="accCode" maxlength="8" autocapitalize="characters" placeholder="např. 7F3A9C2B"></label>
+        <p class="muted">Ještě nejste v žádném týmu. Správce tým založí, ostatní se připojí kódem, který jim pošle.</p>
+        <label class="field"><span>Kód týmu od správce</span><input id="accCode" maxlength="8" autocapitalize="characters" placeholder="např. 7F3A9C2B"></label>
         <div class="stack"><button class="btn primary" data-act="teamJoin">Připojit se k týmu</button></div>
-        <label class="field" style="margin-top:14px"><span>Nebo založte tým (jste-li staniční)</span><input id="accTeam" maxlength="80" placeholder="např. Interna 3"></label>
+        <label class="field" style="margin-top:14px"><span>Nebo založte vlastní tým (staňte se správcem)</span><input id="accTeam" maxlength="80" placeholder="např. Naše parta"></label>
         <div class="stack"><button class="btn" data-act="teamCreate">Založit tým</button></div>
         <div class="stack"><button class="btn link" data-act="authLogout">Odhlásit</button></div>${note}`;
       return;
@@ -1031,14 +1042,14 @@
     const admin = isAdmin();
     const members = cloud.members.map(m => `
       <div class="member">
-        <span><b>${esc(m.full_name || "Bez jména")}</b>${m.role === "admin" ? ' <i class="badge">admin</i>' : ""}${m.id === me() ? ' <i class="badge me">vy</i>' : ""}</span>
+        <span><b>${esc(m.full_name || "Bez jména")}</b>${m.role === "admin" ? ' <i class="badge">správce</i>' : ""}${m.id === me() ? ' <i class="badge me">vy</i>' : ""}</span>
         ${admin && m.id !== me() ? `<span class="member-act">
-          <button class="btn small" data-act="memberRole" data-id="${m.id}" data-role="${m.role === "admin" ? "user" : "admin"}">${m.role === "admin" ? "Odebrat admina" : "Udělat adminem"}</button>
+          <button class="btn small" data-act="memberRole" data-id="${m.id}" data-role="${m.role === "admin" ? "user" : "admin"}">${m.role === "admin" ? "Odebrat správce" : "Udělat správcem"}</button>
           <button class="btn small danger" data-act="memberRemove" data-id="${m.id}">Odebrat</button></span>` : ""}
       </div>`).join("");
     box.innerHTML = `<h2>Účet a tým</h2>${who}
       <div class="row"><span>Tým</span><b>${esc(cloud.team.name)}</b></div>
-      <div class="row"><span>Vaše role</span><b>${admin ? "Admin / staniční sestra" : "Běžný uživatel"}</b></div>
+      <div class="row"><span>Vaše role</span><b>${admin ? "Správce týmu" : "Běžný uživatel"}</b></div>
       ${admin ? `<div class="row"><span>Kód pro pozvání</span><b class="code-big">${esc(cloud.team.invite_code)}</b></div>
         <div class="stack"><button class="btn" data-act="copyInvite">Kopírovat pozvánku</button></div>` : ""}
       <h2 style="margin-top:16px">Členové (${cloud.members.length})</h2>
@@ -1145,11 +1156,6 @@
       $("#bulkMembers").dataset.ready = "1";
       $("#bulkMembers").dataset.team = cloud.team.id + cloud.members.length;
     }
-    const bt = $("#bulkType");
-    const cur = bt.value;
-    bt.innerHTML = data.types.map(t => `<option value="${t.id}">${esc(t.name)}${t.off ? "" : " (" + esc(rangeLabel(t)) + ")"}</option>`).join("") +
-      `<option value="__del">— smazat služby v rozsahu —</option>`;
-    if (cur) bt.value = cur;
     if (!$("#bulkFrom").value) {
       $("#bulkFrom").value = keyOf(view.y, view.m, 1);
       $("#bulkTo").value = keyOf(view.y, view.m, daysIn(view.y, view.m));
@@ -1162,9 +1168,9 @@
     if (!isAdmin() || !pendingOpen || !cloud.pending.length) { card.hidden = true; return; }
     card.hidden = false;
     const rows = cloud.pending.map(r => {
-      const t = typeById(r.type_id);
       const [y, m, d] = r.day.split("-").map(Number);
-      return `<div class="req"><div><b>${esc(memberName(r.user_id))}</b><span>${fullDate(new Date(y, m - 1, d))} · ${esc(t ? t.name : "?")}</span></div>
+      const re = rowEntry(r);
+      return `<div class="req"><div><b>${esc(memberName(r.user_id))}</b><span>${fullDate(new Date(y, m - 1, d))} · ${esc(re ? rangeLong(re) : "?")}${re && re.note ? " · " + esc(re.note) : ""}</span></div>
         <div class="req-act"><button class="btn small primary" data-act="reqApprove" data-id="${r.id}">Schválit</button>
         <button class="btn small danger" data-act="reqReject" data-id="${r.id}">Zamítnout</button></div></div>`;
     }).join("");
@@ -1177,11 +1183,13 @@
     const users = $$("#bulkMembers input:checked").map(i => i.value);
     const from = $("#bulkFrom").value, to = $("#bulkTo").value;
     const days = $$("#bulkDays input:checked").map(i => Number(i.value));
-    const typeId = $("#bulkType").value;
+    const del = $("#bulkDelete").checked, off = $("#bulkOff").checked;
+    const t1 = $("#bulkTimeFrom").value, t2 = $("#bulkTimeTo").value;
     const overwrite = $("#bulkOverwrite").checked;
     const info = m => { $("#bulkInfo").textContent = m; };
     if (!users.length) return info("Vyberte aspoň jednoho člověka.");
     if (!from || !to || from > to) return info("Zkontrolujte rozsah dat.");
+    if (!del && !off && (!t1 || !t2)) return info("Vyplňte čas Od a Do, nebo zaškrtněte Volno.");
     const dates = [];
     const [fy, fm, fd] = from.split("-").map(Number), [ty, tm, td] = to.split("-").map(Number);
     for (let dt = new Date(fy, fm - 1, fd); dt <= new Date(ty, tm - 1, td); dt.setDate(dt.getDate() + 1)) {
@@ -1192,14 +1200,15 @@
     btn.disabled = true; info("Ukládám…");
     let count = 0, err = null;
     try {
-      if (typeId === "__del") {
+      if (del) {
         for (let i = 0; i < dates.length && !err; i += 300) {
           const r = await cloud.sb.from("shifts").delete({ count: "exact" }).in("user_id", users).in("day", dates.slice(i, i + 300));
           err = r.error; count += r.count || 0;
         }
       } else {
+        const part = rowOf(off ? { off: true } : { from: t1, to: t2, off: false });
         const rows = [];
-        for (const u of users) for (const d of dates) rows.push({ team_id: cloud.team.id, user_id: u, day: d, type_id: typeId, status: "approved", created_by: me() });
+        for (const u of users) for (const d of dates) rows.push({ team_id: cloud.team.id, user_id: u, day: d, ...part, status: "approved", created_by: me() });
         for (let i = 0; i < rows.length && !err; i += 500) {
           const r = await cloud.sb.from("shifts").upsert(rows.slice(i, i + 500), { onConflict: "user_id,day", ignoreDuplicates: !overwrite });
           err = r.error; count += Math.min(500, rows.length - i);
@@ -1208,7 +1217,7 @@
     } catch (e) { err = e; }
     btn.disabled = false;
     if (err) return info("Chyba: " + czErr(err));
-    info(typeId === "__del" ? `Smazáno služeb: ${count}.` : `Hotovo. Zpracováno ${count} služeb${overwrite ? "" : " (existující zůstaly beze změny)"}.`);
+    info(del ? `Smazáno služeb: ${count}.` : `Hotovo. Zpracováno ${count} služeb${overwrite ? "" : " (existující zůstaly beze změny)"}.`);
     await loadShifts(); await loadPending(); updateLive(); renderAdmin();
   }
 
@@ -1246,7 +1255,10 @@
     const { data: rows } = await cloud.sb.from("ai_feedback").select("corrected").eq("user_id", me())
       .not("corrected", "is", null).order("created_at", { ascending: true }).limit(500);
     const aliases = {};
-    for (const r of rows || []) Object.assign(aliases, (r.corrected && r.corrected.aliases) || {});
+    for (const r of rows || []) {
+      const src = (r.corrected && r.corrected.aliases) || {};
+      for (const w of Object.keys(src)) { const e = normEntry(src[w]); if (e && typeof src[w] === "object") aliases[w] = { from: e.from, to: e.to, off: e.off }; }
+    }
     data.aiLearn = { aliases, history: [] };
   }
 
@@ -1291,8 +1303,8 @@
       q = q.replace(rng[0], " ");
       used.push("od", "do");
     }
-    if (/\bdnes\b/.test(q)) add(base);
-    if (/\bzitra\b/.test(q)) add(addDays(base, 1));
+    if (/\b(dnes|dneska)\b/.test(q)) add(base);
+    if (/\bzitr(a|ek|ka|ku)\b/.test(q)) add(addDays(base, 1));
     if (/\bpozitri\b/.test(q)) add(addDays(base, 2));
     const za = q.match(/\bza\s+(\d{1,3})\s+(dni|dny|den)\b/);
     if (za) add(addDays(base, +za[1]));
@@ -1339,22 +1351,34 @@
     return [...out.values()].sort((a, b) => a - b);
   }
 
-  function parseType(q) {
-    const words = q.split(" ");
+  // Co se má zapsat: výslovný čas („6-14“, „od 7 do 19“), naučené slovo, nebo běžné slovo (ranní, noční, volno…)
+  const whatOf = p => p.off ? { from: "", to: "", off: true } : { from: p.from, to: p.to, off: false };
+  function parseTimes(q) {
+    const s = q.replace(/\b\d{1,2}\.\s?\d{1,2}\.?(?:\s?\d{4})?/g, " ")
+      .replace(new RegExp("\\b\\d{1,2}\\.?\\s?(?:" + MONTHS_GEN.map(norm).join("|") + ")\\b", "g"), " ");
+    const m = s.match(/(?:^|\s)(?:od\s+)?(\d{1,2})(?:[:.](\d{2}))?\s*(?:-|–|do|az)\s*(\d{1,2})(?:[:.](\d{2}))?(?=\s|$)/);
+    if (!m) return null;
+    const h1 = +m[1], m1 = +(m[2] || 0), m2 = +(m[4] || 0);
+    let h2 = +m[3];
+    if (h2 === 24 && m2 === 0) h2 = 0;
+    if (h1 > 23 || h2 > 23 || m1 > 59 || m2 > 59) return null;
+    return { what: { from: `${pad(h1)}:${pad(m1)}`, to: `${pad(h2)}:${pad(m2)}`, off: false }, via: "rules", word: m[0].trim() };
+  }
+  function parseWhat(q) {
+    const t = parseTimes(q);
+    if (t) return t;
     const aliases = (data.aiLearn && data.aiLearn.aliases) || {};
-    for (const w of words) if (aliases[w] && typeById(aliases[w])) return { type: typeById(aliases[w]), via: "learned", word: w };
-    let best = null;
-    const consider = (phrase, t) => {
-      if (!phrase) return;
-      const re = new RegExp("(^|\\s)" + phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(\\s|$)");
-      if (re.test(q) && (!best || phrase.length > best.len)) best = { type: t, len: phrase.length, word: phrase };
-    };
-    for (const t of data.types) {
-      consider(norm(t.name), t);
-      if (t.code && t.code.length >= 2) consider(norm(t.code), t);
-      (TYPE_SYNONYMS[(t.code || "").toUpperCase()] || []).forEach(s => consider(s, t));
+    for (const w of q.split(" ")) {
+      if (Object.prototype.hasOwnProperty.call(aliases, w) && aliases[w]) return { what: whatOf(aliases[w]), via: "learned", word: w };
     }
-    return best ? { type: best.type, via: "rules", word: best.word } : null;
+    let best = null;
+    for (const key of Object.keys(TYPE_SYNONYMS)) {
+      for (const phrase of TYPE_SYNONYMS[key]) {
+        const re = new RegExp("(^|\\s)" + phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(\\s|$)");
+        if (re.test(q) && (!best || phrase.length > best.len)) best = { key, len: phrase.length, word: phrase };
+      }
+    }
+    return best ? { what: whatOf(PRESETS[best.key]), via: "rules", word: best.word } : null;
   }
 
   function parseTarget(q) {
@@ -1376,18 +1400,18 @@
     const q = norm(text).replace(/[,!?;]/g, " ").replace(/\s+/g, " ").trim();
     if (/^(kdo|kdy|kolik|jaky|jaka|jake|co|proc|jak)\b/.test(q)) return null;
     const dates = parseDates(q);
-    const tp = parseType(q);
+    const wh = parseWhat(q);
     const del = CMD_DELETE.test(q);
     const verb = CMD_VERB.test(q);
-    if (!verb && !(dates.length && tp)) return null;
-    if (!dates.length && !tp && !del) return null;
+    if (!verb && !(dates.length && wh)) return null;
+    if (!dates.length && !wh && !del) return null;
     const target = parseTarget(q);
-    const known = new Set([...(tp ? tp.word.split(" ") : []), ...(target.word ? [target.word] : [])]);
+    const known = new Set([...(wh ? wh.word.split(" ") : []), ...(target.word ? [target.word] : [])]);
     const unknown = q.split(" ").filter(w => w.length >= 3 && !STOPWORDS.has(w) && !/\d/.test(w) && !known.has(w) &&
       !WEEKDAY_RE.some(([, re]) => re.test(w)) && !MONTH_LOC.includes(w) && !MONTHS_GEN.map(norm).includes(w) && !CMD_VERB.test(w));
     return {
       input: text, action: del ? "delete" : "set",
-      dates: dates.map(dkey), typeId: tp ? tp.type.id : null, via: tp ? tp.via : null,
+      dates: dates.map(dkey), what: wh ? wh.what : null, via: wh ? wh.via : null,
       target: target.id, targetName: target.name, unknown: unknown.slice(0, 3)
     };
   }
@@ -1395,28 +1419,32 @@
   const cmds = {};
   let cmdSeq = 0;
   const dateLabel = k => { const [y, m, d] = k.split("-").map(Number); return fullDate(new Date(y, m - 1, d)); };
+  const whatText = f => f.action === "delete" ? "smazat službu" : (f.what ? (f.what.off ? "volno" : rangeLong(f.what)) : "");
 
   function renderCommand(id, editing) {
     const c = cmds[id];
-    const t = c.final.typeId ? typeById(c.final.typeId) : null;
+    const w = c.final.what;
     const ds = c.final.dates;
     const whenTxt = ds.length ? (ds.length <= 4 ? ds.map(dateLabel).join(", ") : `${ds.length} dní (${dateLabel(ds[0])} – ${dateLabel(ds[ds.length - 1])})`) : "<i>neurčeno</i>";
-    const showRange = t && !t.off && !t.name.includes(rangeLabel(t));
-    const what = c.final.action === "delete" ? "smazat službu" : (t ? `${esc(t.name)}${showRange ? " (" + esc(rangeLabel(t)) + ")" : ""}` : "<i>neurčeno</i>");
+    const what = whatText(c.final) ? esc(whatText(c.final)) : "<i>neurčeno</i>";
     const who = isAdmin() ? `<li>Komu: <b>${esc(memberName(c.final.target))}</b></li>` : "";
-    const ready = ds.length && (c.final.action === "delete" || t);
+    const ready = ds.length && (c.final.action === "delete" || w);
     let html = `<div class="cmd">Rozumím takto${c.parsed.via === "ai" ? " (AI)" : ""}:<ul>${who}<li>Kdy: <b>${whenTxt}</b></li><li>Co: <b>${what}</b></li></ul>` +
       (c.parsed.note ? `<p class="muted" style="margin:6px 0 0">${esc(c.parsed.note)}</p>` : "");
     if (c.state === "done") {
       html += `<p class="cmd-done">${c.doneMsg}</p></div>`;
     } else if (editing || !ready) {
-      const typeOpts = data.types.map(x => `<option value="${x.id}"${x.id === c.final.typeId ? " selected" : ""}>${esc(x.name)}</option>`).join("") +
-        `<option value="__del"${c.final.action === "delete" ? " selected" : ""}>— smazat službu —</option>`;
+      const mode = c.final.action === "delete" ? "del" : (w && w.off ? "off" : "time");
+      const sel = v => v === mode ? " selected" : "";
       const whoOpts = isAdmin() ? `<label class="field"><span>Komu</span><select data-fix="target">${cloud.members.map(m => `<option value="${m.id}"${m.id === c.final.target ? " selected" : ""}>${esc(m.full_name)}</option>`).join("")}</select></label>` : "";
       html += `<div class="cmd-fix">${!ready ? "<p>Doplňte prosím, co chybí:</p>" : ""}
         ${whoOpts}
         <label class="field"><span>Den${ds.length > 1 ? " (opraví všechny na jeden den)" : ""}</span><input type="date" data-fix="date" value="${ds[0] || dkey(addDays(new Date(), 1))}"></label>
-        <label class="field"><span>Služba</span><select data-fix="type"><option value="">— vyberte —</option>${typeOpts}</select></label>
+        <label class="field"><span>Co zapsat</span><select data-fix="mode"><option value="time"${sel("time")}>Služba od–do</option><option value="off"${sel("off")}>Volno</option><option value="del"${sel("del")}>Smazat službu</option></select></label>
+        <div class="field two">
+          <label class="field"><span>Od</span><input type="time" data-fix="from" value="${w && !w.off && w.from ? w.from : data.last.from}"></label>
+          <label class="field"><span>Do</span><input type="time" data-fix="to" value="${w && !w.off && w.to ? w.to : data.last.to}"></label>
+        </div>
         <div class="btn-row"><button class="btn primary small" data-cmd="savefix" data-id="${id}">Uložit opravu</button><button class="btn small" data-cmd="cancel" data-id="${id}">Zrušit</button></div></div></div>`;
     } else {
       html += `<div class="btn-row cmd-btns"><button class="btn primary small" data-cmd="save" data-id="${id}">✓ Uložit</button>
@@ -1431,46 +1459,46 @@
     const el = document.createElement("div");
     el.className = "msg bot";
     $("#chat").appendChild(el);
-    cmds[id] = { el, parsed, final: { action: parsed.action, dates: parsed.dates.slice(), typeId: parsed.typeId, target: parsed.target }, state: "open" };
+    cmds[id] = { el, parsed, final: { action: parsed.action, dates: parsed.dates.slice(), what: parsed.what ? { ...parsed.what } : null, target: parsed.target }, state: "open" };
     renderCommand(id, false);
     requestAnimationFrame(() => window.scrollTo(0, document.body.scrollHeight));
   }
 
   async function applyCommand(c) {
     const f = c.final;
-    const typeId = f.action === "delete" ? null : f.typeId;
+    const entry = (f.action === "delete" || !f.what) ? null : (f.what.off ? { from: "", to: "", off: true, note: "" } : { from: f.what.from, to: f.what.to, off: false, note: "" });
     if (!isCloud()) {
-      f.dates.forEach(k => { if (typeId) data.shifts[k] = typeId; else delete data.shifts[k]; });
+      f.dates.forEach(k => { if (entry) data.shifts[k] = { ...entry }; else delete data.shifts[k]; });
       save(); renderAll();
-      return { ok: f.dates.length, msg: typeId ? "Uloženo do kalendáře." : "Smazáno z kalendáře." };
+      return { ok: f.dates.length, msg: entry ? "Uloženo do kalendáře." : "Smazáno z kalendáře." };
     }
     if (isAdmin() && f.target !== cloud.viewUser) {
       let res;
-      if (typeId) res = await cloud.sb.from("shifts").upsert(f.dates.map(d => ({ team_id: cloud.team.id, user_id: f.target, day: d, type_id: typeId, status: "approved", created_by: me() })), { onConflict: "user_id,day" });
+      if (entry) res = await cloud.sb.from("shifts").upsert(f.dates.map(d => ({ team_id: cloud.team.id, user_id: f.target, day: d, ...rowOf(entry), status: "approved", created_by: me() })), { onConflict: "user_id,day" });
       else res = await cloud.sb.from("shifts").delete().eq("user_id", f.target).in("day", f.dates);
       if (res.error) return { ok: 0, msg: "Neuloženo: " + czErr(res.error) };
       return { ok: f.dates.length, msg: `Uloženo pro ${esc(memberName(f.target))}.` };
     }
     let ok = 0;
-    for (const d of f.dates) if (await cloudSetDay(d, typeId, f.target)) ok++;
+    for (const d of f.dates) if (await cloudSetDay(d, entry, f.target)) ok++;
     const skipped = f.dates.length - ok;
-    const base = isAdmin() ? "Uloženo." : "Odesláno ke schválení staniční sestře.";
-    return { ok, msg: ok ? base + (skipped ? ` ${skipped} dní se nepodařilo (schválené služby mění jen staniční).` : "") : "Nic se neuložilo. Schválené služby může měnit jen staniční sestra." };
+    const base = isAdmin() ? "Uloženo." : "Odesláno ke schválení správci týmu.";
+    return { ok, msg: ok ? base + (skipped ? ` ${skipped} dní se nepodařilo (schválené služby mění jen správce).` : "") : "Nic se neuložilo. Schválené služby může měnit jen správce týmu." };
   }
 
-  // Zpětná vazba: uloží vstup, výsledek a opravu; z oprav se naučí nová slova pro typy služeb
+  // Zpětná vazba: uloží vstup, výsledek a opravu; z oprav se naučí nová slova
+  const wflat = w => w ? { from: w.from || "", to: w.to || "", off: !!w.off } : null;
   async function recordFeedback(c, accepted) {
     const p = c.parsed, f = c.final;
     const learned = {};
-    if (accepted && f.action === "set" && f.typeId && f.typeId !== p.typeId) {
-      p.unknown.forEach(w => { learned[w] = f.typeId; });
-      if (!p.unknown.length && p.via === "learned") { /* oprava naučeného slova */ }
+    if (accepted && f.action === "set" && f.what && JSON.stringify(wflat(f.what)) !== JSON.stringify(wflat(p.what))) {
+      p.unknown.forEach(w => { learned[w] = wflat(f.what); });
     }
     if (!data.aiLearn) data.aiLearn = { aliases: {}, history: [] };
     Object.assign(data.aiLearn.aliases, learned);
-    const changed = JSON.stringify([p.action, p.dates, p.typeId, p.target]) !== JSON.stringify([f.action, f.dates, f.typeId, f.target]);
-    const entry = { input_text: p.input.slice(0, 300), parsed: { action: p.action, dates: p.dates, type_id: p.typeId, target: p.target, via: p.via },
-      corrected: changed || Object.keys(learned).length ? { action: f.action, dates: f.dates, type_id: f.typeId, target: f.target, aliases: learned } : null,
+    const changed = JSON.stringify([p.action, p.dates, wflat(p.what), p.target]) !== JSON.stringify([f.action, f.dates, wflat(f.what), f.target]);
+    const entry = { input_text: p.input.slice(0, 300), parsed: { action: p.action, dates: p.dates, ...(wflat(p.what) || {}), target: p.target, via: p.via },
+      corrected: changed || Object.keys(learned).length ? { action: f.action, dates: f.dates, ...(wflat(f.what) || {}), target: f.target, aliases: learned } : null,
       accepted };
     if (isCloud()) {
       const { error } = await cloud.sb.from("ai_feedback").insert({ ...entry, team_id: cloud.team.id });
@@ -1496,20 +1524,21 @@
     }
     if (act === "savefix") {
       const box = c.el;
-      const dv = $("[data-fix=date]", box).value, tv = $("[data-fix=type]", box).value;
+      const dv = $("[data-fix=date]", box).value, mode = $("[data-fix=mode]", box).value;
+      const from = $("[data-fix=from]", box).value, to = $("[data-fix=to]", box).value;
       const tg = $("[data-fix=target]", box);
-      if (!dv || !tv) return toast("Vyberte den i službu.");
+      if (!dv) return toast("Vyberte den.");
+      if (mode === "time" && (!from || !to)) return toast("Vyplňte čas Od a Do.");
       if (!c.final.dates.length || c.final.dates.length === 1 || dv !== c.final.dates[0]) c.final.dates = [dv];
-      c.final.action = tv === "__del" ? "delete" : "set";
-      c.final.typeId = tv === "__del" ? null : tv;
+      c.final.action = mode === "del" ? "delete" : "set";
+      c.final.what = mode === "del" ? null : (mode === "off" ? { from: "", to: "", off: true } : { from, to, off: false });
       if (tg) c.final.target = tg.value;
     }
     b.disabled = true;
     const r = await applyCommand(c);
     const learned = await recordFeedback(c, r.ok > 0);
     c.state = "done";
-    const t = typeById(c.final.typeId);
-    c.doneMsg = (r.ok ? "✓ " : "⚠️ ") + r.msg + (learned.length && t ? ` Díky za opravu, příště už budu vědět, že „${esc(learned.join("“, „"))}“ znamená ${esc(t.name)}.` : "");
+    c.doneMsg = (r.ok ? "✓ " : "⚠️ ") + r.msg + (learned.length && c.final.what ? ` Díky za opravu, příště už budu vědět, že „${esc(learned.join("“, „"))}“ znamená ${esc(whatText(c.final))}.` : "");
     renderCommand(b.dataset.id);
   }
 
@@ -1530,10 +1559,14 @@
     if (!r || !Array.isArray(r.dates)) return null;
     const dates = [...new Set(r.dates.filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d) && !isNaN(new Date(d + "T12:00:00"))))].sort().slice(0, 62);
     const action = r.action === "delete" ? "delete" : "set";
-    const typeId = action === "set" && r.type_id && typeById(r.type_id) ? r.type_id : null;
+    let what = null;
+    if (action === "set") {
+      if (r.off === true) what = { from: "", to: "", off: true };
+      else if (okTime(r.from) && okTime(r.to)) what = { from: hhmm(r.from), to: hhmm(r.to), off: false };
+    }
     const target = isAdmin() && cloud.members.some(m => m.id === r.target) ? r.target : (isAdmin() ? cloud.viewUser : me());
-    if (!dates.length && !typeId && action === "set") return null;
-    return { input: text, action, dates, typeId, via: "ai", target, targetName: memberName(target),
+    if (!dates.length && !what && action === "set") return null;
+    return { input: text, action, dates, what, via: "ai", target, targetName: memberName(target),
       unknown: local ? local.unknown : [], note: typeof r.note === "string" ? r.note.slice(0, 200) : "" };
   }
   async function aiParse(text, local) {
@@ -1545,7 +1578,6 @@
       const now = new Date();
       const payload = {
         text, today: dkey(now), weekday: DAYS_FULL[now.getDay()],
-        types: data.types.map(t => ({ id: t.id, name: t.name, code: t.code || "", start: t.start, end: t.end, off: !!t.off })),
         members: isAdmin() ? cloud.members.map(m => ({ id: m.id, name: m.full_name || "" })) : []
       };
       const { data: r, error } = await cloud.sb.functions.invoke(AI_FUNCTION, { body: payload });
@@ -1712,9 +1744,8 @@
         if (!text) drive.msg = "Na Google Disku zatím žádná záloha není.";
         else {
           const { obj, created } = await decryptBackup(text, pass);
-          if (!obj || !Array.isArray(obj.types) || !obj.types.length || typeof obj.shifts !== "object") throw new Error("Záloha je poškozená.");
-          data = { ...DEFAULT(), ...obj };
-          brush = data.types[0] ? data.types[0].id : "C";
+          if (!obj || typeof obj !== "object" || !obj.shifts || typeof obj.shifts !== "object") throw new Error("Záloha je poškozená.");
+          data = normalizeData(obj);
           save(); renderAll();
           drive.msg = `Obnoveno ze zálohy z ${new Date(created).toLocaleString("cs-CZ")}.`;
         }
@@ -1757,11 +1788,9 @@
     const tab = e.target.closest("nav.tabs [data-tab]");
     if (tab) return showTab(tab.dataset.tab);
 
-    const pill = e.target.closest("#palette .pill");
-    if (pill) { brush = pill.dataset.type; return renderPalette(); }
-
     const dayBtn = e.target.closest(".day[data-day]");
-    if (dayBtn) return toggleDay(Number(dayBtn.dataset.day));
+    if (dayBtn) return openDay(Number(dayBtn.dataset.day));
+    if (e.target.id === "dayModal") return closeUi("day", hideDay);
 
     const amt = e.target.closest("#donAmounts .chip");
     if (amt) {
@@ -1824,40 +1853,9 @@
       case "topic": showSheet(act.dataset.topic); pushUi("sheet"); return;
       case "sheetClose": return closeUi("sheet", hideSheet);
 
-      case "addType": {
-        if (isCloud()) {
-          if (!isAdmin()) return;
-          return (async () => {
-            const { data: row, error } = await cloud.sb.from("shift_types").insert({ team_id: cloud.team.id, name: "Nový typ",
-              start_time: "08:00", end_time: "16:00", color: COLORS[data.types.length % COLORS.length], sort: data.types.length + 1 }).select().single();
-            if (error) return toast("Chyba: " + czErr(error));
-            data.types.push(mapType(row)); renderAll(); toast("Přidán nový typ. Upravte ho v seznamu.");
-          })();
-        }
-        const id = "T" + Date.now().toString(36);
-        data.types.push({
-          id, code: "", name: "Nový typ", start: "08:00", end: "16:00",
-          color: COLORS[data.types.length % COLORS.length], night: false, off: false
-        });
-        save(); renderAll();
-        toast("Přidán nový typ. Upravte ho v seznamu.");
-        return;
-      }
-      case "delType": {
-        const tid = act.dataset.tid;
-        if (data.types.length <= 1) return toast("Musí zůstat aspoň jeden typ.");
-        return armButton(act, "Klepněte znovu", async () => {
-          if (isCloud()) {
-            const { error } = await cloud.sb.from("shift_types").delete().eq("id", tid);
-            if (error) return toast("Chyba: " + czErr(error));
-          }
-          data.types = data.types.filter(t => t.id !== tid);
-          for (const k of Object.keys(data.shifts)) if (data.shifts[k] === tid) delete data.shifts[k];
-          if (brush === tid) brush = data.types[0].id;
-          save(); renderAll();
-          toast("Typ smazán.");
-        });
-      }
+      case "dayClose": return closeUi("day", hideDay);
+      case "daySave": return saveDay();
+      case "dayDel": return deleteDay();
 
       case "clearMonth":
         return armButton(act, "Klepněte znovu pro vymazání", async () => {
@@ -1866,7 +1864,7 @@
               .gte("day", keyOf(view.y, view.m, 1)).lte("day", keyOf(view.y, view.m, daysIn(view.y, view.m)));
             if (error) return toast("Chyba: " + czErr(error));
             await loadShifts(); renderAll();
-            return toast(isAdmin() ? "Měsíc vymazán." : "Smazány vaše čekající a zamítnuté žádosti. Schválené služby mění staniční.");
+            return toast(isAdmin() ? "Měsíc vymazán." : "Smazány vaše čekající a zamítnuté žádosti. Schválené služby mění správce týmu.");
           }
           const prefix = `${view.y}-${pad(view.m + 1)}-`;
           Object.keys(data.shifts).filter(k => k.startsWith(prefix)).forEach(k => delete data.shifts[k]);
@@ -1875,10 +1873,9 @@
         });
       case "clearAll":
         return armButton(act, "Klepněte znovu pro smazání vše", () => {
-          const types = data.types;
+          const theme = data.theme;
           data = DEFAULT();
-          data.types = types.length ? types : data.types;
-          data.shifts = {};
+          data.theme = theme;
           save(); renderAll();
           toast("Všechna data smazána.");
         });
@@ -1891,11 +1888,10 @@
       case "bkRestore": {
         let obj = null;
         try { obj = JSON.parse($("#bkIn").value); } catch (_) { obj = null; }
-        if (!obj || !Array.isArray(obj.types) || !obj.types.length || typeof obj.shifts !== "object") {
+        if (!obj || typeof obj !== "object" || !obj.shifts || typeof obj.shifts !== "object") {
           return toast("Záloha není čitelná.");
         }
-        data = { ...DEFAULT(), ...obj };
-        brush = data.types[0].id;
+        data = normalizeData(obj);
         save(); renderAll();
         $("#bkIn").value = "";
         toast("Záloha obnovena.");
@@ -1904,37 +1900,6 @@
     }
   });
 
-  // Úpravy typů (psaní bez překreslení seznamu)
-  $("#typeList").addEventListener("input", e => {
-    const row = e.target.closest("[data-tid]");
-    const f = e.target.dataset.f;
-    if (!row || !f) return;
-    const t = typeById(row.dataset.tid);
-    if (!t) return;
-    if (e.target.type === "checkbox") t[f] = e.target.checked;
-    else if (f === "code") t.code = e.target.value.trim().slice(0, 4);
-    else if (f === "name") t.name = e.target.value.slice(0, 60);
-    else if (f === "color") t.color = e.target.value;
-    else if (f === "start" || f === "end") { if (!e.target.value) return; t[f] = e.target.value; }
-    save();
-    const hr = row.querySelector("[data-hours]");
-    if (hr) hr.textContent = fmtH(hoursOf(t));
-    if (isCloud()) cloudSaveType(t);
-    updateLive();
-  });
-  $("#typeList").addEventListener("change", e => {
-    if (e.target.dataset.f === "off") renderTypeList();
-  });
-
-  const bindNum = (sel, fn) => $(sel).addEventListener("change", e => {
-    fn(Math.max(0, Number(e.target.value) || 0));
-    if (isCloud()) cloudSaveProfile({ wage: data.wage, night_pct: data.nightPct, holiday_pct: data.holidayPct, weekend_pct: data.weekendPct });
-    save(); renderAll();
-  });
-  bindNum("#setWage", v => data.wage = v);
-  bindNum("#setNight", v => data.nightPct = v);
-  bindNum("#setHoliday", v => data.holidayPct = v);
-  bindNum("#setWeekend", v => data.weekendPct = v);
 
   $("#donMsg").addEventListener("input", makeQr);
   $("#donCustom").addEventListener("input", makeQr);
