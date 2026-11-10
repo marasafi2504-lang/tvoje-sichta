@@ -1,6 +1,6 @@
 # Tvoje šichta
 
-Plánovač služeb pro zdravotníky a všechny, kdo pracují na směny. Autor: Marek Šafránek.
+Evidenční kalendář služeb pro každého, kdo pracuje na směny (zdravotníky, prodavače, řidiče, brigádníky, rodiny). Klepnete na den a nastavíte čas od–do. Autor: Marek Šafránek.
 
 Aplikace běží na adrese https://marasafi2504-lang.github.io/tvoje-sichta/
 
@@ -12,7 +12,8 @@ Aplikace běží na adrese https://marasafi2504-lang.github.io/tvoje-sichta/
 | `app.js` | logika aplikace a nastavení (Supabase, Google, AI) |
 | `manifest.json`, `sw.js`, `icon-*.png` | instalace jako aplikace a offline režim |
 | `supabase/supabase-schema.sql` | databáze pro Supabase (SQL Editor → Run) |
-| `supabase/oprava-zabezpeceni.sql` | oprava pro starší databázi |
+| `supabase/oprava-zabezpeceni.sql` | oprava zabezpečení pro starší databázi |
+| `supabase/uprava-obecna.sql` | úprava starší databáze na čas od–do (nová databáze ji nepotřebuje) |
 | `supabase/functions/parse-shifts/index.ts` | AI asistent (Supabase Edge Function) |
 
 Do `app.js` patří jen veřejný „publishable“ klíč Supabase. Tajné klíče (service_role, ANTHROPIC_API_KEY) do repozitáře nikdy nedávejte, patří do Supabase → Edge Functions → Secrets.
